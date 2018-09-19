@@ -3806,6 +3806,8 @@
 /ip firewall address-list add list=CN address=103.121.250.0/24
 /ip firewall address-list add list=CN address=103.121.252.0/22
 /ip firewall address-list add list=CN address=103.122.48.0/22
+/ip firewall address-list add list=CN address=103.122.176.0/22
+/ip firewall address-list add list=CN address=103.122.192.0/22
 /ip firewall address-list add list=CN address=103.129.52.0/22
 /ip firewall address-list add list=CN address=103.129.148.0/22
 /ip firewall address-list add list=CN address=103.192.0.0/22
