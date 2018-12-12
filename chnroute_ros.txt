@@ -3840,6 +3840,7 @@
 /ip firewall address-list add list=CN address=103.126.128.0/22
 /ip firewall address-list add list=CN address=103.126.132.0/22
 /ip firewall address-list add list=CN address=103.126.208.0/22
+/ip firewall address-list add list=CN address=103.126.241.0/24
 /ip firewall address-list add list=CN address=103.129.52.0/22
 /ip firewall address-list add list=CN address=103.129.148.0/22
 /ip firewall address-list add list=CN address=103.130.132.0/22
