@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sh gfwlist2dnsmasq.sh -l -o tmp
+sh gfwlist2dnsmasq.sh -l --extra-domain-file my_gfwlist.txt -o tmp
 sed -i 's/\./\\\\./g' tmp
 sed -i 's/$/\\$"/g' tmp
 sed -i 's/^/\/ip dns static add forward-to=192.168.9.1 type=FWD regexp=".*/g' tmp
