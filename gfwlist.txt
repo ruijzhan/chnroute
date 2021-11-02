@@ -391,6 +391,7 @@ athenaeizou.com
 atlanta168.com
 atlaspost.com
 atnext.com
+auctions.yahoo.co.jp
 auntology.fandom.com
 authorizeddns.net
 authorizeddns.org
@@ -3743,6 +3744,7 @@ nytimg.com
 nytstyle.com
 nzchinese.com
 nzchinese.net.nz
+oanda.com
 observechina.net
 obutu.com
 ocaspro.com
@@ -5947,6 +5949,7 @@ yx51.net
 yyii.org
 yyjlymb.xyz
 yzzk.com
+z-lib.org
 zacebook.com
 zalmos.com
 zannel.com
