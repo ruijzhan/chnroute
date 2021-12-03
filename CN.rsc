@@ -2,13 +2,17 @@
 /ip firewall address-list remove [/ip firewall address-list find list=CN]
 /ip firewall address-list
 :do { add address=5.182.60.0/22 list=CN } on-error={}
+:do { add address=45.3.32.0/19 list=CN } on-error={}
+:do { add address=45.78.80.0/20 list=CN } on-error={}
 :do { add address=45.82.236.0/22 list=CN } on-error={}
 :do { add address=45.82.240.0/22 list=CN } on-error={}
 :do { add address=45.149.16.0/22 list=CN } on-error={}
 :do { add address=45.152.24.0/22 list=CN } on-error={}
 :do { add address=62.3.6.0/24 list=CN } on-error={}
+:do { add address=65.111.0.0/19 list=CN } on-error={}
 :do { add address=85.209.40.0/22 list=CN } on-error={}
 :do { add address=104.167.16.0/20 list=CN } on-error={}
+:do { add address=104.207.32.0/19 list=CN } on-error={}
 :do { add address=146.19.100.0/24 list=CN } on-error={}
 :do { add address=176.116.4.0/24 list=CN } on-error={}
 :do { add address=178.236.224.0/20 list=CN } on-error={}
@@ -3396,6 +3400,7 @@
 :do { add address=103.92.88.0/22 list=CN } on-error={}
 :do { add address=103.92.108.0/22 list=CN } on-error={}
 :do { add address=103.92.124.0/22 list=CN } on-error={}
+:do { add address=103.92.128.0/24 list=CN } on-error={}
 :do { add address=103.92.132.0/22 list=CN } on-error={}
 :do { add address=103.92.156.0/22 list=CN } on-error={}
 :do { add address=103.92.164.0/22 list=CN } on-error={}
