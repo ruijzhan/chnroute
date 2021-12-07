@@ -5266,6 +5266,7 @@
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*txxx\\.com\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*tycool\\.com\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*typepad\\.com\$"
+/ip dns static add forward-to=$dnsserver type=FWD regexp=".*typora\\.io\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*u15\\.info\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*u9un\\.com\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*ub0\\.cc\$"

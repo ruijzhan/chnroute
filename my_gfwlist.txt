@@ -2,3 +2,4 @@ vyprvpn.com
 himalaya.exchange
 tailscale.com
 ed2000.com
+typora.io
