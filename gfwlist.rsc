@@ -1355,6 +1355,7 @@
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*dlsite\\.com\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*dlyoutube\\.com\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*dm530\\.net\$"
+/ip dns static add forward-to=$dnsserver type=FWD regexp=".*dmc\\.nico\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*dmcdn\\.net\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*dmhy\\.org\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*dmm\\.co\\.jp\$"
