@@ -4298,6 +4298,7 @@
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*rule34\\.xxx\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*runbtx\\.com\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*rushbee\\.com\$"
+/ip dns static add forward-to=$dnsserver type=FWD regexp=".*rusvpn\\.com\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*ruten\\.com\\.tw\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*rutube\\.ru\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*ruyiseek\\.com\$"
