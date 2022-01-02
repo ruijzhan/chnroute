@@ -701,6 +701,7 @@ bloomberg.com
 bloomberg.de
 bloombergview.com
 bloomfortune.com
+blubrry.com
 blueangellive.com
 bmfinn.com
 bnews.co
@@ -1681,6 +1682,7 @@ fangong.forums-free.com
 fangong.org
 fangongheike.com
 fanhaodang.com
+fanhaolou.com
 fanqiang.network
 fanqiang.tk
 fanqiangdang.com
@@ -2052,7 +2054,7 @@ glorystar.me
 gluckman.com
 glype.com
 gmail.com
-gmbd.cn
+gmgard.com
 gmhz.org
 gmll.org
 gmodules.com
@@ -2838,6 +2840,7 @@ istiqlalhewer.com
 istockphoto.com
 isunaffairs.com
 isuntv.com
+isupportuyghurs.org
 itaboo.info
 itaiwan.gov.tw
 italiatibet.org
@@ -3038,6 +3041,7 @@ kspcoin.com
 ktzhk.com
 kucoin.com
 kui.name
+kukuku.uk
 kun.im
 kurashsultan.com
 kurtmunger.com
@@ -4096,6 +4100,7 @@ psiphontoday.com
 pt.im
 pts.org.tw
 ptt.cc
+pttgame.com
 pttvan.org
 pubu.com.tw
 puffinbrowser.com
@@ -4563,6 +4568,7 @@ sokmil.com
 solarsystem.nasa.gov
 solidaritetibet.org
 solidfiles.com
+solv.finance
 somee.com
 songjianjun.com
 sonicbbs.cc
@@ -4945,7 +4951,9 @@ tibetanbuddhistinstitute.org
 tibetancommunity.org
 tibetancommunityuk.net
 tibetanculture.org
+tibetanentrepreneurs.org
 tibetanfeministcollective.org
+tibetanhealth.org
 tibetanjournal.com
 tibetanlanguage.org
 tibetanliberation.org
@@ -5086,6 +5094,7 @@ trialofccp.org
 trickip.net
 trickip.org
 trimondi.de
+tronscan.org
 trouw.nl
 trt.net.tr
 trtc.com.tw
@@ -5363,6 +5372,7 @@ uwants.com
 uwants.net
 uyghur-j.org
 uyghur.co.uk
+uyghuraa.org
 uyghuramerican.org
 uyghurbiz.org
 uyghurcanadiansociety.org
