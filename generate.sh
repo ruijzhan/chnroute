@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sh gfwlist2dnsmasq.sh -l --extra-domain-file my_gfwlist.txt -o tmp
+sh gfwlist2dnsmasq.sh -l --extra-domain-file include_list.txt --exclude-domain-file exclude_list.txt -o tmp
 cp tmp gfwlist.txt
 sed -i 's/\./\\\\./g' tmp
 sed -i 's/$/\\$"/g' tmp

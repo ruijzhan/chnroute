@@ -2959,7 +2959,6 @@
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*justfreevpn\\.com\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*justicefortenzin\\.org\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*justmysocks\\.net\$"
-/ip dns static add forward-to=$dnsserver type=FWD regexp=".*justmysocks1\\.net\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*justpaste\\.it\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*justtristan\\.com\$"
 /ip dns static add forward-to=$dnsserver type=FWD regexp=".*juyuange\\.org\$"
