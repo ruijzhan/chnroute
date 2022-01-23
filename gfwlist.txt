@@ -1322,7 +1322,6 @@ dharamsalanet.com
 dharmakara.net
 dhcp.biz
 diaoyuislands.org
-dictionary.goo.ne.jp
 difangwenge.org
 digiland.tw
 digisfera.com
@@ -1497,7 +1496,7 @@ ecimg.tw
 ecministry.net
 economist.com
 ecsm.vs.com
-ed2000.com
+ed2000k.com
 edgecastcdn.net
 edicypages.com
 edmontonchina.cn
@@ -2095,6 +2094,7 @@ gongmeng.info
 gongminliliang.com
 gongwt.com
 goo.gl
+goo.ne.jp
 gooday.xyz
 gooddns.info
 goodhope.school
@@ -2957,6 +2957,7 @@ justdied.com
 justfreevpn.com
 justicefortenzin.org
 justmysocks.net
+justmysocks1.net
 justpaste.it
 justtristan.com
 juyuange.org
@@ -3424,6 +3425,7 @@ moneyhome.biz
 monitorchina.org
 monster.com
 moodyz.com
+moon.fm
 moonbbs.com
 moonbingo.com
 moptt.tw
@@ -4013,6 +4015,7 @@ pmates.com
 po2b.com
 pobieramy.top
 podbean.com
+podcast.co
 podictionary.com
 pokerstars.com
 pokerstars.net
