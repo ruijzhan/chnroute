@@ -103,6 +103,7 @@
 6parkbbs.com
 6parker.com
 6parknews.com
+7-zip.org
 7capture.com
 7cow.com
 8-d.com
@@ -753,6 +754,7 @@ breakingtweets.com
 breakwall.net
 briefdream.com
 briian.com
+brill.com
 brizzly.com
 brkmd.com
 broadbook.com
@@ -801,6 +803,7 @@ bx.tl
 bybit.com
 bynet.co.il
 bypasscensorship.org
+byrut.org
 c-est-simple.com
 c-span.org
 c-spanvideo.org
@@ -1257,13 +1260,12 @@ dalianmeng.org
 daliulian.org
 danbooru.donmai.us
 danke4china.net
-danwei.org
 daodu14.jigsy.com
 daolan.net
-daozhongxing.org
 darktech.org
 darktoy.net
 darpa.mil
+darrenliuwei.com
 dastrassi.org
 data-vocabulary.org
 data.flurry.com
@@ -2568,6 +2570,7 @@ hkusu.net
 hkvwet.com
 hkwcc.org.hk
 hkzone.org
+hmoegirl.com
 hmonghot.com
 hmv.co.jp
 hmvdigital.ca
@@ -2863,11 +2866,13 @@ ivpn.net
 ixquick.com
 ixxx.com
 iyouport.com
+iyouport.org
 izaobao.us
 izles.net
 izlesem.org
 j.mp
 ja.wikipedia.org
+jable.tv
 jamaat.org
 jamestown.org
 jamyangnorbu.com
@@ -3137,6 +3142,7 @@ linear-abematv.akamaized.net
 linglingfa.com
 lingvodics.com
 link-o-rama.com
+linkedin.com
 linkideo.com
 linkuswell.com
 linux.org.hk
@@ -3406,6 +3412,7 @@ mobile01.com
 mobileways.de
 moby.to
 mobypicture.com
+mod.io
 modernchinastudies.org
 moeaic.gov.tw
 moeerolibrary.com
@@ -3534,6 +3541,7 @@ mywww.biz
 myz.info
 naacoalition.org
 naitik.net
+nakedsecurity.sophos.com
 nakido.com
 nakuz.com
 nalandabodhi.org
@@ -3786,6 +3794,7 @@ ok.ru
 okayfreedom.com
 okex.com
 okk.tw
+okx.com
 old-cat.net
 old.honeynet.org
 old.nabble.com
@@ -3877,6 +3886,7 @@ pacopacomama.com
 padmanet.com
 page.bid.yahoo.com
 page2rss.com
+pages.dev
 pagodabox.com
 palacemoon.com
 paldengyal.com
@@ -4315,6 +4325,7 @@ runbtx.com
 rushbee.com
 rusvpn.com
 ruten.com.tw
+rutracker.net
 rutube.ru
 ruyiseek.com
 rxhj.net
@@ -5116,6 +5127,7 @@ truebuddha-md.org
 trulyergonomic.com
 truth101.co.tv
 truthontour.org
+truthsocial.com
 truveo.com
 tryheart.jp
 tsctv.net
@@ -5629,6 +5641,7 @@ westkit.net
 westpoint.edu
 wetplace.com
 wetpussygames.com
+wevpn.com
 wexiaobo.org
 wezhiyong.org
 wezone.net
