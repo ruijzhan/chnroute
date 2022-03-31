@@ -5,3 +5,5 @@ ed2000k.com
 typora.io
 justmysocks.net
 wevpn.com
+googleapis-cn.com
+doubleclick.net
