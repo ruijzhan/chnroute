@@ -1,0 +1,16 @@
+name: update-chnroute-gfwlist
+on:
+  schedule:
+    - cron: '50 * * * *'
+jobs:
+  fetch-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: |
+          make
+      - name: commit
+        uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        with:
+          commit_message: auto-updated

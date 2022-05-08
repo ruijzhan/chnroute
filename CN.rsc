@@ -4180,7 +4180,6 @@
 :do { add address=103.186.158.0/23 list=CN } on-error={}
 :do { add address=103.186.162.0/23 list=CN } on-error={}
 :do { add address=103.186.228.0/23 list=CN } on-error={}
-<<<<<<< HEAD
 :do { add address=103.189.92.0/23 list=CN } on-error={}
 :do { add address=103.189.140.0/23 list=CN } on-error={}
 :do { add address=103.189.152.0/23 list=CN } on-error={}
@@ -4193,8 +4192,6 @@
 :do { add address=103.190.122.0/23 list=CN } on-error={}
 :do { add address=103.191.102.0/23 list=CN } on-error={}
 :do { add address=103.191.242.0/23 list=CN } on-error={}
-=======
->>>>>>> bb8db72 (update)
 :do { add address=103.192.0.0/22 list=CN } on-error={}
 :do { add address=103.192.4.0/22 list=CN } on-error={}
 :do { add address=103.192.8.0/22 list=CN } on-error={}
