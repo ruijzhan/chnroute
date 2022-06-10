@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sh gfwlist2dnsmasq.sh -l --extra-domain-file include_list.txt --exclude-domain-file exclude_list.txt -o tmp
+sh gfwlist2dnsmasq.sh  -d 192.168.9.1 -p 53 --extra-domain-file include_list.txt --exclude-domain-file exclude_list.txt -o 03-gfwlist.conf
 cp tmp gfwlist.txt
 sed -i 's/\./\\\\./g' tmp
 sed -i 's/$/\\$" } on-error={}/g' tmp
