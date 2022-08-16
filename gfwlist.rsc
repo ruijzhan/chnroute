@@ -3936,6 +3936,7 @@
 :do { add forward-to=$dnsserver type=FWD regexp=".*pastebin\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*paste\\.ee\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*pastie\\.org\$" } on-error={}
+:do { add forward-to=$dnsserver type=FWD regexp=".*patreon\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*paxful\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*pbs\\.org\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*pbwiki\\.com\$" } on-error={}
