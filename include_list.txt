@@ -1,6 +1,5 @@
 vyprvpn.com
 himalaya.exchange
-tailscale.com
 ed2000k.com
 typora.io
 justmysocks.net
@@ -9,3 +8,4 @@ googleapis-cn.com
 doubleclick.net
 maxcdn.com
 odycdn.com
+odysee.tv

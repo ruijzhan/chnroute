@@ -8789,7 +8789,6 @@
 :do { add address=2001:df7:6600::/48 list=CN } on-error={}
 :do { add address=2001:df7:ab00::/48 list=CN } on-error={}
 :do { add address=2001:df7:e580::/48 list=CN } on-error={}
-:do { add address=2001:df7:f080::/48 list=CN } on-error={}
 :do { add address=2001:e08::/32 list=CN } on-error={}
 :do { add address=2001:e18::/32 list=CN } on-error={}
 :do { add address=2001:e80::/32 list=CN } on-error={}
@@ -8991,7 +8990,11 @@
 :do { add address=2400:a040::/32 list=CN } on-error={}
 :do { add address=2400:a320::/32 list=CN } on-error={}
 :do { add address=2400:a380::/32 list=CN } on-error={}
+:do { add address=2400:a420::/32 list=CN } on-error={}
 :do { add address=2400:a480::/32 list=CN } on-error={}
+:do { add address=2400:a5a0::/32 list=CN } on-error={}
+:do { add address=2400:a6a0::/32 list=CN } on-error={}
+:do { add address=2400:a6e0::/32 list=CN } on-error={}
 :do { add address=2400:a780::/32 list=CN } on-error={}
 :do { add address=2400:a8c0::/32 list=CN } on-error={}
 :do { add address=2400:a900::/32 list=CN } on-error={}
