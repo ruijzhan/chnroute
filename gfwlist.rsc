@@ -2978,6 +2978,7 @@
 :do { add forward-to=$dnsserver type=FWD regexp=".*juoaa\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*justdied\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*justfreevpn\\.com\$" } on-error={}
+:do { add forward-to=$dnsserver type=FWD regexp=".*justhost\\.ru\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*justicefortenzin\\.org\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*justmysocks1\\.net\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*justmysocks\\.net\$" } on-error={}
