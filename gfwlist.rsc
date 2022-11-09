@@ -2613,6 +2613,7 @@
 :do { add forward-to=$dnsserver type=FWD regexp=".*hornygamer\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*hornytrip\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*horrorporn\\.com\$" } on-error={}
+:do { add forward-to=$dnsserver type=FWD regexp=".*hostloc\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*hotair\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*hotav\\.tv\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*hotels\\.cn\$" } on-error={}
@@ -4322,6 +4323,7 @@
 :do { add forward-to=$dnsserver type=FWD regexp=".*rixcloud\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*rixcloud\\.us\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*rlwlw\\.com\$" } on-error={}
+:do { add forward-to=$dnsserver type=FWD regexp=".*rmbl\\.ws\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*rmjdw132\\.info\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*rmjdw\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*roadshow\\.hk\$" } on-error={}
@@ -4353,6 +4355,7 @@
 :do { add forward-to=$dnsserver type=FWD regexp=".*ruanyifeng\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*rukor\\.org\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*rule34\\.xxx\$" } on-error={}
+:do { add forward-to=$dnsserver type=FWD regexp=".*rumble\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*runbtx\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*rushbee\\.com\$" } on-error={}
 :do { add forward-to=$dnsserver type=FWD regexp=".*rusvpn\\.com\$" } on-error={}
