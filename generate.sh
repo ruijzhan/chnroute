@@ -5,7 +5,7 @@ sh gfwlist2dnsmasq.sh  -d 192.168.9.1 -p 53 --extra-domain-file include_list.txt
 cp tmp gfwlist.txt
 sed -i 's/\./\\\\./g' tmp
 sed -i 's/$/\\$" } on-error={}/g' tmp
-sed -i 's/^/:do { add forward-to=$dnsserver type=FWD regexp=".*/g' tmp
+sed -i 's/^/:do { add forward-to=$dnsserver type=FWD address-list=gfw_list regexp=".*/g' tmp
 sed -i '1s/^/\/ip dns static\n/' tmp
 sed -i '1s/^/\/ip dns static remove [\/ip dns static find forward-to=$dnsserver ]\n/' tmp
 sed -i '1s/^/:global dnsserver\n/' tmp
