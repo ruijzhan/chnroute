@@ -147,6 +147,7 @@ ablwang.com
 aboluowang.com
 aboutgfw.com
 about.google
+about.me
 abs.edu
 acast.com
 accim.org
@@ -495,7 +496,6 @@ bbs.sou-tong.org
 bbs.tuitui.info
 bbs-tw.com
 bbtoystore.com
-bb.ttv.com.tw
 bcast.co.nz
 bcc.com.tw
 bcchinese.net
@@ -785,6 +785,7 @@ buffered.com
 bullguard.com
 bullogger.com
 bullog.org
+bumingbai.net
 bunbunhk.com
 busayari.com
 business-humanrights.org
@@ -958,6 +959,7 @@ chinadialogue.net
 chinadigitaltimes.net
 chinaelections.org
 chinaeweekly.com
+chinafile.com
 chinafreepress.org
 chinagate.com
 chinageeks.org
@@ -1402,6 +1404,7 @@ dotvpn.com
 doubibackup.com
 doub.io
 doubleclick.net
+doublethinklab.org
 doubmirror.cf
 dougscripts.com
 douhokanko.net
@@ -2486,6 +2489,7 @@ heyzo.com
 hgseav.com
 hhdcb3office.org
 hhthesakyatrizin.org
+hiccears.com
 hidden-advent.org
 hidecloud.com
 hidein.net
@@ -2590,6 +2594,7 @@ hmvdigital.ca
 hmvdigital.com
 hnjhj.com
 hnntube.com
+hojemacau.com.mo
 hola.com
 hola.org
 holymountaincn.com
@@ -2615,6 +2620,7 @@ horrorporn.com
 hostloc.com
 hotair.com
 hotav.tv
+hotcoin.com
 hotels.cn
 hotfrog.com.tw
 hotgoo.com
@@ -2673,6 +2679,7 @@ huiyi.in
 hulkshare.com
 hulu.com
 huluim.com
+humanrightspressawards.org
 hungerstrikeforaids.org
 hung-ya.com
 huobi.co
@@ -3062,6 +3069,7 @@ koornk.com
 koranmandarin.com
 korenan2.com
 kqes.net
+kraken.com
 ksdl.org
 ksnews.com.tw
 kspcoin.com
@@ -3449,6 +3457,7 @@ moneyhome.biz
 money-link.com.tw
 mo.nightlife141.com
 monitorchina.org
+monocloud.me
 monster.com
 moodyz.com
 moonbbs.com
@@ -3627,6 +3636,7 @@ newgrounds.com
 newhighlandvision.com
 newipnow.com
 newlandmagazine.com.au
+newmitbbs.com
 newnews.ca
 news100.com.tw
 newsancai.com
@@ -3949,6 +3959,7 @@ pastebin.com
 paste.ee
 pastie.org
 patreon.com
+pawoo.net
 paxful.com
 pbs.org
 pbwiki.com
@@ -4387,6 +4398,7 @@ sakya.org
 salvation.org.hk
 samair.ru
 sambhota.org
+sankakucomplex.com
 sankei.com
 sanmin.com.tw
 sapikachu.net
@@ -5176,6 +5188,7 @@ tsunagarumon.com
 tsu.org.tw
 tt1069.com
 tttan.com
+ttv.com.tw
 ttvnw.net
 tu8964.com
 tubaholic.com
@@ -5647,6 +5660,7 @@ webfreer.com
 webjb.org
 weblagu.com
 webmproject.org
+webpkgcache.com
 webrtc.org
 webrush.net
 website.informer.com

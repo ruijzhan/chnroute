@@ -3605,7 +3605,6 @@
 :do { add address=103.106.128.0/22 list=CN } on-error={}
 :do { add address=103.106.132.0/22 list=CN } on-error={}
 :do { add address=103.106.160.0/22 list=CN } on-error={}
-:do { add address=103.106.188.0/22 list=CN } on-error={}
 :do { add address=103.106.196.0/22 list=CN } on-error={}
 :do { add address=103.106.202.0/23 list=CN } on-error={}
 :do { add address=103.106.212.0/22 list=CN } on-error={}
