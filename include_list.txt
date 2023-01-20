@@ -10,3 +10,4 @@ maxcdn.com
 odycdn.com
 odysee.tv
 express.co.uk
+hdtime.org
