@@ -2454,7 +2454,6 @@ h-china.org
 hclips.com
 hdlt.me
 hd.stheadline.com
-hdtime.org
 hdtvb.net
 hdzog.com
 heartyit.com
@@ -4557,6 +4556,7 @@ simpleproductivityblog.com
 sinchew.com.my
 singaporepools.com.sg
 singfortibet.com
+singlelogin.me
 singpao.com.hk
 singtao.com
 singtaousa.com
