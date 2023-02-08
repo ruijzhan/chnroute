@@ -36,6 +36,7 @@
 1dumb.com
 1e100.net
 1eew.com
+1lib.to
 1mobile.com
 1mobile.tw
 1pondo.tv
@@ -2810,6 +2811,7 @@ insidevoa.com
 instagram.com
 instanthq.com
 institut-tibetain.org
+interactivebrokers.com
 international-news.newsmagazine.asia
 internetdefenseleague.org
 internetfreedom.org
@@ -3866,6 +3868,7 @@ onmypc.us
 onthehunt.com
 ontrac.com
 oopsforum.com
+openai.com
 openallweb.com
 open.com.hk
 opendemocracy.net
@@ -4260,7 +4263,6 @@ rationalwiki.org
 rawgit.com
 raw.githack.com
 rawgithub.com
-raw.githubusercontent.com
 razyboard.com
 rcam.target.com
 rcinet.ca
@@ -4690,6 +4692,7 @@ spotify.com
 spreadshirt.es
 spring4u.info
 springboardplatform.com
+springwood.me
 sprite.org
 sproutcore.com
 sproxy.info
@@ -4981,6 +4984,7 @@ thisav.com
 thlib.org
 thomasbernhard.org
 thongdreams.com
+threadreaderapp.com
 threatchaos.com
 throughnightsfire.com
 thumbzilla.com
@@ -6009,6 +6013,7 @@ yolasite.com
 yomiuri.co.jp
 yong.hu
 yorkbbs.ca
+you.com
 youdontcare.com
 you-get.org
 youjizz.com
