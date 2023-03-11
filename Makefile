@@ -5,3 +5,4 @@ all: gen
 .PHONY: gen
 gen:
 	./generate.sh
+	./generate_v7.sh
