@@ -9,3 +9,8 @@ sed -i '1s/^/\/ip dns static remove [\/ip dns static find forward-to=$dnsserver 
 sed -i '1s/^/:global dnsserver\n/' tmp
 sed -i -e '$a\/ip dns cache flush' tmp
 mv tmp gfwlist_v7.rsc
+
+if [ $(git status -s | wc -l) == '1' ]
+then
+    git checkout 03-gfwlist.conf
+fi
