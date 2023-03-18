@@ -12,3 +12,6 @@ odysee.tv
 express.co.uk
 singlelogin.me
 1lib.to
+good.news
+bad.news
+kemono.party
