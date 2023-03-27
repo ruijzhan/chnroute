@@ -9037,6 +9037,8 @@
 :do { add address=2400:e7e0::/32 list=CN } on-error={}
 :do { add address=2400:e880::/32 list=CN } on-error={}
 :do { add address=2400:ebc0::/32 list=CN } on-error={}
+:do { add address=2400:ed60::/32 list=CN } on-error={}
+:do { add address=2400:eda0::/32 list=CN } on-error={}
 :do { add address=2400:edc0::/32 list=CN } on-error={}
 :do { add address=2400:ee00::/32 list=CN } on-error={}
 :do { add address=2400:eec0::/32 list=CN } on-error={}
