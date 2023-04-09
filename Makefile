@@ -1,8 +1,8 @@
+.PHONY: all gen
 
 all: gen
-.PHONY: all
 
-.PHONY: gen
 gen:
-	./generate.sh
-	./generate_v7.sh
+	@for file in generate.sh generate_v7.sh ; do \
+		bash "$$file" ; \
+	done
