@@ -3,6 +3,6 @@
 all: gen
 
 gen:
-	@for file in generate.sh generate_v7.sh ; do \
+	@for file in generate.sh ; do \
 		bash "$$file" ; \
 	done
