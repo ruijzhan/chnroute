@@ -1,8 +1,8 @@
 .PHONY: all gen
 
+FILES := generate.sh
+
 all: gen
 
 gen:
-	@for file in generate.sh ; do \
-		bash "$$file" ; \
-	done
+	$(foreach file,$(FILES),bash "$(file)" &&) true
