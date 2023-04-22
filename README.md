@@ -1,7 +1,7 @@
 # chnroute 
 ## 持续更新的中国 IP 地址列表和 gfwlist 域名列表
 
-用于帮助 RouterOS 配置科学上网
+生成的脚本可用于 RouterOS 路由器系统
 
 ### 1 更新规则
 
@@ -9,8 +9,15 @@
 
 ```shell
 # 更新列表并生成 RouterOS 规则导入脚本
-./generate.sh
+make
 ```
+
+这个脚本会生成以下几个文件：
+
+- [CN.rsc](./CN.rsc): 由 [IANA](https://www.iana.org/) 组织分配给中国大陆使用的 IPv4 地址段
+- [LAN.rsc](./LAN.rsc): 内网 IPv4 地址段
+- [gfwlist.rsc](./gfwlist.rsc): 从 gfwlist 项目生成的 RouterOS 脚本，包含了已知的被污染的域名
+- [gfwlist_v7.rsc](./gfwlist_v7.rsc): 适用于 > RouterOS v7.6 的 gfwlist 脚本
 
 在生成规则前，也可以将域名加入 exlucde_list.txt 和 include_list.txt 列表来手动**剔除/加入**被特殊解析的域名。
 
@@ -48,7 +55,7 @@ add dont-require-permissions=no name=cn owner=admin policy=ftp,reboot,read,write
 ```
 /system scheduler
 add name=envs on-event="{\r\
-    \n  :global dnsserver 192.168.9.1;\r\
+    \n  :global dnsserver 8.8.8.8;\r\
     \n}" policy=read,write,policy,test start-time=startup
 
 ```
@@ -59,7 +66,7 @@ add name=envs on-event="{\r\
 [admin@RouterBoard] > /system/script/environment/print 
 Columns: NAME, VALUE
 #  NAME       VALUE       
-0  dnsserver  192.168.9.1 
+0  dnsserver  8.8.8.8
 
 ```
 
@@ -78,6 +85,8 @@ add dont-require-permissions=no name=gfwlist owner=admin policy=ftp,reboot,read,
     \n}"
 ```
 
+**注意**：RouterOS v7.6 版本中，DNS FWD 规则支持了 Match Subdomains 选项，在上方脚本中导入 [gfwlist_v7.rsc](./gfwlist_v7.rsc) 解析会更高。
+
 **注意**：几千条规则会用尽 DNS 的默认 2M 大小的缓存，需要将 DNS 缓存的大小设置为 20560KiB 或者更大：
 
 ```
@@ -90,7 +99,8 @@ add dont-require-permissions=no name=gfwlist owner=admin policy=ftp,reboot,read,
 /ip/dns/static/print
 ```
 
-此时所有满足规则中正则表达式的域名，都会走指定的例如 192.168.9.1 这样干净且查询缓慢的服务器进行解析。而其他绝大多数没有被污染的域名依然走 223.5.5.5 这类国内服务器解析在几 ms 内得到结果。此时的整个 dns 的设置为：
+
+此时的整个 dns 的设置为：
 
 ```
 [admin@RouterBoard] > /ip/dns/print 
@@ -108,5 +118,15 @@ add dont-require-permissions=no name=gfwlist owner=admin policy=ftp,reboot,read,
                 cache-max-ttl: 1w
                    cache-used: 16957KiB
 
+```
+
+此时所有满足规则中正则表达式的域名，都会走指定的例如 8.8.8.8 这样干净且查询缓慢的服务器进行解析。而其他绝大多数没有被污染的域名依然走 223.5.5.5 这类国内服务器解析在几 ms 内得到结果。
+
+但在绝大多数国内的环境下，8.8.8.8 返回的结果也是被污染的。我们需要随时更换 gfwlist 中的域名的 DNS 服务器，而重新设置 $dnsserver 变量和导入脚本是耗时的操作。此时我们可以在路由器的 output 链上设置以下 dnat 规则，将目标地址为 8.8.8.8 的请求，转发到任意 IP 上：
+
+```
+/ip/firewall/nat
+add action=dst-nat chain=output comment=BuyVM dst-address=8.8.8.8 to-addresses=\
+    192.168.9.1
 ```
 
