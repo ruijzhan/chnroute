@@ -17,6 +17,9 @@ GIT_STATUS_CMD="git status -s"
 GFWLIST_CONF="03-gfwlist.conf"
 CN_URL="http://www.iwik.org/ipcountry/mikrotik/CN"
 
+sort -o $INCLUDE_LIST_TXT $INCLUDE_LIST_TXT
+sort -o $EXCLUDE_LIST_TXT $EXCLUDE_LIST_TXT
+
 # Define variables for command-line arguments
 extra_domain_file="--extra-domain-file $INCLUDE_LIST_TXT"
 exclude_domain_file="--exclude-domain-file $EXCLUDE_LIST_TXT"
