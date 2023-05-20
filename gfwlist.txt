@@ -106,7 +106,6 @@
 6parknews.com
 7capture.com
 7cow.com
-7-zip.org
 85cc.net
 85cc.us
 85st.com
@@ -2674,6 +2673,7 @@ huaxia-news.com
 huaxin.ph
 hua-yue.net
 huayuworld.org
+hub.docker.com
 hudatoriq.web.id
 hudson.org
 huffingtonpost.com
@@ -3940,6 +3940,7 @@ pacopacomama.com
 padmanet.com
 page2rss.com
 page.bid.yahoo.com
+page.link
 pages.dev
 pagodabox.com
 palacemoon.com
@@ -5626,7 +5627,6 @@ vtunnel.com
 vuku.cc
 vultryhw.com
 vyprvpn.com
-w3schools.com
 waffle1999.com
 wahas.com
 waigaobu.com
