@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -euo pipefail  # Enable error handling and logging
 
@@ -61,6 +61,6 @@ fi
 
 # Download the CN.rsc file from http://www.iwik.org/ipcountry/mikrotik/CN,
 # saving it as $CN_RSC. If the download fails, print an error message to stderr.
-if ! wget "$CN_URL" -O "$CN_RSC" >/dev/null 2>&1; then
+if ! curl -sS -o "$CN_RSC" -w "%{http_code}" "$CN_URL" | grep -q '^2'; then
     printf 'Error: failed to download %s\n' "$CN_RSC" >&2
 fi
