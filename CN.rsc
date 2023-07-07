@@ -4939,6 +4939,7 @@
 :do { add address=103.233.128.0/22 list=CN } on-error={}
 :do { add address=103.233.136.0/22 list=CN } on-error={}
 :do { add address=103.233.162.0/23 list=CN } on-error={}
+:do { add address=103.233.178.0/23 list=CN } on-error={}
 :do { add address=103.233.228.0/22 list=CN } on-error={}
 :do { add address=103.234.0.0/22 list=CN } on-error={}
 :do { add address=103.234.20.0/22 list=CN } on-error={}
@@ -8687,6 +8688,7 @@
 :do { add address=2a0e:7580::/29 list=CN } on-error={}
 :do { add address=2a10:1cc0::/29 list=CN } on-error={}
 :do { add address=2a13:1800::/29 list=CN } on-error={}
+:do { add address=2a13:8b40::/29 list=CN } on-error={}
 :do { add address=2001:678:d3c::/48 list=CN } on-error={}
 :do { add address=2001:67c:360::/48 list=CN } on-error={}
 :do { add address=2001:67c:a1c::/48 list=CN } on-error={}
@@ -9128,6 +9130,7 @@
 :do { add address=2401:1200::/32 list=CN } on-error={}
 :do { add address=2401:12c0::/32 list=CN } on-error={}
 :do { add address=2401:1320::/32 list=CN } on-error={}
+:do { add address=2401:13a0::/32 list=CN } on-error={}
 :do { add address=2401:15c0::/32 list=CN } on-error={}
 :do { add address=2401:18c0::/32 list=CN } on-error={}
 :do { add address=2401:1940::/32 list=CN } on-error={}
