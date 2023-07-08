@@ -19,5 +19,3 @@ singlelogin.me
 typora.io
 vyprvpn.com
 wevpn.com
-youtube.com
-ytimg.com
