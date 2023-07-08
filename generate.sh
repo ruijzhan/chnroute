@@ -7,6 +7,7 @@ GFWLIST2DNSMASQ_SH="gfwlist2dnsmasq.sh"
 INCLUDE_LIST_TXT="include_list.txt"
 EXCLUDE_LIST_TXT="exclude_list.txt"
 GFWLIST="gfwlist.txt"
+GFWLIST_ORIGIN="gfwlist_origin.txt"
 LIST_NAME="gfw_list"
 DNS_SERVER="\$dnsserver"
 DNS_SERVER_VAR="dnsserver"
@@ -16,6 +17,7 @@ GFWLIST_V7_RSC="gfwlist_v7.rsc"
 GIT_STATUS_CMD="git status -s"
 GFWLIST_CONF="03-gfwlist.conf"
 CN_URL="http://www.iwik.org/ipcountry/mikrotik/CN"
+INVALID_DOMAIN_FILE="invalid_domains.txt"
 
 sort_files() {
     sort -o "$INCLUDE_LIST_TXT" "$INCLUDE_LIST_TXT"
@@ -30,6 +32,11 @@ run_gfwlist2dnsmasq() {
 
     # Run gfwlist2dnsmasq.sh and generate gfwlist.rsc
     sh "$GFWLIST2DNSMASQ_SH" -l $extra_domain_file $exclude_domain_file $output_file
+
+    cp "$GFWLIST" "$GFWLIST_ORIGIN"
+    grep -v -F -f "$INVALID_DOMAIN_FILE" "$GFWLIST_ORIGIN" > tmp.txt
+    cat tmp.txt "$INCLUDE_LIST_TXT" | sort | uniq > "$GFWLIST"
+    rm tmp.txt
 }
 
 create_gfwlist_rsc() {
