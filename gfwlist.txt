@@ -36,6 +36,8 @@
 1dumb.com
 1e100.net
 1eew.com
+1lib.at
+1lib.ph
 1lib.to
 1mobile.com
 1mobile.tw
@@ -4572,6 +4574,7 @@ sinchew.com.my
 singaporepools.com.sg
 singfortibet.com
 singlelogin.me
+singlelogin.re
 singpao.com.hk
 singtao.com
 singtaousa.com

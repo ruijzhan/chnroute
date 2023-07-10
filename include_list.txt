@@ -1,3 +1,5 @@
+1lib.at
+1lib.ph
 1lib.to
 bad.news
 doubleclick.net
@@ -16,6 +18,7 @@ odysee.tv
 poecdn.net
 poe.com
 singlelogin.me
+singlelogin.re
 typora.io
 vyprvpn.com
 wevpn.com
