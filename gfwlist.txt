@@ -2391,6 +2391,7 @@ greenpeace.org
 greenreadings.com
 greenvpn.net
 greenvpn.org
+grindr.com
 grotty-monday.com
 groups.google.cn
 grow.google
@@ -2784,6 +2785,7 @@ imagevenue.com
 imagezilla.net
 imb.org
 imdb.com
+imgasd.com
 imgchili.net
 img.dlsite.jp
 img.ly
@@ -5919,6 +5921,7 @@ xiaod.in
 xiaohexie.com
 xiaolan.me
 xiaoma.org
+xiaomi.eu
 xiaxiaoqiang.net
 xiezhua.com
 xihua.es
