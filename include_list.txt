@@ -22,3 +22,4 @@ singlelogin.re
 typora.io
 vyprvpn.com
 wevpn.com
+x.com
