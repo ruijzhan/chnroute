@@ -1,0 +1,30 @@
+name: Daily Make and Commit
+
+on:
+  schedule:
+    - cron:  '0 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set up environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y make
+
+    - name: Run make
+      run: make
+
+    - name: Commit and push if it changed
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+        git diff --quiet && git diff --staged --quiet || (git add . ; git commit -m 'Automated update')
+        git push
