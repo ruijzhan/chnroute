@@ -15,8 +15,8 @@ kemono.party
 maxcdn.com
 odycdn.com
 odysee.tv
-poecdn.net
 poe.com
+poecdn.net
 singlelogin.me
 singlelogin.re
 typora.io
