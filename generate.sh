@@ -2,6 +2,8 @@
 
 set -euo pipefail  # Enable error handling and logging
 
+export LC_ALL=POSIX
+
 # Define constants
 GFWLIST2DNSMASQ_SH="gfwlist2dnsmasq.sh"
 INCLUDE_LIST_TXT="include_list.txt"

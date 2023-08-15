@@ -6,6 +6,8 @@
 # Author:      Cokebar Chi
 # Website:     https://github.com/cokebar
 
+export LC_ALL=POSIX
+
 _green() {
     printf '\033[1;31;32m'
     printf -- "%b" "$1"
