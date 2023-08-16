@@ -1,4 +1,7 @@
-# chnroute 
+# chnroute
+
+[![Daily Make and Commit](https://github.com/ruijzhan/chnroute/actions/workflows/main.yaml/badge.svg)](https://github.com/ruijzhan/chnroute/actions/workflows/main.yaml)
+
 ## 持续更新的中国 IP 地址列表和 gfwlist 域名列表
 
 生成的脚本可用于 RouterOS 路由器系统
