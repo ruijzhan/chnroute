@@ -2,6 +2,7 @@
 1lib.ph
 1lib.to
 bad.news
+docker.io
 doubleclick.net
 ed2000k.com
 express.co.uk

@@ -1387,6 +1387,7 @@ dnset.com
 dnsrd.com
 dnssec.net
 dnvod.tv
+docker.io
 doctorvoice.org
 documentingreality.com
 dogfartnetwork.com
