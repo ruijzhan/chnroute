@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail  # Enable error handling and logging
+set -euo pipefail # Enable error handling and logging
 
 export LC_ALL=POSIX
 
@@ -36,7 +36,7 @@ run_gfwlist2dnsmasq() {
 
 create_gfwlist_rsc() {
     cp "$GFWLIST" "$GFWLIST_RSC"
-    
+
     # Edit tmp using sed
     sed -i "
         s/\./\\\\\\\\./g;
@@ -51,7 +51,7 @@ create_gfwlist_rsc() {
 
 create_gfwlist_v7_rsc() {
     cp "$GFWLIST" "$GFWLIST_V7_RSC"
-    
+
     sed -i "
         s/$/ } on-error={}/g;
         s/^/:do { add forward-to=${DNS_SERVER} type=FWD address-list=${LIST_NAME} match-subdomain=yes name=/g;
@@ -78,6 +78,20 @@ download_cn_rsc() {
     fi
 }
 
+download_gfwlist() {
+
+    # URL of the file to download
+    url="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"
+
+    # Name of the file to save the decoded content
+    output_file="gfwlist_autoproxy.txt"
+
+    # Download the file, decode it and save to output_file
+    curl -s "$url" | base64 --decode > "$output_file"
+
+    echo "Decoded content saved to $output_file"
+}
+
 # Run functions sequentially
 sort_files
 run_gfwlist2dnsmasq
@@ -85,3 +99,4 @@ create_gfwlist_rsc
 create_gfwlist_v7_rsc
 check_git_status
 download_cn_rsc
+download_gfwlist
