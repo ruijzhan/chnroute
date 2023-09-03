@@ -9150,6 +9150,7 @@
 :do { add address=2401:2a00::/32 list=CN } on-error={}
 :do { add address=2401:2b40::/32 list=CN } on-error={}
 :do { add address=2401:2e00::/32 list=CN } on-error={}
+:do { add address=2401:2e20::/32 list=CN } on-error={}
 :do { add address=2401:3100::/32 list=CN } on-error={}
 :do { add address=2401:3380::/32 list=CN } on-error={}
 :do { add address=2401:33c0::/32 list=CN } on-error={}
