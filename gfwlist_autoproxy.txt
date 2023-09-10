@@ -1,9 +1,9 @@
 [AutoProxy 0.2.9]
-! Checksum: F4+ULRho+VViEbwbq6Goqg
+! Checksum: rl056krjKqwA+rDTBpq/cA
 ! Expires: 6h
 ! Title: GFWList4LL
 ! GFWList with EVERYTHING included
-! Last Modified: Sun, 23 Jul 2023 13:13:01 -0400
+! Last Modified: Sat, 09 Sep 2023 00:06:49 -0400
 !
 ! HomePage: https://github.com/gfwlist/gfwlist
 ! License: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
@@ -4010,6 +4010,7 @@ go-pki.com
 ||goagent.biz
 ||goagentplus.com
 gobet.cc
+||godaddy.com
 godfootsteps.org
 ||godfootsteps.org
 godns.work
