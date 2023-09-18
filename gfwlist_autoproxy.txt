@@ -1,9 +1,9 @@
 [AutoProxy 0.2.9]
-! Checksum: rl056krjKqwA+rDTBpq/cA
+! Checksum: 3G9Dd6DUURMFhqmYuuC91Q
 ! Expires: 6h
 ! Title: GFWList4LL
 ! GFWList with EVERYTHING included
-! Last Modified: Sat, 09 Sep 2023 00:06:49 -0400
+! Last Modified: Sun, 17 Sep 2023 12:59:35 -0400
 !
 ! HomePage: https://github.com/gfwlist/gfwlist
 ! License: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
@@ -766,7 +766,7 @@ bloomberg.de
 .zzux.com
 
 !!--Cloudflare--
-||pages.dev
+!--||pages.dev
 
 !!---CloudFront---
 d1b183sg0nvnuh.cloudfront.net
@@ -1521,7 +1521,6 @@ blogspot.com
 ||thinkwithgoogle.com
 ||tiltbrush.com
 ||translate.goog
-||translate.google
 ||tv.google
 ||urchin.com
 !--||www.google
@@ -1633,6 +1632,7 @@ cn.nytstyle.com
 ||hpa.gov.tw
 ||immigration.gov.tw
 ||itaiwan.gov.tw
+||li.taipei
 ||mjib.gov.tw
 ||moeaic.gov.tw
 ||mofa.gov.tw
@@ -2001,7 +2001,7 @@ taiwannation.50webs.com
 ||6parknews.com
 ||7capture.com
 .7cow.com
-||7-zip.org
+!--||7-zip.org
 .8-d.com
 |http://8-d.com
 85cc.net
@@ -2940,7 +2940,7 @@ civilhrfront.org
 .civilmedia.tw
 ||civilmedia.tw
 psiphon.civisec.org
-||vpn.cjb.net
+||civitai.com
 .ck101.com
 ||ck101.com
 .clarionproject.org/news/islamic-state-isis-isil-propaganda
@@ -5508,6 +5508,7 @@ molihua.org
 .moonbbs.com
 ||moonbbs.com
 ||moptt.tw
+||monica.im
 ||monitorchina.org
 ||monocloud.me
 bbs.morbell.com
