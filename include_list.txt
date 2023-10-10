@@ -1,6 +1,7 @@
 1lib.at
 1lib.ph
 1lib.to
+aljazeera.com
 bad.news
 cursor.so
 docker.io
