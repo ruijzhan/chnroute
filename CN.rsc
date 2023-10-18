@@ -9611,7 +9611,6 @@
 :do { add address=2403:3dc0::/32 list=CN } on-error={}
 :do { add address=2403:3e80::/32 list=CN } on-error={}
 :do { add address=2403:3ec0::/32 list=CN } on-error={}
-:do { add address=2403:3f40::/32 list=CN } on-error={}
 :do { add address=2403:3f80::/32 list=CN } on-error={}
 :do { add address=2403:4080::/32 list=CN } on-error={}
 :do { add address=2403:4180::/32 list=CN } on-error={}
