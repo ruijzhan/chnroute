@@ -23,7 +23,6 @@
 :do { add address=194.110.138.0/23 list=CN } on-error={}
 :do { add address=194.127.229.0/24 list=CN } on-error={}
 :do { add address=194.246.40.0/22 list=CN } on-error={}
-:do { add address=213.139.232.0/22 list=CN } on-error={}
 :do { add address=91.234.36.0/24 list=CN } on-error={}
 :do { add address=1.0.1.0/24 list=CN } on-error={}
 :do { add address=1.0.2.0/23 list=CN } on-error={}
@@ -3435,7 +3434,6 @@
 :do { add address=103.95.252.0/22 list=CN } on-error={}
 :do { add address=103.96.0.0/22 list=CN } on-error={}
 :do { add address=103.96.8.0/22 list=CN } on-error={}
-:do { add address=103.96.80.0/22 list=CN } on-error={}
 :do { add address=103.96.124.0/22 list=CN } on-error={}
 :do { add address=103.96.136.0/22 list=CN } on-error={}
 :do { add address=103.96.140.0/24 list=CN } on-error={}
@@ -8680,7 +8678,6 @@
 /ipv6 firewall address-list
 :do { add address=2a03:f900::/29 list=CN } on-error={}
 :do { add address=2a07:f480::/29 list=CN } on-error={}
-:do { add address=2a09:3680::/29 list=CN } on-error={}
 :do { add address=2a0a:2840::/29 list=CN } on-error={}
 :do { add address=2a0e:7580::/29 list=CN } on-error={}
 :do { add address=2a13:1800::/29 list=CN } on-error={}
