@@ -9441,7 +9441,6 @@
 :do { add address=2402:a6c0::/32 list=CN } on-error={}
 :do { add address=2402:a840::/32 list=CN } on-error={}
 :do { add address=2402:a880::/32 list=CN } on-error={}
-:do { add address=2402:a9c0::/32 list=CN } on-error={}
 :do { add address=2402:aa80::/32 list=CN } on-error={}
 :do { add address=2402:ab80::/32 list=CN } on-error={}
 :do { add address=2402:ae00::/32 list=CN } on-error={}
