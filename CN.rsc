@@ -6653,6 +6653,7 @@
 :do { add address=202.38.136.0/23 list=CN } on-error={}
 :do { add address=202.38.140.0/23 list=CN } on-error={}
 :do { add address=202.38.142.0/23 list=CN } on-error={}
+:do { add address=202.38.146.0/23 list=CN } on-error={}
 :do { add address=202.38.149.0/24 list=CN } on-error={}
 :do { add address=202.38.150.0/23 list=CN } on-error={}
 :do { add address=202.38.152.0/23 list=CN } on-error={}
