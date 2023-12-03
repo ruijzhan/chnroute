@@ -1,9 +1,9 @@
 [AutoProxy 0.2.9]
-! Checksum: 3G9Dd6DUURMFhqmYuuC91Q
+! Checksum: Rf0R+6HidL4XhklqC5ISWg
 ! Expires: 6h
 ! Title: GFWList4LL
 ! GFWList with EVERYTHING included
-! Last Modified: Sun, 17 Sep 2023 12:59:35 -0400
+! Last Modified: Sat, 02 Dec 2023 01:34:49 -0500
 !
 ! HomePage: https://github.com/gfwlist/gfwlist
 ! License: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
@@ -2347,6 +2347,7 @@ backchina.com
 ||backchina.com
 .backpackers.com.tw/forum
 backtotiananmen.com
+||bad.news
 .badiucao.com
 ||badiucao.com
 .badjojo.com
@@ -4785,6 +4786,7 @@ in-disguise.com
 ||info-graf.fr
 website.informer.com
 ||initiativesforchina.org
+||inkbunny.net
 ||inkui.com
 ||inmediahk.net
 ||inmediahk.net
@@ -5345,7 +5347,8 @@ maruta.be/forget
 ||mathiew-badimon.com
 ||matrix.org
 ||matsushimakaede.com
-|http://maturejp.com
+||matters.town
+||maturejp.com
 mayimayi.com
 .maxing.jp
 .mcaf.ee
