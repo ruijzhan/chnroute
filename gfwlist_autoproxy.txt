@@ -1,9 +1,9 @@
 [AutoProxy 0.2.9]
-! Checksum: Rf0R+6HidL4XhklqC5ISWg
+! Checksum: eiR0X8r2l8rCKSXgXpBtHw
 ! Expires: 6h
 ! Title: GFWList4LL
 ! GFWList with EVERYTHING included
-! Last Modified: Sat, 02 Dec 2023 01:34:49 -0500
+! Last Modified: Fri, 29 Dec 2023 12:08:31 -0500
 !
 ! HomePage: https://github.com/gfwlist/gfwlist
 ! License: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
@@ -383,6 +383,7 @@ share.dmhy.org
 ||potato.im
 ||premproxy.com
 ||prism-break.org
+||proton.me
 ||protonvpn.com
 ||api.pureapk.com
 ||quora.com
@@ -516,6 +517,7 @@ share.dmhy.org
 ||localbitcoins.com
 ||mercatox.com
 ||oanda.com
+||obyte.org
 ||oex.com
 ||okex.com
 ||okx.com
@@ -846,6 +848,7 @@ cdninstagram.com
 @@||ip6.static.sl-reverse.com
 ||parse.com
 ||thefacebook.com
+||threads.net
 ||whatsapp.com
 ||whatsapp.net
 
@@ -3007,7 +3010,7 @@ commandarms.com
 .contactmagazine.net
 .convio.net
 .coobay.com
-|http://www.cool18.com/bbs*/
+||cool18.com
 .coolaler.com
 ||coolaler.com
 coolder.com
@@ -4147,7 +4150,6 @@ echofon.com
 !-||govecn.org
 !-||gqueues.com
 !-||graphycalc.com
-||greasespot.net
 !-||blog.growlforwindows.com
 !-H
 !-||hcm.com.tw
@@ -6248,6 +6250,7 @@ psblog.name
 .psiphon3.com
 ||psiphon3.com
 .psiphontoday.com
+||pstatic.net
 ||pt.im
 .ptt.cc
 ||ptt.cc
@@ -8016,14 +8019,14 @@ winwhispers.info
 .witopia.net
 .wjbk.org
 ||wjbk.org
-|http://wn.com
+||wmflabs.org
+||wn.com
 .wnacg.com
 .wnacg.org
 .wo.tc
 ||woeser.com
-|http://woesermiddle-way.net/
 .wokar.org
-|http://wokar.org
+||wokar.org
 wolfax.com
 ||wolfax.com
 ||wombo.ai
@@ -8203,6 +8206,7 @@ xyy69.info
 ||yam.org.tw
 ||yande.re
 ||disk.yandex.com
+||disk.yandex.ru
 .yanghengjun.com
 yangjianli.com
 .yasni.co.uk
@@ -8235,7 +8239,8 @@ yegle.net
 ||yidio.com
 ||yigeni.com
 yilubbs.com
-xa.yimg.com
+||s.yimg.com
+||xa.yimg.com
 .yingsuoss.com
 .yipub.com
 ||yipub.com
