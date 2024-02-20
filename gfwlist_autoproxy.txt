@@ -1,9 +1,9 @@
 [AutoProxy 0.2.9]
-! Checksum: 0LN0ip3+tfqg7VWpsYQAfg
+! Checksum: 9PVgZURV+9DlFwAZIld/ZQ
 ! Expires: 6h
 ! Title: GFWList4LL
 ! GFWList with EVERYTHING included
-! Last Modified: Sat, 30 Dec 2023 12:31:14 -0500
+! Last Modified: Mon, 19 Feb 2024 10:27:32 -0500
 !
 ! HomePage: https://github.com/gfwlist/gfwlist
 ! License: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
@@ -4656,6 +4656,7 @@ huaxin.ph
 ||huhangfei.com
 huiyi.in
 .hulkshare.com
+||humanparty.me
 ||humanrightspressawards.org
 ||hung-ya.com
 ||hungerstrikeforaids.org
@@ -7093,6 +7094,7 @@ teensinasia.com
 .telecomspace.com
 ||telegraph.co.uk
 .tenacy.com
+||tenor.com
 ||tenzinpalmo.com
 .tew.org
 ||tew.org
