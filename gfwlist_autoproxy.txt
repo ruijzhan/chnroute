@@ -1,9 +1,9 @@
 [AutoProxy 0.2.9]
-! Checksum: AN5tMVoFXnNuEYITB6GsUg
+! Checksum: 5W3+3BA5PDsBsJhOaeD/GA
 ! Expires: 6h
 ! Title: GFWList4LL
 ! GFWList with EVERYTHING included
-! Last Modified: Thu, 28 Mar 2024 14:51:38 -0400
+! Last Modified: Sun, 14 Apr 2024 10:56:29 -0400
 !
 ! HomePage: https://github.com/gfwlist/gfwlist
 ! License: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
@@ -4703,7 +4703,7 @@ ibros.org
 .ibvpn.com
 ||ibvpn.com
 icams.com
-blogs.icerocket.com/tag
+||icedrive.net
 .icij.org
 ||icij.org
 ||icl-fi.org
@@ -6467,6 +6467,7 @@ rfaweb.org
 .roodo.com
 .rosechina.net
 .rotten.com
+||rou.video
 .rsf.org
 ||rsf.org
 .rsf-chinese.org
