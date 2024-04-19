@@ -1,9 +1,9 @@
 [AutoProxy 0.2.9]
-! Checksum: 5W3+3BA5PDsBsJhOaeD/GA
+! Checksum: JVrLsrIjkDiSX67WEFpxDw
 ! Expires: 6h
 ! Title: GFWList4LL
 ! GFWList with EVERYTHING included
-! Last Modified: Sun, 14 Apr 2024 10:56:29 -0400
+! Last Modified: Thu, 18 Apr 2024 11:17:15 -0400
 !
 ! HomePage: https://github.com/gfwlist/gfwlist
 ! License: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
@@ -265,6 +265,7 @@ share.dmhy.org
 ||xiaomi.eu
 ||youwin.com
 ||ytn.co.kr
+||zamimg.com
 ||zattoo.com
 ||zim.vn
 ||zozotown.com
@@ -489,10 +490,12 @@ share.dmhy.org
 ||dragonex.io
 ||ebtcbank.com
 ||etherdelta.com
+||ethermine.org
 ||etherscan.io
 ||exmo.com
 ||exrates.me
 ||exx.com
+||f2pool.com
 ||fatbtc.com
 ||ftx.com
 ||gate.io
@@ -1705,7 +1708,7 @@ cn.nytstyle.com
 @@||nmp.gov.tw
 @@||nmvttc.gov.tw
 @@||northguan-nsa.gov.tw
-@@||npm.gov.tw
+||npm.gov.tw
 @@||nstm.gov.tw
 @@||ntdmh.gov.tw
 @@||ntl.gov.tw
@@ -4624,6 +4627,7 @@ hqmovies.com
 .hrea.org
 .hrichina.org
 ||hrichina.org
+||hrntt.org
 .hrtsea.com
 .hrw.org
 ||hrw.org
@@ -5017,6 +5021,7 @@ juziyue.com
 ||juziyue.com
 ||jwmusic.org
 @@||music.jwmusic.org
+||cdn.jwplayer.com
 .jyxf.net
 
 !--------------------KK-------------------------
@@ -6188,6 +6193,7 @@ politicalconsultation.org
 postadult.com
 .postimg.org
 ||potvpn.com
+||pourquoi.tw
 ||powercx.com
 .powerphoto.org
 ||www.powerpointninja.com
@@ -8110,7 +8116,7 @@ wretch.cc
 .wtfpeople.com
 wuerkaixi.com
 ||wufafangwen.com
-wufi.org.tw
+||wufi.org.tw
 ||wuguoguang.com
 wujie.net
 wujieliulan.com
