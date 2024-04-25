@@ -9240,6 +9240,8 @@
 :do { add address=2401:95e0::/32 list=CN } on-error={}
 :do { add address=2401:9600::/32 list=CN } on-error={}
 :do { add address=2401:96c0::/32 list=CN } on-error={}
+:do { add address=2401:96e0::/32 list=CN } on-error={}
+:do { add address=2401:9720::/32 list=CN } on-error={}
 :do { add address=2401:9740::/32 list=CN } on-error={}
 :do { add address=2401:98c0::/32 list=CN } on-error={}
 :do { add address=2401:9a00::/32 list=CN } on-error={}
