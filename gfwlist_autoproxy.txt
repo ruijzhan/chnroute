@@ -1,9 +1,9 @@
 [AutoProxy 0.2.9]
-! Checksum: JVrLsrIjkDiSX67WEFpxDw
+! Checksum: K7ep+i8tdQQqzMWnUK97sQ
 ! Expires: 6h
 ! Title: GFWList4LL
 ! GFWList with EVERYTHING included
-! Last Modified: Thu, 18 Apr 2024 11:17:15 -0400
+! Last Modified: Sun, 12 May 2024 23:19:25 -0400
 !
 ! HomePage: https://github.com/gfwlist/gfwlist
 ! License: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
@@ -2808,6 +2808,7 @@ cdpwu.org
 |http://changsa.net
 ||channelnewsasia.com
 .chapm25.com
+||chatgpt.com
 .chaturbate.com
 ||chaturbate.com
 .chuang-yen.org
