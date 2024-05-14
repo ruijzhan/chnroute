@@ -75,6 +75,7 @@ onenote.net
 onmicrosoft.com
 outlook.com
 outlookmobile.com
+perplexity.ai
 phonefactor.net
 poe.com
 poecdn.net
