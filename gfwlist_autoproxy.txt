@@ -1,9 +1,9 @@
 [AutoProxy 0.2.9]
-! Checksum: K7ep+i8tdQQqzMWnUK97sQ
+! Checksum: 05kdy7shJPqX65tt4uXLdA
 ! Expires: 6h
 ! Title: GFWList4LL
 ! GFWList with EVERYTHING included
-! Last Modified: Sun, 12 May 2024 23:19:25 -0400
+! Last Modified: Thu, 30 May 2024 01:40:24 -0400
 !
 ! HomePage: https://github.com/gfwlist/gfwlist
 ! License: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
@@ -1633,6 +1633,7 @@ cn.nytstyle.com
 ||twitter.com
 ||twitter.jp
 ||vine.co
+||x.com
 
 !!---Taiwan---
 ||gov.taipei
