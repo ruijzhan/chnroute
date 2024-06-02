@@ -1,9 +1,9 @@
 [AutoProxy 0.2.9]
-! Checksum: 05kdy7shJPqX65tt4uXLdA
+! Checksum: 5822QncdOmjMdl6TFMYX/w
 ! Expires: 6h
 ! Title: GFWList4LL
 ! GFWList with EVERYTHING included
-! Last Modified: Thu, 30 May 2024 01:40:24 -0400
+! Last Modified: Sat, 01 Jun 2024 11:27:48 -0400
 !
 ! HomePage: https://github.com/gfwlist/gfwlist
 ! License: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
@@ -6306,7 +6306,8 @@ ss.pythonic.life/
 !--------------------QQ-------------------------
 .qanote.com
 ||qanote.com
-.qgirl.com.tw
+||qbittorrent.org
+||qgirl.com.tw
 ||qianbai.tw
 ||qiandao.today
 ||qiangwaikan.com
