@@ -1,9 +1,9 @@
 [AutoProxy 0.2.9]
-! Checksum: QTwIDEbDdtHiHRRAWRtbpg
+! Checksum: SyvKwLDNCCTf55t39yydzg
 ! Expires: 6h
 ! Title: GFWList4LL
 ! GFWList with EVERYTHING included
-! Last Modified: Mon, 03 Jun 2024 13:32:45 -0400
+! Last Modified: Wed, 05 Jun 2024 12:48:37 -0400
 !
 ! HomePage: https://github.com/gfwlist/gfwlist
 ! License: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
@@ -2252,8 +2252,8 @@ video.ap.org
 .apkmonk.com/app
 ||apkmonk.com
 ||apkplz.com
-apkpure.com
 ||apkpure.com
+||apkpure.net
 .aplusvpn.com
 !--||appannie.com
 ||appbrain.com
@@ -3214,6 +3214,7 @@ delicious.com/GFWbookmark
 ||deviantart.net
 ||devio.us
 ||devpn.com
+||devv.ai
 ||dfas.mil
 dfn.org
 dharmakara.net
