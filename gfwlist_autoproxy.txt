@@ -1,9 +1,9 @@
 [AutoProxy 0.2.9]
-! Checksum: SyvKwLDNCCTf55t39yydzg
+! Checksum: jYUuq1LbGZszOzTEKRfKiA
 ! Expires: 6h
 ! Title: GFWList4LL
 ! GFWList with EVERYTHING included
-! Last Modified: Wed, 05 Jun 2024 12:48:37 -0400
+! Last Modified: Thu, 06 Jun 2024 23:48:34 -0400
 !
 ! HomePage: https://github.com/gfwlist/gfwlist
 ! License: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
@@ -5214,12 +5214,12 @@ letscorp.net
 ||liaowangxizang.net
 .liaowangxizang.net
 ||liberal.org.hk
-.libertytimes.com.tw
+||libertysculpturepark.com
+||libertytimes.com.tw
 blogs.libraryinformationtechnology.com/jxyz
 ||libredd.it
-.lighten.org.tw
-.lightnovel.cn
-@@|https://www.lightnovel.cn
+||lighten.org.tw
+||lightnovel.cn
 limiao.net
 linkuswell.com
 abitno.linpie.com/use-ipv6-to-fuck-gfw
@@ -8109,7 +8109,7 @@ woxinghuiguo.com
 ||wqyd.org
 wrchina.org
 wretch.cc
-!-cn.wsj.com/gb/20130215/tec113853.asp
+||writesonic.com
 .wsj.com
 ||wsj.com
 .wsj.net
