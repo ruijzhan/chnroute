@@ -8681,6 +8681,7 @@
 :do { add address=2001:67c:a1c::/48 list=CN } on-error={}
 :do { add address=2001:67c:aec::/48 list=CN } on-error={}
 :do { add address=2001:67c:c28::/48 list=CN } on-error={}
+:do { add address=2001:67c:ebc::/48 list=CN } on-error={}
 :do { add address=2001:67c:2c1c::/48 list=CN } on-error={}
 :do { add address=2001:250::/35 list=CN } on-error={}
 :do { add address=2001:250:2000::/35 list=CN } on-error={}
