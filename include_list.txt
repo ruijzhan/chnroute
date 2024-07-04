@@ -18,6 +18,7 @@ bing.com
 cortana.ai
 cursor.so
 digicert.com
+docker.com
 docker.io
 doubleclick.net
 ed2000k.com

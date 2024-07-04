@@ -1416,6 +1416,7 @@ dnset.com
 dnsrd.com
 dnssec.net
 dnvod.tv
+docker.com
 docker.io
 doctorvoice.org
 documentingreality.com
