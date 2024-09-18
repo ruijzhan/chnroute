@@ -36,29 +36,27 @@ create_gfwlist_rsc() {
 
     cp "$GFWLIST" "$output_rsc"
 
-    # Use a case statement to differentiate between versions
-    case "$version" in
-        v7)
-            sed -i "
-                s/$/ } on-error={}/g;
-                s/^/:do { add forward-to=${DNS_SERVER} type=FWD address-list=${LIST_NAME} match-subdomain=yes name=/g;
-                1s/^/\/ip dns static\n/;
-                1s/^/\/ip dns static remove [\/ip dns static find forward-to=${DNS_SERVER} ]\n/;
-                1s/^/:global ${DNS_SERVER_VAR}\n/
-                " "$output_rsc"
-            ;;
-        *)
-            sed -i "
-                s/\./\\\\\\\\./g;
-                s/$/\\\\$\" } on-error={}/g;
-                s/^/:do { add forward-to=${DNS_SERVER} type=FWD address-list=${LIST_NAME} regexp=\".*/g;
-                1s/^/\/ip dns static\n/;
-                1s/^/\/ip dns static remove [\/ip dns static find forward-to=${DNS_SERVER} ]\n/;
-                1s/^/:global ${DNS_SERVER_VAR}\n/
-                " "$output_rsc"
-            ;;
-    esac
+    local sed_script
+    if [[ "$version" == "v7" ]]; then
+        sed_script="
+            s/$/ } on-error={}/g;
+            s/^/:do { add forward-to=${DNS_SERVER} type=FWD address-list=${LIST_NAME} match-subdomain=yes name=/g;
+            1s/^/\/ip dns static\n/;
+            1s/^/\/ip dns static remove [\/ip dns static find forward-to=${DNS_SERVER} ]\n/;
+            1s/^/:global ${DNS_SERVER_VAR}\n/
+        "
+    else
+        sed_script="
+            s/\./\\\\\\\\./g;
+            s/$/\\\\$\" } on-error={}/g;
+            s/^/:do { add forward-to=${DNS_SERVER} type=FWD address-list=${LIST_NAME} regexp=\".*/g;
+            1s/^/\/ip dns static\n/;
+            1s/^/\/ip dns static remove [\/ip dns static find forward-to=${DNS_SERVER} ]\n/;
+            1s/^/:global ${DNS_SERVER_VAR}\n/
+        "
+    fi
 
+    sed -i "$sed_script" "$output_rsc"
     sed -i -e '$a\/ip dns cache flush' "$output_rsc"
 }
 
@@ -91,10 +89,14 @@ download_gfwlist() {
 }
 
 # Main execution
-sort_files
-run_gfwlist2dnsmasq
-create_gfwlist_rsc "default" "$GFWLIST_RSC"
-create_gfwlist_rsc "v7" "$GFWLIST_V7_RSC"
-check_git_status
-download_cn_rsc
-download_gfwlist
+main() {
+    sort_files
+    run_gfwlist2dnsmasq
+    create_gfwlist_rsc "default" "$GFWLIST_RSC"
+    create_gfwlist_rsc "v7" "$GFWLIST_V7_RSC"
+    check_git_status
+    download_cn_rsc
+    download_gfwlist
+}
+
+main
