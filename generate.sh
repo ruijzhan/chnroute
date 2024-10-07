@@ -5,28 +5,31 @@ set -euo pipefail
 export LC_ALL=POSIX
 
 # Constants
-GFWLIST2DNSMASQ_SH="gfwlist2dnsmasq.sh"
-INCLUDE_LIST_TXT="include_list.txt"
-EXCLUDE_LIST_TXT="exclude_list.txt"
-GFWLIST="gfwlist.txt"
-LIST_NAME="gfw_list"
-DNS_SERVER="\$dnsserver"
-DNS_SERVER_VAR="dnsserver"
-GFWLIST_RSC="gfwlist.rsc"
-GFWLIST_V7_RSC="gfwlist_v7.rsc"
-CN_RSC="CN.rsc"
-GFWLIST_CONF="03-gfwlist.conf"
-CN_URL="http://www.iwik.org/ipcountry/mikrotik/CN"
+declare -r GFWLIST2DNSMASQ_SH="gfwlist2dnsmasq.sh"
+declare -r INCLUDE_LIST_TXT="include_list.txt"
+declare -r EXCLUDE_LIST_TXT="exclude_list.txt"
+declare -r GFWLIST="gfwlist.txt"
+declare -r LIST_NAME="gfw_list"
+declare -r DNS_SERVER="\$dnsserver"
+declare -r DNS_SERVER_VAR="dnsserver"
+declare -r GFWLIST_RSC="gfwlist.rsc"
+declare -r GFWLIST_V7_RSC="gfwlist_v7.rsc"
+declare -r CN_RSC="CN.rsc"
+declare -r GFWLIST_CONF="03-gfwlist.conf"
+declare -r CN_URL="http://www.iwik.org/ipcountry/mikrotik/CN"
+
+declare -r GFWLIST_URL="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"
+declare -r OUTPUT_GFWLIST_AUTOPROXY="gfwlist_autoproxy.txt"
 
 # Function to sort files
 sort_files() {
-    sort -o "$INCLUDE_LIST_TXT" "$INCLUDE_LIST_TXT"
-    sort -o "$EXCLUDE_LIST_TXT" "$EXCLUDE_LIST_TXT"
+    sort -uo "$INCLUDE_LIST_TXT" "$INCLUDE_LIST_TXT"
+    sort -uo "$EXCLUDE_LIST_TXT" "$EXCLUDE_LIST_TXT"
 }
 
 # Function to run gfwlist2dnsmasq
 run_gfwlist2dnsmasq() {
-    sh "$GFWLIST2DNSMASQ_SH" -l --extra-domain-file "$INCLUDE_LIST_TXT" --exclude-domain-file "$EXCLUDE_LIST_TXT" -o "$GFWLIST"
+    bash "$GFWLIST2DNSMASQ_SH" -l --extra-domain-file "$INCLUDE_LIST_TXT" --exclude-domain-file "$EXCLUDE_LIST_TXT" -o "$GFWLIST"
 }
 
 # Function to create gfwlist resource script
@@ -57,7 +60,7 @@ create_gfwlist_rsc() {
     fi
 
     sed -i "$sed_script" "$output_rsc"
-    sed -i -e '$a\/ip dns cache flush' "$output_rsc"
+    echo "/ip dns cache flush" >> "$output_rsc"
 }
 
 # Function to check git status
@@ -77,15 +80,12 @@ download_cn_rsc() {
 
 # Function to download and decode gfwlist
 download_gfwlist() {
-    local url="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"
-    local output_file="gfwlist_autoproxy.txt"
-
-    if ! curl -s "$url" | base64 --decode > "$output_file"; then
+    if ! curl -s "$GFWLIST_URL" | base64 --decode > "$OUTPUT_GFWLIST_AUTOPROXY"; then
         echo "Error: failed to download or decode gfwlist" >&2
         return 1
     fi
 
-    echo "Decoded content saved to $output_file"
+    echo "Decoded content saved to $OUTPUT_GFWLIST_AUTOPROXY"
 }
 
 # Main execution
