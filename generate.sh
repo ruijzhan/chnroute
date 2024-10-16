@@ -29,7 +29,11 @@ sort_files() {
 
 # Function to run gfwlist2dnsmasq
 run_gfwlist2dnsmasq() {
-    bash "$GFWLIST2DNSMASQ_SH" -l --extra-domain-file "$INCLUDE_LIST_TXT" --exclude-domain-file "$EXCLUDE_LIST_TXT" -o "$GFWLIST"
+    bash "$GFWLIST2DNSMASQ_SH" \
+        --domain-list \
+        --extra-domain-file "$INCLUDE_LIST_TXT" \
+        --exclude-domain-file "$EXCLUDE_LIST_TXT" \
+        --output "$GFWLIST"
 }
 
 # Function to create gfwlist resource script
