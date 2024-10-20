@@ -4,31 +4,42 @@ set -euo pipefail
 
 export LC_ALL=POSIX
 
-# Constants
-declare -r GFWLIST2DNSMASQ_SH="gfwlist2dnsmasq.sh"
-declare -r INCLUDE_LIST_TXT="include_list.txt"
-declare -r EXCLUDE_LIST_TXT="exclude_list.txt"
-declare -r GFWLIST="gfwlist.txt"
-declare -r LIST_NAME="gfw_list"
-declare -r DNS_SERVER="\$dnsserver"
-declare -r DNS_SERVER_VAR="dnsserver"
-declare -r GFWLIST_RSC="gfwlist.rsc"
-declare -r GFWLIST_V7_RSC="gfwlist_v7.rsc"
-declare -r CN_RSC="CN.rsc"
-declare -r GFWLIST_CONF="03-gfwlist.conf"
-declare -r CN_URL="http://www.iwik.org/ipcountry/mikrotik/CN"
+readonly GFWLIST2DNSMASQ_SH="gfwlist2dnsmasq.sh"
+readonly INCLUDE_LIST_TXT="include_list.txt"
+readonly EXCLUDE_LIST_TXT="exclude_list.txt"
+readonly GFWLIST="gfwlist.txt"
+readonly LIST_NAME="gfw_list"
+readonly DNS_SERVER="\$dnsserver"
+readonly DNS_SERVER_VAR="dnsserver"
+readonly GFWLIST_RSC="gfwlist.rsc"
+readonly GFWLIST_V7_RSC="gfwlist_v7.rsc"
+readonly CN_RSC="CN.rsc"
+readonly CN_IN_MEM_RSC="CN_mem.rsc"
+readonly GFWLIST_CONF="03-gfwlist.conf"
+readonly CN_URL="http://www.iwik.org/ipcountry/mikrotik/CN"
+readonly GFWLIST_URL="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"
+readonly OUTPUT_GFWLIST_AUTOPROXY="gfwlist_autoproxy.txt"
 
-declare -r GFWLIST_URL="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"
-declare -r OUTPUT_GFWLIST_AUTOPROXY="gfwlist_autoproxy.txt"
+# print info message
+log_info() {
+    printf "[INFO] %s\n" "$1"
+}
 
-# Function to sort files
+# print error message
+log_error() {
+    printf "[ERROR] %s\n" "$1" >&2
+}
+
+# sort include and exclude domain lists
 sort_files() {
+    log_info "Sorting include and exclude domain lists..."
     sort -uo "$INCLUDE_LIST_TXT" "$INCLUDE_LIST_TXT"
     sort -uo "$EXCLUDE_LIST_TXT" "$EXCLUDE_LIST_TXT"
 }
 
-# Function to run gfwlist2dnsmasq
+# run gfwlist2dnsmasq to generate gfwlist
 run_gfwlist2dnsmasq() {
+    log_info "Running gfwlist2dnsmasq..."
     bash "$GFWLIST2DNSMASQ_SH" \
         --domain-list \
         --extra-domain-file "$INCLUDE_LIST_TXT" \
@@ -36,63 +47,76 @@ run_gfwlist2dnsmasq() {
         --output "$GFWLIST"
 }
 
-# Function to create gfwlist resource script
+# create gfwlist rsc file
 create_gfwlist_rsc() {
-    local version=$1
-    local output_rsc=$2
+    local version="$1"
+    local output_rsc="$2"
+    log_info "Creating $output_rsc for version $version..."
 
     cp "$GFWLIST" "$output_rsc"
 
     local sed_script
     if [[ "$version" == "v7" ]]; then
-        sed_script="
-            s/$/ } on-error={}/g;
-            s/^/:do { add forward-to=${DNS_SERVER} type=FWD address-list=${LIST_NAME} match-subdomain=yes name=/g;
-            1s/^/\/ip dns static\n/;
-            1s/^/\/ip dns static remove [\/ip dns static find forward-to=${DNS_SERVER} ]\n/;
-            1s/^/:global ${DNS_SERVER_VAR}\n/
-        "
+        sed_script="s/$/ } on-error={}/g;
+                    s/^/:do { add forward-to=${DNS_SERVER} type=FWD address-list=${LIST_NAME} match-subdomain=yes name=/g;
+                    1s/^/\/ip dns static\n/;
+                    1s/^/\/ip dns static remove [\/ip dns static find forward-to=${DNS_SERVER} ]\n/;
+                    1s/^/:global ${DNS_SERVER_VAR}\n/"
     else
-        sed_script="
-            s/\./\\\\\\\\./g;
-            s/$/\\\\$\" } on-error={}/g;
-            s/^/:do { add forward-to=${DNS_SERVER} type=FWD address-list=${LIST_NAME} regexp=\".*/g;
-            1s/^/\/ip dns static\n/;
-            1s/^/\/ip dns static remove [\/ip dns static find forward-to=${DNS_SERVER} ]\n/;
-            1s/^/:global ${DNS_SERVER_VAR}\n/
-        "
+        sed_script="s/\./\\\\\\\\./g;
+                    s/$/\\\\$\" } on-error={}/g;
+                    s/^/:do { add forward-to=${DNS_SERVER} type=FWD address-list=${LIST_NAME} regexp=\".*/g;
+                    1s/^/\/ip dns static\n/;
+                    1s/^/\/ip dns static remove [\/ip dns static find forward-to=${DNS_SERVER} ]\n/;
+                    1s/^/:global ${DNS_SERVER_VAR}\n/"
     fi
 
     sed -i "$sed_script" "$output_rsc"
-    echo "/ip dns cache flush" >> "$output_rsc"
+    echo "/ip dns cache flush" >>"$output_rsc"
 }
 
-# Function to check git status
+# check if there are any changes in the git repository
 check_git_status() {
+    log_info "Checking git status..."
     if [[ $(git status -s | wc -l) -eq 1 ]]; then
         git checkout "$GFWLIST_CONF"
     fi
 }
 
-# Function to download CN.rsc
+# modify CN.rsc to change the timeout
+modify_cn_rsc() {
+    local input_file="$CN_RSC"
+    local output_file="$CN_IN_MEM_RSC"
+
+    cp "$input_file" "$output_file"
+
+    sed -i '/add address=/s/\(add address=[^ ]* list=[^ ]*\)/\1 timeout=248d/' "$output_file"
+
+    log_info "New file created: $output_file"
+}
+
+# download CN.rsc
 download_cn_rsc() {
+    log_info "Downloading CN.rsc..."
     if ! curl -sS -o "$CN_RSC" -w "%{http_code}" "$CN_URL" | grep -q '^2'; then
-        echo 'Error: failed to download CN.rsc' >&2
+        log_error "Failed to download CN.rsc"
         return 1
     fi
+
+    modify_cn_rsc
 }
 
-# Function to download and decode gfwlist
+# download and decode gfwlist
 download_gfwlist() {
-    if ! curl -s "$GFWLIST_URL" | base64 --decode > "$OUTPUT_GFWLIST_AUTOPROXY"; then
-        echo "Error: failed to download or decode gfwlist" >&2
+    log_info "Downloading and decoding gfwlist..."
+    if ! curl -s "$GFWLIST_URL" | base64 --decode >"$OUTPUT_GFWLIST_AUTOPROXY"; then
+        log_error "Failed to download or decode gfwlist"
         return 1
     fi
 
-    echo "Decoded content saved to $OUTPUT_GFWLIST_AUTOPROXY"
+    log_info "Decoded content saved to $OUTPUT_GFWLIST_AUTOPROXY"
 }
 
-# Main execution
 main() {
     sort_files
     run_gfwlist2dnsmasq
@@ -104,3 +128,4 @@ main() {
 }
 
 main
+
