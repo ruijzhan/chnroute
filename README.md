@@ -2,14 +2,14 @@
 
 [![built with Codeium](https://codeium.com/badges/main)](https://codeium.com) [![Daily Make and Commit](https://github.com/ruijzhan/chnroute/actions/workflows/main.yaml/badge.svg)](https://github.com/ruijzhan/chnroute/actions/workflows/main.yaml)
 
-## 自动更新的中国 IP 地址和 GFW 域名列表
+## 自动更新的中国 IP 地址和特定域名列表
 
-本项目提供持续更新的中国 IP 地址列表和 gfwlist 域名列表，并生成可用于 RouterOS 路由器的配置脚本。
+本项目提供持续更新的中国 IP 地址列表和特定域名列表，并生成可用于 RouterOS 路由器的配置脚本。
 
 ### 1. 规则更新
 
 - **中国 IP 网段**：来自 [此网站](http://www.iwik.org/ipcountry/mikrotik/CN)。
-- **被 GFW 污染的域名**：由 [gfwlist 项目](https://github.com/gfwlist/gfwlist)维护。
+- **特定域名**：由 [gfwlist 项目](https://github.com/gfwlist/gfwlist)维护。
 
 您可以通过以下命令来更新列表并生成 RouterOS 规则脚本：
 
@@ -22,14 +22,14 @@ make
 
 - **[CN.rsc](./CN.rsc)**：中国大陆的 IPv4 地址段，由 [IANA](https://www.iana.org/) 分配。
 - **[LAN.rsc](./LAN.rsc)**：内网 IPv4 地址段。
-- **[gfwlist.rsc](./gfwlist.rsc)**：从 gfwlist 生成的 RouterOS 脚本，包含被 GFW 污染的域名。
+- **[gfwlist.rsc](./gfwlist.rsc)**：从 gfwlist 生成的 RouterOS 脚本，包含特定域名。
 - **[gfwlist_v7.rsc](./gfwlist_v7.rsc)**：适用于 RouterOS v7.6 及以上版本的 gfwlist 脚本。
 
 在生成规则前，您可以通过修改 `exclude_list.txt` 和 `include_list.txt` 手动剔除或加入特定的域名。
 
 ### 2. 中国 IP 网段导入与应用
 
-导入中国 IP 网段有助于配置流量分流。在科学上网的场景中，可以标记目标 IP 不属于 CN 或 LAN 列表的流量，通过特定路由规则走科学上网路线。
+导入中国 IP 网段有助于配置流量分流。在优化网络访问的场景中，可以标记目标 IP 不属于 CN 或 LAN 列表的流量，通过特定路由规则走优化的网络路线。
 
 #### 2.1 导入中国 IP 网段到 RouterOS
 
@@ -47,21 +47,21 @@ import file-name=LAN.rsc
 file remove LAN.rsc"
 ```
 
-#### 2.2 科学上网规则配置
+#### 2.2 网络优化规则配置
 
 在 `PREROUTING` 链中，将目标地址不属于 CN 的流量跳转到自定义链，并在自定义链中配置以下规则：
 
 1. 匹配目标地址属于 LAN 的流量，直接 `RETURN`。
 2. 对剩余流量根据连接协议和目标端口标记路由。
-3. 在路由表中将这些流量指向科学上网的网关。
+3. 在路由表中将这些流量指向优化网络的网关。
 
 ### 3. 使用 gfwlist 优化 DNS 解析
 
-[gfwlist](https://github.com/gfwlist/gfwlist) 提供了被 GFW 污染的域名列表，配合 RouterOS 的正则表达式匹配功能，可以为被污染和未被污染的域名设置不同的 DNS 服务器，从而优化解析速度。
+[gfwlist](https://github.com/gfwlist/gfwlist) 提供了特定域名列表，配合 RouterOS 的正则表达式匹配功能，可以为特定域名和其他域名设置不同的 DNS 服务器，从而优化解析速度。
 
-#### 3.1 配置无污染的 DNS 服务器
+#### 3.1 配置无特殊限制的 DNS 服务器
 
-在 RouterOS 中设置全局变量 `dnsserver` 来指定无污染的 DNS 服务器（如 8.8.8.8）。以下脚本会在每次系统启动时重新设置 DNS 服务器：
+在 RouterOS 中设置全局变量 `dnsserver` 来指定无特殊限制的 DNS 服务器（如 8.8.8.8）。以下脚本会在每次系统启动时重新设置 DNS 服务器：
 
 ```ros
 /system scheduler
@@ -125,9 +125,9 @@ add dont-require-permissions=no name=gfwlist owner=admin policy=ftp,reboot,read,
                    cache-used: 16957KiB
 ```
 
-所有符合规则的域名解析请求将由指定的无污染 DNS 服务器（如 8.8.8.8）处理，其他未被污染的域名仍由国内 DNS 服务器解析。
+所有符合规则的域名解析请求将由指定的无特殊限制 DNS 服务器（如 8.8.8.8）处理，其他域名仍由国内 DNS 服务器解析。
 
-如果国内环境中 8.8.8.8 返回的结果依然被污染，可以通过以下 `dst-nat` 规则将目标地址为 8.8.8.8 的流量重定向到其他干净的 DNS 服务器：
+如果国内环境中 8.8.8.8 返回的结果依然存在问题，可以通过以下 `dst-nat` 规则将目标地址为 8.8.8.8 的流量重定向到其他 DNS 服务器：
 
 ```ros
 /ip/firewall/nat
