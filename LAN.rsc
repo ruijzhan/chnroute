@@ -1,5 +1,4 @@
 /log info "Loading LAN ipv4 address list"
-/ip firewall address-list remove [/ip firewall address-list find list=LAN]
 /ip firewall address-list
 :local lanIps {
 	"0.0.0.0/8";
@@ -20,6 +19,7 @@
 }
 
 :foreach ip in=$lanIps do={
-	/ip firewall address-list add list=LAN address=$ip
+	:do {
+		/ip firewall address-list add list=LAN address=$ip
+	} on-error={}
 }
-
