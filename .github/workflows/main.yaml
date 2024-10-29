@@ -12,7 +12,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
-        fetch-depth: 0
+        fetch-depth: 1  # 只获取最近一次提交
+
+    - name: Set up cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache
+        key: ${{ runner.os }}-cache-${{ hashFiles('**/makefile') }}
+        restore-keys: |
+          ${{ runner.os }}-cache-
 
     - name: Set up environment
       run: |
@@ -26,5 +34,8 @@ jobs:
       run: |
         git config --global user.email "action@github.com"
         git config --global user.name "GitHub Action"
-        git diff --quiet && git diff --staged --quiet || (git add . ; git commit -m 'Automated update')
-        git push
+        if [ -n "$(git status --porcelain)" ]; then
+          git add .
+          git commit -m 'Automated update'
+          git push
+        fi
