@@ -5,6 +5,7 @@ set -euo pipefail
 export LC_ALL=POSIX
 
 readonly GFWLIST2DNSMASQ_SH="gfwlist2dnsmasq.sh"
+readonly FOR_LOOP_CN_SH="for_loop_cn.sh"
 readonly INCLUDE_LIST_TXT="include_list.txt"
 readonly EXCLUDE_LIST_TXT="exclude_list.txt"
 readonly GFWLIST="gfwlist.txt"
@@ -87,10 +88,11 @@ check_git_status() {
 modify_cn_rsc() {
     local input_file="$CN_RSC"
     local output_file="$CN_IN_MEM_RSC"
+    local tmp_fime="tmp_file"
 
-    cp "$input_file" "$output_file"
-
-    sed -i '/add address=/s/\(add address=[^ ]* list=[^ ]*\)/\1 timeout=248d/' "$output_file"
+    bash "$FOR_LOOP_CN_SH" "$input_file" "$output_file" "248d"
+    bash "$FOR_LOOP_CN_SH" "$input_file" "$tmp_fime" "0"
+    mv "$tmp_fime" "$input_file"
 
     log_info "New file created: $output_file"
 }
