@@ -52,27 +52,27 @@ run_gfwlist2dnsmasq() {
 create_gfwlist_rsc() {
     local version="$1"
     local output_rsc="$2"
+    local input_file="$GFWLIST"
     log_info "Creating $output_rsc for version $version..."
 
-    cp "$GFWLIST" "$output_rsc"
+    cat <<EOL >"$output_rsc"
+:global dnsserver
+/ip dns static remove [/ip dns static find forward-to=\$dnsserver ]
+/ip dns static
+:local domainList {
+EOL
 
-    local sed_script
-    if [[ "$version" == "v7" ]]; then
-        sed_script="s/$/ } on-error={}/g;
-                    s/^/:do { add forward-to=${DNS_SERVER} type=FWD address-list=${LIST_NAME} match-subdomain=yes name=/g;
-                    1s/^/\/ip dns static\n/;
-                    1s/^/\/ip dns static remove [\/ip dns static find forward-to=${DNS_SERVER} ]\n/;
-                    1s/^/:global ${DNS_SERVER_VAR}\n/"
-    else
-        sed_script="s/\./\\\\\\\\./g;
-                    s/$/\\\\$\" } on-error={}/g;
-                    s/^/:do { add forward-to=${DNS_SERVER} type=FWD address-list=${LIST_NAME} regexp=\".*/g;
-                    1s/^/\/ip dns static\n/;
-                    1s/^/\/ip dns static remove [\/ip dns static find forward-to=${DNS_SERVER} ]\n/;
-                    1s/^/:global ${DNS_SERVER_VAR}\n/"
-    fi
+    while read -r line; do
+        echo "    \"$line\";" >>"$output_rsc"
+    done <"$input_file"
 
-    sed -i "$sed_script" "$output_rsc"
+    cat <<EOL >>"$output_rsc"
+}
+:foreach domain in=\$domainList do={
+    /ip dns static add forward-to=\$dnsserver type=FWD address-list=gfw_list match-subdomain=yes name=\$domain
+}
+EOL
+
     echo "/ip dns cache flush" >>"$output_rsc"
 }
 
@@ -122,7 +122,7 @@ download_gfwlist() {
 main() {
     sort_files
     run_gfwlist2dnsmasq
-    create_gfwlist_rsc "default" "$GFWLIST_RSC"
+    # create_gfwlist_rsc "default" "$GFWLIST_RSC"
     create_gfwlist_rsc "v7" "$GFWLIST_V7_RSC"
     check_git_status
     download_cn_rsc
@@ -130,4 +130,3 @@ main() {
 }
 
 main
-
