@@ -2,7 +2,7 @@ name: Daily Make and Commit
 
 on:
   schedule:
-    - cron:  '0 0 * * *'
+    - cron: '0 21 * * *'
 
 jobs:
   build:
@@ -17,15 +17,16 @@ jobs:
     - name: Set up cache
       uses: actions/cache@v2
       with:
-        path: ~/.cache
+        path: |
+          ~/.cache
+          ~/.local
         key: ${{ runner.os }}-cache-${{ hashFiles('**/makefile') }}
         restore-keys: |
           ${{ runner.os }}-cache-
 
     - name: Set up environment
       run: |
-        sudo apt-get update
-        sudo apt-get install -y make
+        sudo apt-get update && sudo apt-get install -y make
 
     - name: Run make
       run: make
