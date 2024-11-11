@@ -5,14 +5,11 @@ set -euo pipefail
 export LC_ALL=POSIX
 
 readonly GFWLIST2DNSMASQ_SH="gfwlist2dnsmasq.sh"
-readonly FOR_LOOP_CN_SH="for_loop_cn.sh"
 readonly INCLUDE_LIST_TXT="include_list.txt"
 readonly EXCLUDE_LIST_TXT="exclude_list.txt"
 readonly GFWLIST="gfwlist.txt"
 readonly LIST_NAME="gfw_list"
 readonly DNS_SERVER="\$dnsserver"
-readonly DNS_SERVER_VAR="dnsserver"
-readonly GFWLIST_RSC="gfwlist.rsc"
 readonly GFWLIST_V7_RSC="gfwlist_v7.rsc"
 readonly CN_RSC="CN.rsc"
 readonly CN_IN_MEM_RSC="CN_mem.rsc"
@@ -84,16 +81,59 @@ check_git_status() {
     fi
 }
 
+generate_cn_ip_list() {
+    local input_file="$1"
+    local output_file="$2"
+    local timeout="$3"
+
+    # Check the number of parameters
+    if [ "$#" -ne 3 ]; then
+        echo "Usage: generate_cn_ip_list <input file> <output file> <timeout>"
+        return 1
+    fi
+
+    # If the input file and output file are the same, use a temporary file
+    local tmp_file
+    if [ "$input_file" == "$output_file" ]; then
+        tmp_file=$(mktemp)
+    else
+        tmp_file="$output_file"
+    fi
+
+    # Use heredoc to write the initial part to the temporary file
+    cat <<EOL > "$tmp_file"
+/log info "Loading CN ipv4 address list"
+/ip firewall address-list remove [/ip firewall address-list find list=CN]
+/ip firewall address-list
+:local ipList {
+EOL
+
+    # Read the input file, extract IP addresses and subnets, and write them to ipList
+    sed -n 's/.*address=\([0-9./]\+\).*/    "\1";/p' "$input_file" >> "$tmp_file"
+
+    # Write the loop part to the temporary file
+    cat <<EOL >> "$tmp_file"
+}
+:foreach ip in=\$ipList do={
+    /ip firewall address-list add address=\$ip list=CN timeout=$timeout
+}
+EOL
+
+    # If a temporary file was used, move it to the output file
+    if [ "$tmp_file" != "$output_file" ]; then
+        mv "$tmp_file" "$output_file"
+    fi
+
+    echo "Conversion complete! The generated file is $output_file"
+}
+
 # modify CN.rsc to change the timeout
 modify_cn_rsc() {
     local input_file="$CN_RSC"
     local output_file="$CN_IN_MEM_RSC"
-    local tmp_fime="tmp_file"
-
-    bash "$FOR_LOOP_CN_SH" "$input_file" "$output_file" "248d"
-    bash "$FOR_LOOP_CN_SH" "$input_file" "$tmp_fime" "0"
-    mv "$tmp_fime" "$input_file"
-
+    
+    generate_cn_ip_list "$input_file" "$output_file" "248d"
+    generate_cn_ip_list "$input_file" "$input_file" "0"
     log_info "New file created: $output_file"
 }
 
@@ -122,7 +162,6 @@ download_gfwlist() {
 main() {
     sort_files
     run_gfwlist2dnsmasq
-    # create_gfwlist_rsc "default" "$GFWLIST_RSC"
     create_gfwlist_rsc "v7" "$GFWLIST_V7_RSC"
     check_git_status
     download_cn_rsc
