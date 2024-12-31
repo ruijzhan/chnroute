@@ -2447,6 +2447,7 @@
     "greenvpn.org";
     "grindr.com";
     "grotty-monday.com";
+    "ground.news";
     "groups.google.cn";
     "grow.google";
     "gs-discuss.com";
@@ -2539,6 +2540,7 @@
     "hentaivideoworld.com";
     "heqinglian.net";
     "heritage.org";
+    "herokuapp.com";
     "heungkongdiscuss.com";
     "hexieshe.com";
     "hexieshe.xyz";
@@ -2692,6 +2694,7 @@
     "howtoforge.com";
     "hoxx.com";
     "hpa.gov.tw";
+    "hpjav.com";
     "hqcdp.org";
     "hqjapanesesex.com";
     "hqmovies.com";
@@ -2779,6 +2782,7 @@
     "iask.bz";
     "iask.ca";
     "iav19.com";
+    "iavian.net";
     "ibiblio.org";
     "ibit.am";
     "iblist.com";
@@ -4086,6 +4090,7 @@
     "pcanywhere.net";
     "pcc.gov.tw";
     "pcdvd.com.tw";
+    "pcgamestorrents.com";
     "pchome.com.tw";
     "pcij.org";
     "pcstore.com.tw";
