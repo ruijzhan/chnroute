@@ -1144,6 +1144,7 @@
     "cna.com.tw";
     "cnabc.com";
     "cnbbnews.wordpress.com";
+    "cnbeta.com.tw";
     "cnd.org";
     "cnex.org.cn";
     "cnineu.com";
