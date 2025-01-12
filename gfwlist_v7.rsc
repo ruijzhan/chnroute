@@ -45,6 +45,7 @@
     "1lib.to";
     "1mobile.com";
     "1mobile.tw";
+    "1point3acres.com";
     "1pondo.tv";
     "2-hand.info";
     "2000fun.com";
@@ -53,8 +54,6 @@
     "2021hkcharter.com";
     "2047.name";
     "21andy.com";
-    "21join.com";
-    "21pron.com";
     "21sextury.com";
     "228.net.tw";
     "233abc.com";
@@ -127,6 +126,7 @@
     "9001700.com";
     "908taiwan.org";
     "91porn.com";
+    "91porny.com";
     "91vps.club";
     "92ccav.com";
     "991.com";
@@ -411,6 +411,7 @@
     "atlaspost.com";
     "atnext.com";
     "auctions.yahoo.co.jp";
+    "audacy.com";
     "auntology.fandom.com";
     "authorizeddns.net";
     "authorizeddns.org";
@@ -932,6 +933,7 @@
     "cdp2006.org";
     "cdpa.url.tw";
     "cdpeu.org";
+    "cdpuk.co.uk";
     "cdpusa.org";
     "cdpweb.org";
     "cdpwu.org";
@@ -1325,7 +1327,6 @@
     "daxa.cn";
     "daylife.com";
     "db.tt";
-    "dbc.hk";
     "dbgjd.com";
     "dcard.tw";
     "dcmilitary.com";
@@ -1339,6 +1340,7 @@
     "ddns.net";
     "ddns.us";
     "de-sci.org";
+    "deadhouse.org";
     "deadline.com";
     "deaftone.com";
     "debug.com";
@@ -1833,6 +1835,7 @@
     "firstfivefollowers.com";
     "firstpost.com";
     "firstrade.com";
+    "fish.audio";
     "flagsonline.it";
     "flecheinthepeche.fr";
     "fleshbot.com";
@@ -2709,6 +2712,7 @@
     "hrtsea.com";
     "hrw.org";
     "hrweb.org";
+    "hsex.men";
     "hsjp.net";
     "hsselite.com";
     "hst.net.tw";
@@ -2871,6 +2875,7 @@
     "indiandefensenews.in";
     "indiemerch.com";
     "info-graf.fr";
+    "inherit.live";
     "initiativesforchina.org";
     "inkbunny.net";
     "inkui.com";
@@ -3508,6 +3513,7 @@
     "minzhuhua.net";
     "minzhuzhanxian.com";
     "minzhuzhongguo.org";
+    "miraheze.org";
     "miroguide.com";
     "mirrorbooks.com";
     "mirrormedia.mg";
@@ -3549,6 +3555,7 @@
     "mojim.com";
     "mol.gov.tw";
     "molihua.org";
+    "momoshop.com.tw";
     "mondex.org";
     "money-link.com.tw";
     "moneyhome.biz";
@@ -4361,6 +4368,7 @@
     "radicalparty.org";
     "radiko.jp";
     "radio-canada.ca";
+    "radio-en-ligne.fr";
     "radio.garden";
     "radioaustralia.net.au";
     "radiohilight.net";
@@ -4731,6 +4739,7 @@
     "slacker.com";
     "slaytizle.com";
     "sleazydream.com";
+    "sleazyfork.org";
     "slheng.com";
     "slickvpn.com";
     "slides.new";
@@ -4828,6 +4837,7 @@
     "spotflux.com";
     "spotify.com";
     "spreadshirt.es";
+    "spreaker.com";
     "spring4u.info";
     "springboardplatform.com";
     "springwood.me";
@@ -5238,7 +5248,9 @@
     "ticket.com.tw";
     "tigervpn.com";
     "tiktok.com";
+    "tiktokcdn-us.com";
     "tiktokv.com";
+    "tiktokv.us";
     "tiltbrush.com";
     "timdir.com";
     "time.com";
@@ -6224,6 +6236,7 @@
     "yyjlymb.xyz";
     "yysub.net";
     "yzzk.com";
+    "z-lib.io";
     "z-lib.org";
     "zacebook.com";
     "zalmos.com";
