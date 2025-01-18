@@ -144,6 +144,7 @@ abc.pp.ru
 abc.xyz
 abchinese.com
 abclite.net
+abebooks.co.uk
 abebooks.com
 abematv.akamaized.net
 abitno.linpie.com
@@ -871,6 +872,7 @@ carfax.com
 cari.com.my
 caribbeancom.com
 carmotorshow.com
+carousell.com.hk
 carrd.co
 cartoonmovement.com
 casadeltibetbcn.org
@@ -957,6 +959,7 @@ changeip.org
 changp.com
 changsa.net
 channelnewsasia.com
+chanworld.org
 chaoex.com
 chapm25.com
 chat.lmsys.org
@@ -1124,7 +1127,6 @@ cmule.com
 cmule.org
 cmx.im
 cn-proxy.com
-cn.dayabook.com
 cn.fmnnow.com
 cn.freeones.com
 cn.giganews.com
@@ -1195,6 +1197,7 @@ coolder.com
 coolloud.org.tw
 coolncute.com
 coolstuffinc.com
+copilot.microsoft.com
 cortana.ai
 corumcollege.com
 cos-moe.com
@@ -1313,6 +1316,7 @@ darktech.org
 darktoy.net
 darpa.mil
 darrenliuwei.com
+dashlane.com
 dastrassi.org
 data-vocabulary.org
 data.flurry.com
@@ -1642,7 +1646,6 @@ eroticsaloon.net
 esg.t91y.com
 eslite.com
 esmtp.biz
-esu.dog
 esurance.com
 etaa.org.au
 etadult.com
@@ -4206,6 +4209,7 @@ poloniex.com
 polymer-project.org
 polymerhk.com
 poolin.com
+popai.pro
 popo.tw
 popvote.hk
 popxi.click
@@ -5729,6 +5733,7 @@ vot.org
 vovo2000.com
 voxer.com
 voy.com
+vpl.bibliocommons.com
 vpn.ac
 vpn.cmu.edu
 vpn.sv.cmu.edu
@@ -5894,7 +5899,6 @@ whyx.org
 widevine.com
 wikaba.com
 wiki.cnitter.com
-wiki.esu.im
 wiki.gamerp.jp
 wiki.jqueryui.com
 wiki.keso.cn
