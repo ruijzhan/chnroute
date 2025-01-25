@@ -813,6 +813,7 @@
     "btctrade.im";
     "btdig.com";
     "btdigg.org";
+    "btguard.com";
     "btku.me";
     "btku.org";
     "btspread.com";
@@ -1434,6 +1435,7 @@
     "dlsite.com";
     "dlyoutube.com";
     "dm530.net";
+    "dma.mil";
     "dmc.nico";
     "dmcdn.net";
     "dmhy.org";
@@ -2437,7 +2439,7 @@
     "googlepagecreator.com";
     "googleplay.com";
     "googleplus.com";
-    "googlescholar.comUSA";
+    "googlescholar.com";
     "googlesile.com";
     "googlesource.com";
     "googleusercontent.com";
@@ -4182,7 +4184,6 @@
     "philborges.com";
     "phmsociety.org";
     "phncdn.com";
-    "phobos.apple.com";
     "phonefactor.net";
     "phosphation13.rssing.com";
     "photodharma.net";
@@ -5588,6 +5589,7 @@
     "typora.io";
     "u15.info";
     "u9un.com";
+    "ua5v.com";
     "ub0.cc";
     "ubddns.org";
     "uberproxy.net";
@@ -5611,6 +5613,8 @@
     "uku.im";
     "ulike.net";
     "ulop.net";
+    "ultrasurf.us";
+    "ultravpn.com";
     "ultravpn.fr";
     "ultraxs.com";
     "umich.edu";
@@ -5662,6 +5666,7 @@
     "usacn.com";
     "usaip.eu";
     "uscardforum.com";
+    "uscg.mil";
     "uscnpm.org";
     "userapi.nytlog.com";
     "usercontent.goog";
@@ -5829,6 +5834,7 @@
     "vpnpick.com";
     "vpnpop.com";
     "vpnpronet.com";
+    "vpnproxymaster.com";
     "vpnreactor.com";
     "vpnreviewz.com";
     "vpnsecure.me";
@@ -6223,6 +6229,7 @@
     "yanghengjun.com";
     "yangjianli.com";
     "yasni.co.uk";
+    "yasukuni.or.jp";
     "yayabay.com";
     "ydy.com";
     "yeahteentube.com";
@@ -6294,6 +6301,7 @@
     "yuanzhengtang.org";
     "yulghun.com";
     "yunchao.net";
+    "yunomi.tokyo";
     "yuvutu.com";
     "yvesgeleyn.com";
     "ywpw.com";

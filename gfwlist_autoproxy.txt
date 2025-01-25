@@ -1,9 +1,9 @@
 [AutoProxy 0.2.9]
-! Checksum: 7t9L9YIB4rn6fDS/kQqkMA
+! Checksum: n3J2lqLJqyrWb0tqDFfWsg
 ! Expires: 6h
 ! Title: GFWList4LL
 ! GFWList with EVERYTHING included
-! Last Modified: Fri, 24 Jan 2025 11:48:36 -0500
+! Last Modified: Fri, 24 Jan 2025 18:06:35 -0500
 !
 ! HomePage: https://github.com/gfwlist/gfwlist
 ! License: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
@@ -1491,7 +1491,7 @@ blogspot.com
 ||googlepagecreator.com
 ||googleplay.com
 ||googleplus.com
-||googlescholar.comUSA
+||googlescholar.com
 ||googlesource.com
 !--||googlesyndication.com
 !--||googletagmanager.com
@@ -1554,6 +1554,7 @@ blogspot.com
 ||tiltbrush.com
 ||translate.goog
 ||tv.google
+||ua5v.com
 ||urchin.com
 ||usercontent.goog
 !--||www.google
@@ -1795,10 +1796,13 @@ cn.nytstyle.com
 
 !!---USA---
 |http://www.americorps.gov
+||dma.mil
 ||jpl.nasa.gov
 ||pds.nasa.gov
+||soc.mil
 ||solarsystem.nasa.gov
 iipdigital.usembassy.gov
+||uscg.mil
 ||usfk.mil
 ||usmc.mil
 |http://tarr.uspto.gov/
@@ -2669,6 +2673,7 @@ brucewang.net
 .btbtav.com
 ||btdig.com
 ||btdigg.org
+||btguard.com
 .btku.me
 ||btku.me
 ||btku.org
@@ -6844,7 +6849,6 @@ smhric.org
 sneakme.net
 snowlionpub.com
 home.so-net.net.tw/yisa_tsai
-||soc.mil
 ||socialblade.com
 .socks-proxy.net
 ||socks-proxy.net
@@ -7716,7 +7720,8 @@ uighurbiz.net
 ukcdp.co.uk
 ukliferadio.co.uk
 ||ukliferadio.co.uk
-ultravpn.fr
+||ultrasurf.us
+||ultravpn.com
 ||ultravpn.fr
 ultraxs.com
 umich.edu/~falun
@@ -7934,6 +7939,7 @@ vpnjack.com
 ||vpnpick.com
 ||vpnpop.com
 ||vpnpronet.com
+||vpnproxymaster.com
 .vpnreactor.com
 ||vpnreactor.com
 ||vpnreviewz.com
@@ -8303,7 +8309,7 @@ xyy69.info
 yangjianli.com
 .yasni.co.uk
 ||yasni.co.uk
-!--||yasukuni.or.jp
+||yasukuni.or.jp
 .yayabay.com/forum
 ||news.ycombinator.com
 .ydy.com
@@ -8388,6 +8394,7 @@ yuanming.net
 .yulghun.com
 ||yulghun.com
 ||yunchao.net
+||yunomi.tokyo
 .yuvutu.com
 ||yvesgeleyn.com
 .ywpw.com/forums/history/post/A0/p0/html/227
@@ -8494,20 +8501,6 @@ zyzc9.com
 !##############General List End#################
 
 !###########Supplemental List Start#############
-!-----------------URL Keywords------------------
-64memo
-aHR0cHM6Ly95ZWNsLm5ldA
-freenet
-.google.*/falun
-phobos.apple.com*/video
-q=freedom
-q%3Dfreedom
-remembering_tiananmen_20_years
-search*safeweb
-q=triangle
-q%3DTriangle
-ultrareach
-ultrasurf
 !#############Supplemental List End#############
 
 !################Whitelist Start################
