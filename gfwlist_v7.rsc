@@ -3012,7 +3012,6 @@
     "izles.net";
     "izlesem.org";
     "j.mp";
-    "ja.wikipedia.org";
     "jable.tv";
     "jamaat.org";
     "jamestown.org";
@@ -5977,6 +5976,8 @@
     "wiki.keso.cn";
     "wiki.oauth.net";
     "wiki.phonegap.com";
+    "wikibooks.org";
+    "wikidata.org";
     "wikileaks-forum.com";
     "wikileaks.ch";
     "wikileaks.com";
@@ -5989,8 +5990,11 @@
     "wikimapia.org";
     "wikimedia.org";
     "wikipedia.org";
+    "wikiversity.org";
+    "wikivoyage.org";
     "wikiwand.com";
     "wikiwiki.jp";
+    "wiktionary.org";
     "wildammo.com";
     "williamhill.com";
     "willw.net";
@@ -6019,6 +6023,7 @@
     "wlcnew.jigsy.com";
     "wlx.sowiki.net";
     "wmflabs.org";
+    "wmfusercontent.org";
     "wn.com";
     "wnacg.com";
     "wnacg.org";
