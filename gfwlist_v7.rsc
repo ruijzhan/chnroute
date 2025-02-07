@@ -271,6 +271,7 @@
     "ameblo.jp";
     "americangreencard.com";
     "americanunfinished.com";
+    "americorps.gov";
     "amiblockedornot.com";
     "amigobbs.net";
     "amitabhafoundation.us";
@@ -916,6 +917,7 @@
     "cccat.cc";
     "cccat.co";
     "ccdtr.org";
+    "ccfd.org.tw";
     "cchere.com";
     "ccim.org";
     "cclife.ca";
@@ -2182,7 +2184,6 @@
     "goagent.biz";
     "goagent.codeplex.com";
     "goagentplus.com";
-    "gobet.cc";
     "godaddy.com";
     "godfootsteps.org";
     "godns.work";
@@ -2467,6 +2468,7 @@
     "graphis.ne.jp";
     "graphql.org";
     "gravatar.com";
+    "greasyfork.org";
     "great-firewall.com";
     "great-roc.org";
     "greatfire.org";
@@ -2938,6 +2940,7 @@
     "iownyour.biz";
     "iownyour.org";
     "ipalter.com";
+    "ipdefenseforum.com";
     "ipfire.org";
     "ipfs.io";
     "iphone4hongkong.com";
@@ -3876,6 +3879,7 @@
     "nobel.se";
     "nobelprize.org";
     "nobodycanstop.us";
+    "nodeseek.com";
     "nofile.io";
     "nokogiri.org";
     "nokola.com";
@@ -3899,7 +3903,6 @@
     "npa.gov.tw";
     "npm.gov.tw";
     "npnt.me";
-    "nps.gov";
     "npsboost.com";
     "nradio.me";
     "nrk.no";
@@ -4099,6 +4102,7 @@
     "pachosting.com";
     "pacificpoker.com";
     "packetix.net";
+    "pacom.mil";
     "pacopacomama.com";
     "padmanet.com";
     "page.bid.yahoo.com";
@@ -5672,7 +5676,6 @@
     "users.skynet.be";
     "usfk.mil";
     "ushuarencity.echainhost.com";
-    "usinfo.state.gov";
     "usma.edu";
     "usmc.mil";
     "usmgtcg.ning.com";
@@ -6079,7 +6082,6 @@
     "wwitv.com";
     "www.abclite.net";
     "www.ajsands.com";
-    "www.americorps.gov";
     "www.antd.org";
     "www.aolnews.com";
     "www.businessinsider.com.au";
