@@ -6032,6 +6032,7 @@
     "x-art.com";
     "x-berry.com";
     "x-wall.org";
+    "x.ai";
     "x.co";
     "x.com";
     "x.company";
