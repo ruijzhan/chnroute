@@ -1,1 +1,3 @@
+docker.com
+docker.io
 x.ai
