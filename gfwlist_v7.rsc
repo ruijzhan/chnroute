@@ -51,6 +51,7 @@
     "2017.hk";
     "2021hkcharter.com";
     "2047.name";
+    "2049bbs.xyz";
     "21andy.com";
     "21sextury.com";
     "228.net.tw";
@@ -98,6 +99,7 @@
     "5i01.com";
     "5isotoi5.org";
     "5maodang.com";
+    "611study.com";
     "611study.icu";
     "63i.com";
     "64museum.org";
@@ -105,6 +107,8 @@
     "64wiki.com";
     "66.ca";
     "666kb.com";
+    "666pool.cn";
+    "69shuba.cx";
     "6do.news";
     "6do.world";
     "6park.com";
@@ -224,6 +228,7 @@
     "akamaihd.net";
     "akiba-online.com";
     "akiba-web.com";
+    "akinator.com";
     "akow.org";
     "al-islam.com";
     "al-qimmah.net";
@@ -237,6 +242,7 @@
     "alicejapan.co.jp";
     "aliengu.com";
     "alive.bar";
+    "aljazeera.com";
     "alkasir.com";
     "all4mom.org";
     "allcoin.com";
@@ -264,7 +270,6 @@
     "alwaysvpn.com";
     "am730.com.hk";
     "amazon.co.jp";
-    "amazon.com";
     "ameblo.jp";
     "americangreencard.com";
     "americanunfinished.com";
@@ -313,6 +318,7 @@
     "anti1984.com";
     "antichristendom.com";
     "antiwave.net";
+    "antpool.com";
     "anyporn.com";
     "anysex.com";
     "ao3.org";
@@ -332,6 +338,7 @@
     "api.linksalpha.com";
     "api.pureapk.com";
     "api.recaptcha.net";
+    "api.steampowered.com";
     "apiary.io";
     "apidocs.linksalpha.com";
     "apigee.com";
@@ -370,6 +377,7 @@
     "archive.org";
     "archive.ph";
     "archive.today";
+    "archive.vn";
     "archiveofourown.com";
     "archiveofourown.org";
     "archives.gov";
@@ -409,7 +417,6 @@
     "astrill.com";
     "atc.org.au";
     "atchinese.com";
-    "atdmt.com";
     "atgfw.org";
     "athenaeizou.com";
     "atlanta168.com";
@@ -534,6 +541,8 @@
     "beaconevents.com";
     "bebo.com";
     "beeg.com";
+    "beepool.com";
+    "beepool.org";
     "beevpn.com";
     "behance.net";
     "behindkink.com";
@@ -558,6 +567,7 @@
     "bestvpnservice.com";
     "bestvpnusa.com";
     "bet365.com";
+    "betaclouds.net";
     "betfair.com";
     "betternet.co";
     "bettervpn.com";
@@ -567,6 +577,7 @@
     "beyondfirewall.com";
     "bfnn.org";
     "bfsh.hk";
+    "bgme.me";
     "bgvpn.com";
     "bianlei.com";
     "biantailajiao.com";
@@ -586,6 +597,7 @@
     "biliworld.com";
     "billypan.com";
     "binance.com";
+    "binancezh.cc";
     "binux.me";
     "bird.so";
     "bit-z.com";
@@ -621,6 +633,7 @@
     "blockcn.com";
     "blockedbyhk.com";
     "blockless.com";
+    "blocktempo.com";
     "blog.calibre-ebook.com";
     "blog.cnyes.com";
     "blog.cryptographyengineering.com";
@@ -659,6 +672,7 @@
     "blogdns.org";
     "blogger.com";
     "blogimg.jp";
+    "blogjav.net";
     "bloglines.com";
     "bloglovin.com";
     "blogs.libraryinformationtechnology.com";
@@ -803,7 +817,11 @@
     "bsky.social";
     "bt95.com";
     "btaia.com";
+    "btbit.net";
     "btbtav.com";
+    "btbtt.co";
+    "btbtt.me";
+    "btc.com";
     "btc98.com";
     "btcbank.bank";
     "btctrade.im";
@@ -851,6 +869,7 @@
     "c.mi.com";
     "c100tibet.org";
     "c2cx.com";
+    "c3pool.com";
     "cableav.tv";
     "cablegatesearch.net";
     "cachinese.com";
@@ -869,6 +888,7 @@
     "cam4.jp";
     "cam4.sg";
     "camfrog.com";
+    "campaign-archive.com";
     "campaignforuyghurs.org";
     "cams.com";
     "cams.org.sg";
@@ -896,6 +916,7 @@
     "casinoking.com";
     "casinoriva.com";
     "castbox.fm";
+    "catbox.moe";
     "catch22.net";
     "catchgod.com";
     "catfightpayperview.xxx";
@@ -939,6 +960,7 @@
     "cdn.printfriendly.com";
     "cdn.seatguru.com";
     "cdn.softlayer.net";
+    "cdn.statically.io";
     "cdn1.lp.saboom.com";
     "cdnews.com.tw";
     "cdninstagram.com";
@@ -981,6 +1003,7 @@
     "chapm25.com";
     "character.ai";
     "chat.lmsys.org";
+    "chat.openai.com";
     "chatgpt.com";
     "chatnook.com";
     "chaturbate.com";
@@ -1046,6 +1069,7 @@
     "chinatopsex.com";
     "chinatown.com.au";
     "chinatweeps.com";
+    "chinauncensored.tv";
     "chinaview.wordpress.com";
     "chinaway.org";
     "chinaworker.info";
@@ -1113,6 +1137,7 @@
     "civiliangunner.com";
     "civilmedia.tw";
     "civitai.com";
+    "cixiaoya.club";
     "ck101.com";
     "cl.d0z.net";
     "clarionproject.org";
@@ -1135,6 +1160,7 @@
     "cloud.dify.ai";
     "cloud.mail.ru";
     "cloudflare-ipfs.com";
+    "cloudfront.net";
     "cloudfunctions.net";
     "club1069.com";
     "clubhouseapi.com";
@@ -1234,6 +1260,7 @@
     "cpj.org";
     "cq99.us";
     "crackle.com";
+    "crazypool.org";
     "crazys.cc";
     "crazyshit.com";
     "crbug.com";
@@ -1248,10 +1275,12 @@
     "crossfire.co.kr";
     "crossthewall.net";
     "crossvpn.net";
+    "crosswall.org";
     "croxyproxy.com";
     "crrev.com";
     "crucial.com";
     "crunchyroll.com";
+    "cruxpool.com";
     "csdparty.com";
     "csis.org";
     "csmonitor.com";
@@ -1280,13 +1309,10 @@
     "cynscribe.com";
     "cytode.us";
     "d-fukyu.com";
+    "d.cash";
     "d100.net";
-    "d1b183sg0nvnuh.cloudfront.net";
-    "d1c37gjwa26taa.cloudfront.net";
     "d2bay.com";
     "d2pass.com";
-    "d3c33hcgiwev3.cloudfront.net";
-    "d3rhr7kgmtrq1v.cloudfront.net";
     "dabr.co.uk";
     "dabr.eu";
     "dabr.me";
@@ -1352,6 +1378,7 @@
     "dcard.tw";
     "dcmilitary.com";
     "ddc.com.tw";
+    "ddex.io";
     "ddhw.info";
     "ddns.info";
     "ddns.me.uk";
@@ -1366,6 +1393,7 @@
     "deaftone.com";
     "debug.com";
     "deck.ly";
+    "deck.new";
     "decodet.co";
     "deepai.org";
     "deepmind.com";
@@ -1451,6 +1479,7 @@
     "dnsrd.com";
     "dnssec.net";
     "dnvod.tv";
+    "doc.new";
     "docker.com";
     "docker.io";
     "docs.new";
@@ -1478,8 +1507,10 @@
     "dotvpn.com";
     "doub.io";
     "doubibackup.com";
+    "doubiyunbackup.com";
     "doublethinklab.org";
     "doubmirror.cf";
+    "douchi.space";
     "dougscripts.com";
     "douhokanko.net";
     "doujincafe.com";
@@ -1487,6 +1518,7 @@
     "download.aircrack-ng.org";
     "download.cnet.com";
     "dphk.org";
+    "dpool.top";
     "dpp.org.tw";
     "dpr.info";
     "dragonex.io";
@@ -1591,6 +1623,7 @@
     "edoors.com";
     "edubridge.com";
     "edupro.org";
+    "edx-cdn.org";
     "eeas.europa.eu";
     "eesti.ee";
     "eevpn.com";
@@ -1638,6 +1671,7 @@
     "epochtimes.co.il";
     "epochtimes.co.kr";
     "epochtimes.com";
+    "epochtimes.com.tw";
     "epochtimes.cz";
     "epochtimes.de";
     "epochtimes.fr";
@@ -1676,6 +1710,7 @@
     "etaiwannews.com";
     "etherdelta.com";
     "ethermine.org";
+    "etherscan.com";
     "etherscan.io";
     "etizer.org";
     "etokki.com";
@@ -1690,6 +1725,7 @@
     "eurekavpt.com";
     "euronews.com";
     "evchk.wikia.com";
+    "everipedia.org";
     "evschool.net";
     "exam.gov.tw";
     "exblog.jp";
@@ -1867,6 +1903,7 @@
     "flecheinthepeche.fr";
     "fleshbot.com";
     "fleursdeslettres.com";
+    "flexpool.io";
     "flgg.us";
     "flgjustice.org";
     "flickr.com";
@@ -1879,6 +1916,7 @@
     "flnet.org";
     "flog.tw";
     "flowhongkong.net";
+    "flypool.org";
     "flyvpn.com";
     "flyzy2005.com";
     "fnac.be";
@@ -1893,6 +1931,8 @@
     "fooooo.com";
     "foreignaffairs.com";
     "foreignpolicy.com";
+    "form.new";
+    "forms.new";
     "forum.baby-kingdom.com";
     "forum.cyberctm.com";
     "forum.idsam.com";
@@ -1966,11 +2006,13 @@
     "freenewscn.com";
     "freeopenvpn.com";
     "freeoz.org";
+    "freess.org";
     "freessh.us";
     "freetcp.com";
     "freetibet.net";
     "freetibet.org";
     "freetibetanheroes.org";
+    "freetls.fastly.net";
     "freetribe.me";
     "freeviewmovies.com";
     "freevpn.me";
@@ -1988,6 +2030,7 @@
     "friendfeed.com";
     "friends-of-tibet.org";
     "friendsoftibet.org";
+    "fril.jp";
     "fring.com";
     "fringenetwork.com";
     "from-pr.com";
@@ -2006,6 +2049,7 @@
     "ftvnews.com.tw";
     "ftx.com";
     "fucd.com";
+    "fuchsia.dev";
     "fuckcnnic.net";
     "fuckgfw.org";
     "fulione.com";
@@ -2118,7 +2162,6 @@
     "getsync.com";
     "gettr.com";
     "gettrials.com";
-    "gettyimages.com";
     "getuploader.com";
     "gfbv.de";
     "gfgold.com.hk";
@@ -2126,6 +2169,7 @@
     "gfw.org.ua";
     "gfw.press";
     "gfw.report";
+    "gfwatch.org";
     "ggpht.com";
     "ggssl.com";
     "ghidra-sre.org";
@@ -2141,6 +2185,7 @@
     "github.blog";
     "github.com";
     "github.io";
+    "githubassets.com";
     "githubcopilot.com";
     "githubusercontent.com";
     "gizlen.net";
@@ -2148,6 +2193,7 @@
     "glarity.app";
     "glass8.eu";
     "global.bing.com";
+    "global.ssl.fastly.net";
     "globaljihad.net";
     "globalmediaoutreach.com";
     "globalmuseumoncommunism.org";
@@ -2173,6 +2219,7 @@
     "go-to-zlibrary.se";
     "go.nesnode.com";
     "go141.com";
+    "go5.dev";
     "goagent.biz";
     "goagent.codeplex.com";
     "goagentplus.com";
@@ -2407,7 +2454,6 @@
     "google.vg";
     "google.vu";
     "google.ws";
-    "googleapis.cn";
     "googleapis.com";
     "googleapps.com";
     "googlearth.com";
@@ -2532,6 +2578,7 @@
     "haijiao.com";
     "haiwaikan.com";
     "hakkatv.org.tw";
+    "halktv.com.tr";
     "handcraftedsoftware.org";
     "hanime.tv";
     "hanunyi.com";
@@ -2610,6 +2657,7 @@
     "himemix.net";
     "hitbtc.com";
     "hitomi.la";
+    "hiveon.net";
     "hiwifi.com";
     "hizb-ut-tahrir.info";
     "hizb-ut-tahrir.org";
@@ -2782,6 +2830,7 @@
     "huobi.me";
     "huobi.pro";
     "huobi.sc";
+    "huobipool.com";
     "huobipro.com";
     "huping.net";
     "hurgokbayrak.com";
@@ -2843,6 +2892,7 @@
     "ifanqiang.com";
     "ifcss.org";
     "ifjc.org";
+    "ifreechina.wordpress.com";
     "ifreewares.com";
     "ift.tt";
     "igcd.net";
@@ -2886,11 +2936,13 @@
     "imgmega.com";
     "imgur.com";
     "imkev.com";
+    "imlive.co";
     "imlive.com";
     "immigration.gov.tw";
     "immoral.jp";
     "impact.org.au";
     "impp.mn";
+    "improd.works";
     "in-disguise.com";
     "in99.org";
     "incapdns.net";
@@ -2925,6 +2977,7 @@
     "internetpopculture.com";
     "inthenameofconfuciusmovie.com";
     "investigating.wordpress.com";
+    "invidio.us";
     "inxian.com";
     "iownyour.biz";
     "iownyour.org";
@@ -3017,6 +3070,7 @@
     "japantimes.co.jp";
     "jav.com";
     "jav101.com";
+    "jav321.com";
     "jav68.tv";
     "javakiba.org";
     "javbus.com";
@@ -3102,7 +3156,9 @@
     "justfreevpn.com";
     "justhost.ru";
     "justicefortenzin.org";
+    "justmysocks.net";
     "justmysocks1.net";
+    "justmysockscn.com";
     "justpaste.it";
     "justtristan.com";
     "juyuange.org";
@@ -3121,6 +3177,7 @@
     "kaiyuan.de";
     "kakao.com";
     "kalachakralugano.org";
+    "kanald.com.tr";
     "kankan.today";
     "kannewyork.com";
     "kanshifang.com";
@@ -3159,6 +3216,7 @@
     "kineox.free.fr";
     "kingdomsalvation.org";
     "kinghost.com";
+    "kingkong.com.tw";
     "kingstone.com.tw";
     "kink.com";
     "kinmen.org.tw";
@@ -3307,6 +3365,7 @@
     "listentoyoutube.com";
     "listorious.com";
     "lists.w3.org";
+    "litenews.hk";
     "liu-xiaobo.org";
     "liudejun.com";
     "liuhanyu.com";
@@ -3373,6 +3432,7 @@
     "m-team.cc";
     "m.hkgalden.com";
     "m.me";
+    "m.moegirl.org";
     "m.plixi.com";
     "m.slandr.net";
     "ma.hao123.com";
@@ -3426,6 +3486,7 @@
     "maskedip.com";
     "mastodon.cloud";
     "mastodon.host";
+    "mastodon.online";
     "mastodon.social";
     "mastodon.xyz";
     "matainja.com";
@@ -3449,6 +3510,7 @@
     "mcreasite.com";
     "md-t.org";
     "me.me";
+    "me.ns.ci";
     "me.youthwant.com.tw";
     "meansys.com";
     "media.nu.nl";
@@ -3477,9 +3539,12 @@
     "memes.tw";
     "memri.org";
     "memrijttm.org";
+    "mercari.com";
+    "mercari.jp";
     "mercatox.com";
     "mercdn.net";
     "mercyprophet.org";
+    "mergersandinquisitions.com";
     "mergersandinquisitions.org";
     "meridian-trust.org";
     "meripet.biz";
@@ -3540,12 +3605,14 @@
     "mingshengbao.com";
     "minhhue.net";
     "miniforum.org";
+    "miningpoolhub.com";
     "ministrybooks.org";
     "minzhuhua.net";
     "minzhuzhanxian.com";
     "minzhuzhongguo.org";
     "miraheze.org";
     "miroguide.com";
+    "mirror.xyz";
     "mirrorbooks.com";
     "mirrormedia.mg";
     "missav.com";
@@ -3604,6 +3671,7 @@
     "moonbbs.com";
     "moonbingo.com";
     "moptt.tw";
+    "moresci.sale";
     "morningsun.org";
     "moroneta.com";
     "mos.ru";
@@ -3627,6 +3695,7 @@
     "msa-it.org";
     "msguancha.com";
     "msha.gov";
+    "mstdn.social";
     "mswe1.org";
     "mthruf.com";
     "mtw.tl";
@@ -3639,6 +3708,7 @@
     "mummysgold.com";
     "murmur.tw";
     "musicade.net";
+    "musixmatch.com";
     "muslimvideo.com";
     "muzi.com";
     "muzi.net";
@@ -3680,6 +3750,7 @@
     "myftp.info";
     "myftp.name";
     "myiphide.com";
+    "myjs.tw";
     "mykomica.org";
     "mylftv.com";
     "mymediarom.com";
@@ -3718,6 +3789,7 @@
     "namgyal.org";
     "namgyalmonastery.org";
     "namsisi.com";
+    "nanopool.org";
     "nanyang.com";
     "nanyangpost.com";
     "nanzao.com";
@@ -3737,6 +3809,7 @@
     "naweeklytimes.com";
     "nbcnews.com";
     "nbtvpn.com";
+    "nbyy.tv";
     "nccwatch.org.tw";
     "nch.com.tw";
     "nchrd.org";
@@ -3832,6 +3905,7 @@
     "nic.gov";
     "nicovideo.jp";
     "nighost.org";
+    "nightswatch.top";
     "nikkei.com";
     "ninecommentaries.com";
     "ninjacloak.com";
@@ -3938,6 +4012,7 @@
     "nytstyle.com";
     "nzchinese.com";
     "nzchinese.net.nz";
+    "o3o.ca";
     "oanda.com";
     "oann.com";
     "observechina.net";
@@ -3967,11 +4042,13 @@
     "okayfreedom.com";
     "okex.com";
     "okk.tw";
+    "okpool.me";
     "okx.com";
     "old-cat.net";
     "old.honeynet.org";
     "old.nabble.com";
     "olehdtv.com";
+    "olelive.com";
     "olevod.com";
     "olumpo.com";
     "olympicwatch.org";
@@ -3984,9 +4061,11 @@
     "on.cc";
     "on2.com";
     "onapp.com";
+    "onedrive.com";
     "onedrive.live.com";
     "onedumb.com";
     "onejav.com";
+    "onevps.com";
     "onion.city";
     "onion.ly";
     "online.recoveryversion.org";
@@ -4006,7 +4085,7 @@
     "oopsforum.com";
     "open.com.hk";
     "open.firstory.me";
-    "openai.com";
+    "open.spotify.com";
     "openallweb.com";
     "opendemocracy.net";
     "opendn.xyz";
@@ -4075,6 +4154,7 @@
     "paljorpublications.com";
     "paltalk.com";
     "panamapapers.sueddeutsche.de";
+    "pandafan.pub";
     "pandapow.co";
     "pandapow.net";
     "pandavpn-jp.com";
@@ -4104,6 +4184,7 @@
     "patreonusercontent.com";
     "pawoo.net";
     "paxful.com";
+    "payments-jp.amazon.com";
     "pbs.org";
     "pbwiki.com";
     "pbworks.com";
@@ -4172,18 +4253,6 @@
     "pinimg.com";
     "pinkrod.com";
     "pinoy-n.com";
-    "pinterest.at";
-    "pinterest.ca";
-    "pinterest.co.kr";
-    "pinterest.co.uk";
-    "pinterest.com";
-    "pinterest.com.mx";
-    "pinterest.de";
-    "pinterest.dk";
-    "pinterest.fr";
-    "pinterest.jp";
-    "pinterest.nl";
-    "pinterest.se";
     "pioneer-worker.forums-free.com";
     "pipii.tv";
     "piposay.com";
@@ -4229,8 +4298,10 @@
     "politicalconsultation.org";
     "politiscales.net";
     "poloniex.com";
+    "polymarket.com";
     "polymer-project.org";
     "polymerhk.com";
+    "poolbinance.com";
     "poolin.com";
     "popai.pro";
     "popo.tw";
@@ -4268,6 +4339,7 @@
     "postimg.org";
     "posts.careerengine.us";
     "potato.im";
+    "potatso.com";
     "potvpn.com";
     "pourquoi.tw";
     "power.com";
@@ -4278,6 +4350,7 @@
     "prayforchina.net";
     "premeforwindows7.com";
     "premproxy.com";
+    "presentation.new";
     "presentationzen.com";
     "presidentlee.tw";
     "prestige-av.com";
@@ -4310,6 +4383,7 @@
     "proxypy.net";
     "proxyroad.com";
     "proxytunnel.net";
+    "proxz.com";
     "proyectoclubes.com";
     "prozz.net";
     "psblog.name";
@@ -4359,6 +4433,7 @@
     "qianglie.com";
     "qiangwaikan.com";
     "qiangyou.org";
+    "qianmo.tw";
     "qidian.ca";
     "qienkuen.org";
     "qiwen.lu";
@@ -4384,7 +4459,9 @@
     "qvodzy.org";
     "qxbbs.org";
     "qz.com";
+    "r-pool.net";
     "r0.ru";
+    "r10s.jp";
     "r18.com";
     "radicalparty.org";
     "radiko.jp";
@@ -4403,6 +4480,7 @@
     "rainbowplan.org";
     "raindrop.io";
     "raizoji.or.jp";
+    "rakuten.co.jp";
     "ramcity.com.au";
     "rangwang.biz";
     "rangzen.net";
@@ -4447,6 +4525,7 @@
     "reddit.com";
     "redditlist.com";
     "redditmedia.com";
+    "redditspace.com";
     "redditstatic.com";
     "redhotlabs.com";
     "redtube.com";
@@ -4538,7 +4617,7 @@
     "s1.nudezz.com";
     "s1heng.com";
     "s1s1s1.com";
-    "s3-ap-northeast-1.amazonaws.com";
+    "s3-ap-*.amazonaws.com";
     "s3-ap-southeast-1.amazonaws.com";
     "s3-ap-southeast-2.amazonaws.com";
     "s3.amazonaws.com";
@@ -4604,6 +4683,7 @@
     "secure.hustler.com";
     "secure.logmein.com";
     "secure.raxcdn.com";
+    "secure.shadowsocks.nu";
     "secureservercdn.net";
     "securetunnel.com";
     "securityinabox.org";
@@ -4660,8 +4740,8 @@
     "shambhalasun.com";
     "shangfang.org";
     "shapeservices.com";
+    "share-videos.se";
     "share.america.gov";
-    "share.dmhy.org";
     "share.ovi.com";
     "share.youthwant.com.tw";
     "sharebee.com";
@@ -4671,6 +4751,7 @@
     "sharpdaily.tw";
     "shat-tibet.com";
     "shattered.io";
+    "sheet.new";
     "sheets.new";
     "sheikyermami.com";
     "shellfire.de";
@@ -4696,6 +4777,7 @@
     "shop2000.com.tw";
     "shopee.tw";
     "shopping.com";
+    "shopping.yahoo.co.jp";
     "showbiz.omy.sg";
     "showhaotu.com";
     "showtime.jp";
@@ -4711,7 +4793,9 @@
     "sijihuisuo.club";
     "sijihuisuo.com";
     "silkbook.com";
+    "silvergatebank.com";
     "simbolostwitter.com";
+    "simplecd.me";
     "simplecd.org";
     "simpleproductivityblog.com";
     "simpleswap.io";
@@ -4736,12 +4820,14 @@
     "sis.xxx";
     "sis001.com";
     "sis001.us";
+    "site.new";
     "site2unblock.com";
     "site90.net";
     "sitebro.tw";
     "sitekreator.com";
     "siteks.uk.to";
     "sitemaps.org";
+    "sites.new";
     "six-degrees.io";
     "sixth.biz";
     "sjrt.org";
@@ -4752,6 +4838,7 @@
     "skyvegas.com";
     "skyxvpn.com";
     "slacker.com";
+    "slashine.onl";
     "slaytizle.com";
     "sleazydream.com";
     "sleazyfork.org";
@@ -4774,7 +4861,6 @@
     "smith.edu";
     "smn.news";
     "smyxy.org";
-    "snapchat.com";
     "snapseed.com";
     "snaptu.com";
     "sndcdn.com";
@@ -4782,6 +4868,8 @@
     "snowlionpub.com";
     "sobees.com";
     "soc.mil";
+    "social.datalabour.com";
+    "social.edu.ci";
     "socialblade.com";
     "socialwhale.com";
     "socks-proxy.net";
@@ -4832,6 +4920,7 @@
     "soupofmedia.com";
     "sourceforge.net";
     "sourcewadio.com";
+    "south-plus.net";
     "south-plus.org";
     "southmongolia.org";
     "southnews.com.tw";
@@ -4842,6 +4931,7 @@
     "spankbang.com";
     "spankingtube.com";
     "spankwire.com";
+    "sparkpool.com";
     "spatial.io";
     "spb.com";
     "speakerdeck.com";
@@ -4853,10 +4943,11 @@
     "spendee.com";
     "spicevpn.com";
     "spideroak.com";
+    "spiderpool.com";
     "spike.com";
     "sports.williamhill.com";
     "spotflux.com";
-    "spotify.com";
+    "spreadsheet.new";
     "spreadshirt.es";
     "spreaker.com";
     "spring4u.info";
@@ -4883,6 +4974,8 @@
     "sspro.ml";
     "ssr.tools";
     "ssrshare.com";
+    "ssrshare.us";
+    "ssrtool.com";
     "sss.camp";
     "sstm.moe";
     "sstmlt.moe";
@@ -4906,6 +4999,7 @@
     "stboy.net";
     "stc.com.sa";
     "steamcommunity.com";
+    "steamstatic.com";
     "steel-storm.com";
     "steemit.com";
     "steganos.com";
@@ -4920,6 +5014,7 @@
     "sto.cc";
     "stoporganharvesting.org";
     "stoptibetcrisis.net";
+    "storage.yandex.net";
     "storagenewsletter.com";
     "store.steampowered.com";
     "stories.google";
@@ -4987,6 +5082,7 @@
     "sydney.bing.com";
     "sydneytoday.com";
     "sylfoundation.org";
+    "synapse.org";
     "syncback.com";
     "synergyse.com";
     "syosetu.com";
@@ -5047,6 +5143,7 @@
     "taolun.info";
     "tapanwap.com";
     "tapatalk.com";
+    "tardigrade.io";
     "tarr.uspto.gov";
     "tascn.com.au";
     "taup.net";
@@ -5106,6 +5203,7 @@
     "tenzinpalmo.com";
     "terabox.com";
     "tew.org";
+    "textnow.com";
     "textnow.me";
     "tfc-taiwan.org.tw";
     "tfhub.dev";
@@ -5289,6 +5387,7 @@
     "tiny.cc";
     "tinychat.com";
     "tinypaste.com";
+    "tinyurl.com";
     "tipas.net";
     "tipo.gov.tw";
     "tistory.com";
@@ -5309,6 +5408,8 @@
     "to-porno.com";
     "togetter.com";
     "toh.info";
+    "token.im";
+    "tokenlon.im";
     "tokyo-247.com";
     "tokyo-hot.com";
     "tokyo-porn-tube.com";
@@ -5337,6 +5438,7 @@
     "torguard.net";
     "torlock.com";
     "torproject.org";
+    "torrentgalaxy.to";
     "torrentkitty.tv";
     "torrentprivacy.com";
     "torrentproject.se";
@@ -5346,6 +5448,7 @@
     "torvpn.com";
     "tosh.comedycentral.com";
     "totalvpn.com";
+    "tou.tv";
     "toutiaoabc.com";
     "towngain.com";
     "toypark.in";
@@ -5407,6 +5510,7 @@
     "tumutanzi.com";
     "tumview.com";
     "tunein.com";
+    "tunein.streamguys1.com";
     "tunnelbear.com";
     "tunnelblick.net";
     "tunnelr.com";
@@ -5433,7 +5537,6 @@
     "tw-npo.org";
     "tw.gigacircle.com";
     "tw.hao123.com";
-    "tw.iqiyi.com";
     "tw.jiepang.com";
     "tw.streetvoice.com";
     "tw.tomonews.net";
@@ -5524,6 +5627,7 @@
     "twitvid.com";
     "twitzap.com";
     "twiyia.com";
+    "twkan.com";
     "twnorth.org.tw";
     "twreporter.org";
     "twskype.com";
@@ -5588,6 +5692,7 @@
     "unitedsocialpress.com";
     "unix100.com";
     "unknownspace.org";
+    "unmineable.com";
     "unodedos.com";
     "unpo.org";
     "unseen.is";
@@ -5638,6 +5743,7 @@
     "uu-gg.com";
     "uujiasu.com";
     "uukanshu.com";
+    "uupool.cn";
     "uvwxyz.xyz";
     "uwants.com";
     "uwants.net";
@@ -5655,6 +5761,7 @@
     "uygur.fc2web.com";
     "uygur.org";
     "uymaarip.com";
+    "v2.help";
     "v2ex.com";
     "v2fly.org";
     "v2ray.com";
@@ -5686,6 +5793,7 @@
     "versavpn.com";
     "verybs.com";
     "vevo.com";
+    "vewas.net";
     "vft.com.tw";
     "viber.com";
     "vica.info";
@@ -5707,6 +5815,7 @@
     "vidinfo.org";
     "vietdaikynguyen.com";
     "vijayatemple.org";
+    "vilanet.me";
     "vilavpn.com";
     "vimeo.com";
     "vimperator.org";
@@ -5742,6 +5851,7 @@
     "voanews.com";
     "voatibetan.com";
     "voatibetanenglish.com";
+    "vocaroo.com";
     "vocativ.com";
     "vocn.tv";
     "vocus.cc";
@@ -5806,6 +5916,7 @@
     "vtunnel.com";
     "vuku.cc";
     "vultryhw.com";
+    "w-pool.com";
     "w.idaiwan.com";
     "waffle1999.com";
     "wahas.com";
@@ -5862,6 +5973,7 @@
     "webrush.net";
     "webs-tv.net";
     "website.informer.com";
+    "website.new";
     "websitepulse.com";
     "webwarper.net";
     "webworkerdaily.com";
@@ -5945,7 +6057,6 @@
     "wikiversity.org";
     "wikivoyage.org";
     "wikiwand.com";
-    "wikiwiki.jp";
     "wiktionary.org";
     "wildammo.com";
     "williamhill.com";
@@ -5986,6 +6097,7 @@
     "woopie.jp";
     "woopie.tv";
     "wordpress.com";
+    "work2icu.org";
     "workatruna.com";
     "workerdemo.org.hk";
     "workerempowerment.org";
@@ -6031,6 +6143,7 @@
     "www.ajsands.com";
     "www.antd.org";
     "www.aolnews.com";
+    "www.bing.com";
     "www.businessinsider.com.au";
     "www.cmoinc.org";
     "www.dmm.com";
@@ -6132,6 +6245,7 @@
     "xm.com";
     "xml-training-guide.com";
     "xmovies.com";
+    "xn--11xs86f.icu";
     "xn--4gq171p.com";
     "xn--9pr62r24a.com";
     "xn--czq75pvv1aj5c.org";
@@ -6140,6 +6254,7 @@
     "xn--noss43i.com";
     "xn--oiq.cc";
     "xn--p8j9a0d9c9a.xn--q9jyb4c";
+    "xnpool.com";
     "xnxx.com";
     "xpdo.net";
     "xpud.org";
@@ -6147,6 +6262,8 @@
     "xsden.info";
     "xskywalker.com";
     "xskywalker.net";
+    "xt.com";
+    "xt.pub";
     "xtube.com";
     "xuchao.net";
     "xuchao.org";
@@ -6307,10 +6424,12 @@
     "zhenlibu1984.com";
     "zhenxiang.biz";
     "zhinengluyou.com";
+    "zhizhu.top";
     "zhongguo.ca";
     "zhongguorenquan.org";
     "zhongguotese.net";
     "zhongmeng.org";
+    "zhongzidi.com";
     "zhoushuguang.com";
     "zhreader.com";
     "zhuangbi.me";
@@ -6333,6 +6452,8 @@
     "zonghexinwen.com";
     "zonghexinwen.net";
     "zoogvpn.com";
+    "zoominfo.com";
+    "zooqle.com";
     "zootool.com";
     "zoozle.net";
     "zophar.net";
