@@ -328,6 +328,7 @@
     "aofriend.com.au";
     "aojiao.org";
     "aolchannels.aol.com";
+    "aomedia.org";
     "aomiwang.com";
     "apartmentratings.com";
     "apartments.com";
@@ -1833,7 +1834,6 @@
     "farwestchina.com";
     "fast.wistia.com";
     "fastestvpn.com";
-    "fastgpt.run";
     "fastpic.ru";
     "fastssh.com";
     "faststone.org";
@@ -4357,7 +4357,7 @@
     "powerphoto.org";
     "ppy.sh";
     "prayforchina.net";
-    "premeforwindows7.com";
+    "prcleader.org";
     "premproxy.com";
     "presentation.new";
     "presentationzen.com";

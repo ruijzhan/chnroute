@@ -324,6 +324,7 @@ aofriend.com
 aofriend.com.au
 aojiao.org
 aolchannels.aol.com
+aomedia.org
 aomiwang.com
 apartmentratings.com
 apartments.com
@@ -1829,7 +1830,6 @@ fartit.com
 farwestchina.com
 fast.wistia.com
 fastestvpn.com
-fastgpt.run
 fastpic.ru
 fastssh.com
 faststone.org
@@ -4353,7 +4353,7 @@ powercx.com
 powerphoto.org
 ppy.sh
 prayforchina.net
-premeforwindows7.com
+prcleader.org
 premproxy.com
 presentation.new
 presentationzen.com
