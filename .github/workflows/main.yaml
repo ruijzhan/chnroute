@@ -3,6 +3,9 @@ name: Daily Make and Commit
 on:
   schedule:
     - cron: '0 21 * * *'
+  push:
+    branches:
+      - master
 
 jobs:
   build:
