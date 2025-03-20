@@ -1,11 +1,14 @@
-name: Daily Make and Commit
+name: Make and Commit
 
 on:
   schedule:
-    - cron: '0 21 * * *'
+    - cron: '0 21 * * *'  # Run daily at 21:00 UTC
   push:
     branches:
       - master
+    paths-ignore:  # Avoid infinite loops from automated commits
+      - '**/*.md'
+      - 'docs/**'
 
 jobs:
   build:
@@ -13,9 +16,9 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3  # Upgraded to v3
       with:
-        fetch-depth: 1  # 只获取最近一次提交
+        fetch-depth: 1
 
     - name: Set up cache
       uses: actions/cache@v4
@@ -23,23 +26,29 @@ jobs:
         path: |
           ~/.cache
           ~/.local
-        key: ${{ runner.os }}-cache-${{ hashFiles('**/makefile') }}
+        key: ${{ runner.os }}-cache-${{ hashFiles('**/makefile') }}-${{ github.run_id }}
         restore-keys: |
+          ${{ runner.os }}-cache-${{ hashFiles('**/makefile') }}-
           ${{ runner.os }}-cache-
 
     - name: Set up environment
       run: |
-        sudo apt-get update && sudo apt-get install -y make
+        sudo apt-get update -qq && sudo apt-get install -y make
 
     - name: Run make
       run: make
+      id: make-step
 
-    - name: Commit and push if it changed
+    - name: Commit and push if changed
       run: |
-        git config --global user.email "action@github.com"
-        git config --global user.name "GitHub Action"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        
         if [ -n "$(git status --porcelain)" ]; then
           git add .
-          git commit -m 'Automated update'
+          git commit -m "Automated update: $(date +'%Y-%m-%d %H:%M:%S')"
           git push
+          echo "::notice::Changes committed and pushed"
+        else
+          echo "::notice::No changes detected, skipping commit"
         fi
