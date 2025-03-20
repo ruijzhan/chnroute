@@ -15,7 +15,7 @@ jobs:
         fetch-depth: 1  # 只获取最近一次提交
 
     - name: Set up cache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: |
           ~/.cache
