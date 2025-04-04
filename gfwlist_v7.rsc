@@ -427,6 +427,7 @@
     "auctions.yahoo.co.jp";
     "audacy.com";
     "auntology.fandom.com";
+    "auth.openai.com";
     "authorizeddns.net";
     "authorizeddns.org";
     "authorizeddns.us";
@@ -4092,6 +4093,7 @@
     "open.spotify.com";
     "openallweb.com";
     "opendemocracy.net";
+    "opendesktop.org";
     "opendn.xyz";
     "openervpn.in";
     "openid.net";
