@@ -137,35 +137,59 @@ modify_cn_rsc() {
     log_info "New file created: $output_file"
 }
 
-# download CN.rsc
-download_cn_rsc() {
-    log_info "Downloading CN.rsc..."
-    if ! curl -sS -o "$CN_RSC" -w "%{http_code}" "$CN_URL" | grep -q '^2'; then
-        log_error "Failed to download CN.rsc"
-        return 1
+# Add cleanup function
+cleanup() {
+    rm -f "$OUTPUT_GFWLIST_AUTOPROXY"
+    if [[ -n "${tmp_file:-}" ]]; then
+        rm -f "$tmp_file"
     fi
-
-    modify_cn_rsc
 }
 
-# download and decode gfwlist
-download_gfwlist() {
-    log_info "Downloading and decoding gfwlist..."
-    if ! curl -s "$GFWLIST_URL" | base64 --decode >"$OUTPUT_GFWLIST_AUTOPROXY"; then
-        log_error "Failed to download or decode gfwlist"
-        return 1
-    fi
+trap cleanup EXIT
 
-    log_info "Decoded content saved to $OUTPUT_GFWLIST_AUTOPROXY"
+# Enhanced download function with retries
+download_with_retry() {
+    local url=$1
+    local output=$2
+    local max_retries=3
+    local retry_count=0
+    
+    while ((retry_count < max_retries)); do
+        if curl -sS -o "$output" -w "%{http_code}" "$url" | grep -q '^2'; then
+            return 0
+        fi
+        ((retry_count++))
+        log_info "Retry $retry_count/$max_retries for $url"
+        sleep 2
+    done
+    return 1
 }
 
+# Parallelize downloads
+parallel_downloads() {
+    log_info "Starting parallel downloads..."
+    local cn_pid gfw_pid
+    
+    # Download CN.rsc in background
+    (download_with_retry "$CN_URL" "$CN_RSC" || log_error "Failed to download CN.rsc") &
+    cn_pid=$!
+    
+    # Download gfwlist in background
+    (curl -s "$GFWLIST_URL" | base64 --decode >"$OUTPUT_GFWLIST_AUTOPROXY" || log_error "Failed to download/decode gfwlist") &
+    gfw_pid=$!
+    
+    # Wait for both downloads to complete
+    wait $cn_pid && modify_cn_rsc
+    wait $gfw_pid && log_info "Decoded content saved to $OUTPUT_GFWLIST_AUTOPROXY"
+}
+
+# Update main function to use parallel downloads
 main() {
     sort_files
     run_gfwlist2dnsmasq
     create_gfwlist_rsc "v7" "$GFWLIST_V7_RSC"
     check_git_status
-    download_cn_rsc
-    download_gfwlist
+    parallel_downloads
 }
 
 main
