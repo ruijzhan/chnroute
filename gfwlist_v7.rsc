@@ -124,6 +124,7 @@
     "85st.com";
     "881903.com";
     "888.com";
+    "8888.google";
     "888poker.com";
     "89-64.org";
     "89.64.charter.constitutionalism.solutions";
@@ -1166,6 +1167,7 @@
     "cloakpoint.com";
     "cloud.dify.ai";
     "cloud.mail.ru";
+    "cloudflare-dns.com";
     "cloudflare-ipfs.com";
     "cloudfunctions.net";
     "club1069.com";
@@ -1820,6 +1822,7 @@
     "fangongheike.com";
     "fanhaodang.com";
     "fanhaolou.com";
+    "fani.com";
     "fanqiang.network";
     "fanqiang.tk";
     "fanqiangdang.com";
@@ -1839,6 +1842,7 @@
     "fastssh.com";
     "faststone.org";
     "fatbtc.com";
+    "favcomic.com";
     "fawanghuihui.org";
     "faydao.com";
     "faz.net";
@@ -2568,6 +2572,7 @@
     "gzm.tv";
     "gzone-anime.info";
     "h-china.org";
+    "h-ciyuan.com";
     "h-moe.com";
     "h1n1china.org";
     "h528.com";
@@ -3474,6 +3479,7 @@
     "mansion.com";
     "mansionpoker.com";
     "manta.com";
+    "manwa.me";
     "manyvoices.news";
     "maplew.com";
     "marc.info";
@@ -4807,6 +4813,7 @@
     "simpleproductivityblog.com";
     "simpleswap.io";
     "sinchew.com.my";
+    "sing-box.sagernet.org";
     "singaporepools.com.sg";
     "singfortibet.com";
     "singlelogin.se";
@@ -4916,6 +4923,7 @@
     "sosad.fun";
     "sosreader.com";
     "sostibet.org";
+    "sotwe.com";
     "soubory.com";
     "soul-plus.net";
     "soulcaliburhentai.net";
@@ -4978,6 +4986,7 @@
     "ssh91.com";
     "ssl.webpack.de";
     "ssl443.org";
+    "ssm.fun";
     "sspanel.net";
     "sspro.ml";
     "ssr.tools";
@@ -5273,6 +5282,7 @@
     "thlib.org";
     "thomasbernhard.org";
     "thongdreams.com";
+    "thotsbay.tv";
     "threadreaderapp.com";
     "threads.net";
     "threatchaos.com";
@@ -5770,6 +5780,7 @@
     "uygur.org";
     "uymaarip.com";
     "v2.help";
+    "v2.hysteria.network";
     "v2ex.com";
     "v2fly.org";
     "v2ray.com";
