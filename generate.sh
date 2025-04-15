@@ -148,39 +148,53 @@ cleanup() {
 trap cleanup EXIT
 
 # Enhanced download function with retries
+# Usage: download_with_retry <url> <output_file>
 download_with_retry() {
-    local url=$1
-    local output=$2
+    local url="$1"
+    local output="$2"
     local max_retries=3
     local retry_count=0
-    
     while ((retry_count < max_retries)); do
-        if curl -sS -o "$output" -w "%{http_code}" "$url" | grep -q '^2'; then
+        if curl -fsSL "$url" -o "$output"; then
+            log_info "Downloaded $url to $output"
             return 0
         fi
         ((retry_count++))
         log_info "Retry $retry_count/$max_retries for $url"
         sleep 2
     done
+    log_error "Failed to download $url after $max_retries attempts"
     return 1
 }
 
-# Parallelize downloads
+# Parallelize downloads with robust retry logic
+declare -a PARALLEL_PIDS=()
 parallel_downloads() {
     log_info "Starting parallel downloads..."
-    local cn_pid gfw_pid
-    
-    # Download CN.rsc in background
-    (download_with_retry "$CN_URL" "$CN_RSC" || log_error "Failed to download CN.rsc") &
-    cn_pid=$!
-    
-    # Download gfwlist in background
-    (curl -s "$GFWLIST_URL" | base64 --decode >"$OUTPUT_GFWLIST_AUTOPROXY" || log_error "Failed to download/decode gfwlist") &
-    gfw_pid=$!
-    
+    # Download CN.rsc in background with retry
+    download_with_retry "$CN_URL" "$CN_RSC" &
+    PARALLEL_PIDS+=("$!")
+    # Download gfwlist in background with retry and decode after download
+    (
+        local tmp_base64_file
+        tmp_base64_file="$(mktemp)"
+        if download_with_retry "$GFWLIST_URL" "$tmp_base64_file"; then
+            if base64 --decode "$tmp_base64_file" > "$OUTPUT_GFWLIST_AUTOPROXY"; then
+                log_info "Decoded content saved to $OUTPUT_GFWLIST_AUTOPROXY"
+            else
+                log_error "Failed to decode base64 for gfwlist"
+            fi
+        else
+            log_error "Failed to download gfwlist"
+        fi
+        rm -f "$tmp_base64_file"
+    ) &
+    PARALLEL_PIDS+=("$!")
     # Wait for both downloads to complete
-    wait $cn_pid && modify_cn_rsc
-    wait $gfw_pid && log_info "Decoded content saved to $OUTPUT_GFWLIST_AUTOPROXY"
+    for pid in "${PARALLEL_PIDS[@]}"; do
+        wait "$pid"
+    done
+    modify_cn_rsc
 }
 
 # Update main function to use parallel downloads
