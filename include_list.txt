@@ -1,2 +1,3 @@
+codeium.com
+codeiumdata.com
 docker.io
-x.ai

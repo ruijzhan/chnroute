@@ -1209,6 +1209,8 @@
     "cochina.co";
     "cochina.org";
     "code1984.com";
+    "codeium.com";
+    "codeiumdata.com";
     "codeshare.io";
     "codeskulptor.org";
     "cofacts.tw";
