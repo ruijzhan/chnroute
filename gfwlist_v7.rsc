@@ -41,6 +41,7 @@
     "1dumb.com";
     "1e100.net";
     "1eew.com";
+    "1lib.sk";
     "1mobile.com";
     "1mobile.tw";
     "1point3acres.com";
@@ -213,7 +214,6 @@
     "ai-kan.net";
     "ai-wen.net";
     "ai.binwang.me";
-    "ai.google";
     "aiosearch.com";
     "aiph.net";
     "airasia.com";
@@ -2223,6 +2223,7 @@
     "gmll.org";
     "gmodules.com";
     "gmozomg.izihost.org";
+    "gmp4.com";
     "gnci.org.hk";
     "gnews.org";
     "go-pki.com";
@@ -2863,6 +2864,7 @@
     "i-cable.com";
     "i-part.com.tw";
     "i-scmp.com";
+    "i.111666.best";
     "i.lithium.com";
     "i1.hk";
     "i2p2.de";
@@ -4078,6 +4080,7 @@
     "on.cc";
     "on2.com";
     "onapp.com";
+    "one.one.one.one";
     "onedrive.com";
     "onedrive.live.com";
     "onedumb.com";
@@ -4287,6 +4290,7 @@
     "pkuanvil.com";
     "placemix.com";
     "play-asia.com";
+    "play.google";
     "playboy.com";
     "playboyplus.com";
     "player.fm";
@@ -4423,6 +4427,7 @@
     "punyu.com";
     "pure18.com";
     "pureconcepts.net";
+    "puredns.org";
     "pureinsight.org";
     "purepdf.com";
     "purevpn.com";
@@ -4456,6 +4461,7 @@
     "qiwen.lu";
     "qixianglu.cn";
     "qkshare.com";
+    "qmp4.com";
     "qoos.com";
     "qpoe.com";
     "qq.co.za";
@@ -4615,10 +4621,12 @@
     "rthklive2-lh.akamaihd.net";
     "rti.org.tw";
     "rti.tw";
+    "rtm.tnt-ea.com";
     "rtycminnesota.org";
     "ruanyifeng.com";
     "rukor.org";
     "rule34.xxx";
+    "rule34video.com";
     "rumble.com";
     "runbtx.com";
     "rushbee.com";
@@ -6410,8 +6418,13 @@
     "yyjlymb.xyz";
     "yysub.net";
     "yzzk.com";
+    "z-lib.fm";
+    "z-lib.fo";
+    "z-lib.gd";
+    "z-lib.gl";
     "z-lib.io";
     "z-lib.org";
+    "z-library.sk";
     "zacebook.com";
     "zalmos.com";
     "zamimg.com";
