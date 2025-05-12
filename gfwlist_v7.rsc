@@ -214,6 +214,7 @@
     "ai-kan.net";
     "ai-wen.net";
     "ai.binwang.me";
+    "ai.google";
     "aiosearch.com";
     "aiph.net";
     "airasia.com";
@@ -3924,6 +3925,10 @@
     "nicovideo.jp";
     "nighost.org";
     "nightswatch.top";
+    "nikke-en.com";
+    "nikke-jp.com";
+    "nikke-kr.com";
+    "nikke.hotcool.tw";
     "nikkei.com";
     "ninecommentaries.com";
     "ninjacloak.com";
@@ -3957,6 +3962,7 @@
     "nordstromrack.com";
     "nordvpn.com";
     "nos.nl";
+    "notebooklm.google";
     "notepad-plus-plus.org";
     "nottinghampost.com";
     "novelasia.com";
@@ -5404,6 +5410,7 @@
     "tigervpn.com";
     "tiktok.com";
     "tiktokcdn-us.com";
+    "tiktokcdn.com";
     "tiktokv.com";
     "tiktokv.us";
     "tiltbrush.com";
