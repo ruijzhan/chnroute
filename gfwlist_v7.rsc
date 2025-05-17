@@ -521,6 +521,7 @@
     "bbs.mikocon.com";
     "bbs.morbell.com";
     "bbs.mychat.to";
+    "bbs.naixi.net";
     "bbs.netbig.com";
     "bbs.nyinfor.com";
     "bbs.ozchinese.com";
@@ -3310,6 +3311,8 @@
     "lausan.hk";
     "lbank.info";
     "ld.hao123img.com";
+    "ldplayer.net";
+    "ldplayer.tw";
     "le-vpn.com";
     "leafyvpn.net";
     "lecloud.net";
@@ -4663,6 +4666,7 @@
     "safeguarddefenders.com";
     "safervpn.com";
     "safety.google";
+    "sagernet.org";
     "saintyculture.com";
     "saiq.me";
     "sakuralive.com";
@@ -5409,6 +5413,7 @@
     "ticket.com.tw";
     "tigervpn.com";
     "tiktok.com";
+    "tiktokcdn-eu.com";
     "tiktokcdn-us.com";
     "tiktokcdn.com";
     "tiktokv.com";
