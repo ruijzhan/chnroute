@@ -1,3 +1,6 @@
+# RouterOS script for GFW domain list - Version v7
+# Source: https://github.com/ruijzhan/chnroute
+
 :global dnsserver
 /ip dns static remove [/ip dns static find forward-to=$dnsserver ]
 /ip dns static
@@ -6530,7 +6533,14 @@
     "zzcloud.me";
     "zzux.com";
 }
+
+# Add each domain to DNS static entries
 :foreach domain in=$domainList do={
     /ip dns static add forward-to=$dnsserver type=FWD address-list=gfw_list match-subdomain=yes name=$domain
 }
+
+# Flush DNS cache to apply changes
 /ip dns cache flush
+
+# Log completion
+/log info "GFW domain list updated with 6527 domains"
