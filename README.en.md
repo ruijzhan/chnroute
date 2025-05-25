@@ -2,36 +2,52 @@
 
 [![built with Codeium](https://codeium.com/badges/main)](https://codeium.com) [![Daily Make and Commit](https://github.com/ruijzhan/chnroute/actions/workflows/main.yaml/badge.svg)](https://github.com/ruijzhan/chnroute/actions/workflows/main.yaml)
 
-## Automatically Updated China IP Address and Specific Domain Lists
+## Project Overview
 
-This project provides continuously updated lists of China IP addresses and specific domains, and generates configuration scripts for RouterOS routers.
+`chnroute` is an automatically updating toolkit that provides China mainland IP address lists and specific domain lists, generating ready-to-use configuration scripts for RouterOS routers. This project implements daily automatic updates through GitHub Actions, ensuring you always have the latest network rules.
 
-### 1. Rule Updates
+### Key Features
 
-- **China IP Ranges**: Sourced from [this website](http://www.iwik.org/ipcountry/mikrotik/CN).
-- **Specific Domains**: Maintained by the [gfwlist project](https://github.com/gfwlist/gfwlist).
+- **Auto-updated China IP Address Lists**: For smart routing and traffic splitting
+- **Specific Domain Lists**: Based on gfwlist, for optimizing DNS resolution
+- **RouterOS Configuration Scripts**: Ready-to-use scripts, easily imported into MikroTik devices
 
-You can update the lists and generate RouterOS rule scripts with the following command:
+## 1. Data Sources and File Descriptions
+
+### 1.1 Data Sources
+
+- **China IP Ranges**: From [iwik.org](http://www.iwik.org/ipcountry/mikrotik/CN), allocated to mainland China by [IANA](https://www.iana.org/)
+- **Specific Domain Lists**: Maintained by the [gfwlist project](https://github.com/gfwlist/gfwlist)
+
+### 1.2 Generated Files
+
+| Filename | Description |
+|--------|------|
+| [CN.rsc](./CN.rsc) | Mainland China IPv4 address ranges, RouterOS format |
+| [CN_mem.rsc](./CN_mem.rsc) | Memory-optimized version of China IP address list |
+| [LAN.rsc](./LAN.rsc) | Internal network IPv4 address ranges |
+| [gfwlist.rsc](./gfwlist.rsc) | RouterOS DNS rule script generated from gfwlist |
+| [gfwlist_v7.rsc](./gfwlist_v7.rsc) | Optimized script for RouterOS v7.6+ (using Match Subdomains feature) |
+
+### 1.3 Custom Lists
+
+You can customize domain lists by modifying the following files:
+- `exclude_list.txt`: Domains to exclude from gfwlist
+- `include_list.txt`: Additional domains to include
+
+## 2. Usage Instructions
+
+### 2.1 Manual Rule Updates
+
+After cloning the repository, run the following command to update all lists and generate RouterOS rule scripts:
 
 ```shell
-# Update lists and generate RouterOS rule scripts
 make
 ```
 
-Generated files include:
+### 2.2 Importing and Applying China IP Ranges
 
-- **[CN.rsc](./CN.rsc)**: IPv4 address ranges for mainland China, allocated by [IANA](https://www.iana.org/).
-- **[LAN.rsc](./LAN.rsc)**: Internal network IPv4 address ranges.
-- **[gfwlist.rsc](./gfwlist.rsc)**: RouterOS script generated from gfwlist, containing specific domains.
-- **[gfwlist_v7.rsc](./gfwlist_v7.rsc)**: gfwlist script for RouterOS v7.6 and above.
-
-Before generating rules, you can manually exclude or include specific domains by modifying `exclude_list.txt` and `include_list.txt`.
-
-### 2. Importing and Applying China IP Ranges
-
-Importing China IP ranges helps configure traffic splitting. In network access optimization scenarios, you can mark traffic with destination IPs not belonging to CN or LAN lists to route through optimized network paths.
-
-#### 2.1 Importing China IP Ranges to RouterOS
+#### 2.2.1 Importing China IP Ranges to RouterOS
 
 Use the following script to import CN and LAN IP ranges into RouterOS:
 
@@ -47,21 +63,23 @@ import file-name=LAN.rsc
 file remove LAN.rsc"
 ```
 
-#### 2.2 Network Optimization Rule Configuration
+#### 2.2.2 Configuring Traffic Splitting Rules
 
-In the `PREROUTING` chain, redirect traffic with destinations not in CN to a custom chain, and configure the following rules in the custom chain:
+In RouterOS, you can set up the following rules to optimize network access:
 
-1. Match traffic with destinations in LAN, directly `RETURN`.
-2. Mark routing for remaining traffic based on connection protocol and destination port.
-3. In the routing table, direct this traffic to the optimized network gateway.
+1. In the `PREROUTING` chain, redirect traffic with destinations not in CN to a custom chain
+2. In the custom chain:
+   - Match traffic with destinations in LAN, directly `RETURN`
+   - Mark routing for other traffic based on connection protocol and destination port
+   - In the routing table, direct marked traffic to the optimized network gateway
 
-### 3. Optimizing DNS Resolution with gfwlist
+This configuration enables smart routing where domestic traffic connects directly, while international traffic is routed through optimized paths.
 
-[gfwlist](https://github.com/gfwlist/gfwlist) provides a list of specific domains. Combined with RouterOS's regex matching capabilities, you can set different DNS servers for specific domains to optimize resolution speed.
+### 2.3 Optimizing DNS Resolution with gfwlist
 
-#### 3.1 Configuring Unrestricted DNS Servers
+#### 2.3.1 Configuring Global DNS Variables
 
-Set a global variable `dnsserver` in RouterOS to specify an unrestricted DNS server (e.g., 8.8.8.8). The following script will reset the DNS server on each system startup:
+Set a global variable `dnsserver` in RouterOS to specify an alternative DNS server:
 
 ```ros
 /system scheduler
@@ -70,7 +88,7 @@ add name=envs on-event="{\r\
     \n}" policy=read,write,policy,test start-time=startup
 ```
 
-Use the following command to view environment variables:
+View environment variables:
 
 ```shell
 [admin@RouterBoard] > /system/script/environment/print 
@@ -79,9 +97,9 @@ Columns: NAME, VALUE
 0  dnsserver  8.8.8.8
 ```
 
-#### 3.2 Importing gfwlist to RouterOS
+#### 2.3.2 Importing gfwlist to RouterOS
 
-Use the following command to import the gfwlist into RouterOS:
+Use the following script to import gfwlist rules:
 
 ```ros
 /system script
@@ -92,44 +110,43 @@ add dont-require-permissions=no name=gfwlist owner=admin policy=ftp,reboot,read,
 :log warning \"gfwlist domains imported successfully\""
 ```
 
-**Note**: RouterOS v7.6 added the `Match Subdomains` option. You can import [gfwlist_v7.rsc](./gfwlist_v7.rsc) to improve resolution performance.
+> **Tip**: RouterOS v7.6+ users can import [gfwlist_v7.rsc](./gfwlist_v7.rsc) for better performance
 
-**Note**: Several thousand DNS rules may exceed the default 2M cache size. You need to set the DNS cache size to 20560KiB or larger:
+#### 2.3.3 Increasing DNS Cache Size
+
+Due to the large number of rules, you need to increase the DNS cache size:
 
 ```ros
 /ip/dns/set cache-size=20560KiB
 ```
 
-Use the following command to view imported DNS resolution rules:
+After configuration, you can view DNS settings:
 
 ```ros
 /ip/dns/static/print
 ```
 
-Example DNS settings after configuration:
+#### 2.3.4 DNS Request Redirection (Optional)
 
-```shell
-[admin@RouterBoard] > /ip/dns/print 
-                      servers: 223.5.5.5,223.6.6.6
-              dynamic-servers: 
-               use-doh-server: 
-              verify-doh-cert: no
-        allow-remote-requests: yes
-          max-udp-packet-size: 4096
-         query-server-timeout: 2s
-          query-total-timeout: 10s
-       max-concurrent-queries: 100
-  max-concurrent-tcp-sessions: 20
-                   cache-size: 20560KiB
-                cache-max-ttl: 1w
-                   cache-used: 16957KiB
-```
-
-All domain resolution requests matching the rules will be handled by the specified unrestricted DNS server (e.g., 8.8.8.8), while other domains will still be resolved by domestic DNS servers.
-
-If results from 8.8.8.8 still have issues in China, you can redirect traffic destined for 8.8.8.8 to another DNS server using the following `dst-nat` rule:
+If you need to redirect DNS requests to another server:
 
 ```ros
 /ip/firewall/nat
-add action=dst-nat chain=output comment=BuyVM dst-address=8.8.8.8 to-addresses=192.168.9.1
+add action=dst-nat chain=output comment=CustomDNS dst-address=8.8.8.8 to-addresses=192.168.9.1
 ```
+
+## 3. Automatic Update Mechanism
+
+This project implements daily automatic updates through GitHub Actions:
+
+- Automatically runs update scripts daily at 21:00 UTC (05:00 Beijing time the next day)
+- Automatically commits updated rule files to the repository
+- You can fetch the latest rules from GitHub using scheduled tasks
+
+## 4. Contributions and Feedback
+
+Contributions and feedback are welcome through [Issues](https://github.com/ruijzhan/chnroute/issues) or [Pull Requests](https://github.com/ruijzhan/chnroute/pulls).
+
+---
+
+[中文版](./README.md)

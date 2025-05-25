@@ -2,36 +2,53 @@
 
 [![built with Codeium](https://codeium.com/badges/main)](https://codeium.com) [![Daily Make and Commit](https://github.com/ruijzhan/chnroute/actions/workflows/main.yaml/badge.svg)](https://github.com/ruijzhan/chnroute/actions/workflows/main.yaml)
 
-## 自动更新的中国 IP 地址和特定域名列表
+## 项目简介
 
-本项目提供持续更新的中国 IP 地址列表和特定域名列表，并生成可用于 RouterOS 路由器的配置脚本。
+`chnroute` 是一个自动更新的工具集，提供中国大陆 IP 地址列表和特定域名列表，并为 RouterOS 路由器生成即用型配置脚本。本项目通过 GitHub Actions 实现每日自动更新，确保您始终使用最新的网络规则。
 
-### 1. 规则更新
+### 主要功能
 
-- **中国 IP 网段**：来自 [此网站](http://www.iwik.org/ipcountry/mikrotik/CN)。
-- **特定域名**：由 [gfwlist 项目](https://github.com/gfwlist/gfwlist)维护。
+- **自动更新的中国 IP 地址列表**：用于智能路由和流量分流
+- **特定域名列表**：基于 gfwlist，用于优化 DNS 解析
+- **RouterOS 配置脚本**：即用型脚本，轻松导入到 MikroTik 设备
 
-您可以通过以下命令来更新列表并生成 RouterOS 规则脚本：
+## 1. 数据来源与文件说明
+
+### 1.1 数据来源
+
+- **中国 IP 网段**：来自 [iwik.org](http://www.iwik.org/ipcountry/mikrotik/CN)，由 [IANA](https://www.iana.org/) 分配的中国大陆 IP 地址段
+- **特定域名列表**：由 [gfwlist 项目](https://github.com/gfwlist/gfwlist) 维护的域名列表
+
+### 1.2 生成的文件
+
+| 文件名 | 说明 |
+|--------|------|
+| [CN.rsc](./CN.rsc) | 中国大陆 IPv4 地址段，RouterOS 格式 |
+| [CN_mem.rsc](./CN_mem.rsc) | 内存优化版中国 IP 地址列表 |
+| [LAN.rsc](./LAN.rsc) | 内网 IPv4 地址段 |
+| [gfwlist.rsc](./gfwlist.rsc) | 从 gfwlist 生成的 RouterOS DNS 规则脚本 |
+| [gfwlist_v7.rsc](./gfwlist_v7.rsc) | 适用于 RouterOS v7.6+ 版本的优化脚本（使用 Match Subdomains 功能） |
+
+### 1.3 自定义列表
+
+您可以通过修改以下文件来自定义域名列表：
+
+- `exclude_list.txt`：需要从 gfwlist 中排除的域名
+- `include_list.txt`：需要额外添加的域名
+
+## 2. 使用方法
+
+### 2.1 手动更新规则
+
+克隆仓库后，执行以下命令更新所有列表并生成 RouterOS 规则脚本：
 
 ```shell
-# 更新列表并生成 RouterOS 规则脚本
 make
 ```
 
-生成的文件包括：
+### 2.2 中国 IP 网段导入与应用
 
-- **[CN.rsc](./CN.rsc)**：中国大陆的 IPv4 地址段，由 [IANA](https://www.iana.org/) 分配。
-- **[LAN.rsc](./LAN.rsc)**：内网 IPv4 地址段。
-- **[gfwlist.rsc](./gfwlist.rsc)**：从 gfwlist 生成的 RouterOS 脚本，包含特定域名。
-- **[gfwlist_v7.rsc](./gfwlist_v7.rsc)**：适用于 RouterOS v7.6 及以上版本的 gfwlist 脚本。
-
-在生成规则前，您可以通过修改 `exclude_list.txt` 和 `include_list.txt` 手动剔除或加入特定的域名。
-
-### 2. 中国 IP 网段导入与应用
-
-导入中国 IP 网段有助于配置流量分流。在优化网络访问的场景中，可以标记目标 IP 不属于 CN 或 LAN 列表的流量，通过特定路由规则走优化的网络路线。
-
-#### 2.1 导入中国 IP 网段到 RouterOS
+#### 2.2.1 导入中国 IP 网段到 RouterOS
 
 使用以下脚本将 CN 和 LAN 的 IP 网段导入 RouterOS：
 
@@ -47,21 +64,23 @@ import file-name=LAN.rsc
 file remove LAN.rsc"
 ```
 
-#### 2.2 网络优化规则配置
+#### 2.2.2 配置流量分流规则
 
-在 `PREROUTING` 链中，将目标地址不属于 CN 的流量跳转到自定义链，并在自定义链中配置以下规则：
+在 RouterOS 中，您可以设置以下规则来优化网络访问：
 
-1. 匹配目标地址属于 LAN 的流量，直接 `RETURN`。
-2. 对剩余流量根据连接协议和目标端口标记路由。
-3. 在路由表中将这些流量指向优化网络的网关。
+1. 在 `PREROUTING` 链中，将目标地址不属于 CN 的流量跳转到自定义链
+2. 在自定义链中：
+   - 匹配目标地址属于 LAN 的流量，直接 `RETURN`
+   - 对其他流量根据连接协议和目标端口标记路由
+   - 在路由表中将标记的流量指向优化网络的网关
 
-### 3. 使用 gfwlist 优化 DNS 解析
+这种配置可以实现国内流量直连，国外流量走优化线路的智能路由方案。
 
-[gfwlist](https://github.com/gfwlist/gfwlist) 提供了特定域名列表，配合 RouterOS 的正则表达式匹配功能，可以为特定域名和其他域名设置不同的 DNS 服务器，从而优化解析速度。
+### 2.3 使用 gfwlist 优化 DNS 解析
 
-#### 3.1 配置无特殊限制的 DNS 服务器
+#### 2.3.1 配置全局 DNS 变量
 
-在 RouterOS 中设置全局变量 `dnsserver` 来指定无特殊限制的 DNS 服务器（如 8.8.8.8）。以下脚本会在每次系统启动时重新设置 DNS 服务器：
+在 RouterOS 中设置全局变量 `dnsserver` 来指定备用 DNS 服务器：
 
 ```ros
 /system scheduler
@@ -70,7 +89,7 @@ add name=envs on-event="{\r\
     \n}" policy=read,write,policy,test start-time=startup
 ```
 
-使用以下命令查看环境变量：
+查看环境变量：
 
 ```shell
 [admin@RouterBoard] > /system/script/environment/print 
@@ -79,9 +98,9 @@ Columns: NAME, VALUE
 0  dnsserver  8.8.8.8
 ```
 
-#### 3.2 导入 gfwlist 到 RouterOS
+#### 2.3.2 导入 gfwlist 到 RouterOS
 
-使用以下命令将 gfwlist 列表导入 RouterOS：
+使用以下脚本导入 gfwlist 规则：
 
 ```ros
 /system script
@@ -92,44 +111,43 @@ add dont-require-permissions=no name=gfwlist owner=admin policy=ftp,reboot,read,
 :log warning \"gfwlist 域名导入成功\""
 ```
 
-**注意**：RouterOS v7.6 版本新增了 `Match Subdomains` 选项，可导入 [gfwlist_v7.rsc](./gfwlist_v7.rsc) 以提升解析性能。
+> **提示**：RouterOS v7.6+ 用户可以导入 [gfwlist_v7.rsc](./gfwlist_v7.rsc) 以获得更好的性能
 
-**注意**：几千条 DNS 规则可能超出默认缓存 2M 的大小，需将 DNS 缓存大小设为 20560KiB 或更大：
+#### 2.3.3 增加 DNS 缓存大小
+
+由于规则数量较多，需要增加 DNS 缓存大小：
 
 ```ros
 /ip/dns/set cache-size=20560KiB
 ```
 
-使用以下命令查看导入的 DNS 解析规则：
+配置完成后，您可以查看 DNS 设置：
 
 ```ros
 /ip/dns/static/print
 ```
 
-配置后的 DNS 设置示例如下：
+#### 2.3.4 DNS 请求重定向（可选）
 
-```shell
-[admin@RouterBoard] > /ip/dns/print 
-                      servers: 223.5.5.5,223.6.6.6
-              dynamic-servers: 
-               use-doh-server: 
-              verify-doh-cert: no
-        allow-remote-requests: yes
-          max-udp-packet-size: 4096
-         query-server-timeout: 2s
-          query-total-timeout: 10s
-       max-concurrent-queries: 100
-  max-concurrent-tcp-sessions: 20
-                   cache-size: 20560KiB
-                cache-max-ttl: 1w
-                   cache-used: 16957KiB
-```
-
-所有符合规则的域名解析请求将由指定的无特殊限制 DNS 服务器（如 8.8.8.8）处理，其他域名仍由国内 DNS 服务器解析。
-
-如果国内环境中 8.8.8.8 返回的结果依然存在问题，可以通过以下 `dst-nat` 规则将目标地址为 8.8.8.8 的流量重定向到其他 DNS 服务器：
+如果需要将 DNS 请求重定向到其他服务器：
 
 ```ros
 /ip/firewall/nat
-add action=dst-nat chain=output comment=BuyVM dst-address=8.8.8.8 to-addresses=192.168.9.1
+add action=dst-nat chain=output comment=CustomDNS dst-address=8.8.8.8 to-addresses=192.168.9.1
 ```
+
+## 3. 自动更新机制
+
+本项目通过 GitHub Actions 实现每日自动更新：
+
+- 每天 UTC 21:00（北京时间次日 05:00）自动运行更新脚本
+- 自动提交更新后的规则文件到仓库
+- 您可以通过定时任务从 GitHub 获取最新规则
+
+## 4. 贡献与反馈
+
+欢迎通过 [Issues](https://github.com/ruijzhan/chnroute/issues) 或 [Pull Requests](https://github.com/ruijzhan/chnroute/pulls) 提交改进建议或反馈问题。
+
+---
+
+[English Version](./README.en.md)
