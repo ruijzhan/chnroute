@@ -2149,6 +2149,7 @@
     "geekheart.info";
     "gekikame.com";
     "gelbooru.com";
+    "gemini.google";
     "generated.photos";
     "genius.com";
     "geocities.co.jp";
@@ -6544,4 +6545,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 6528 domains"
+/log info "GFW domain list updated with 6529 domains"
