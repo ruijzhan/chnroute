@@ -164,7 +164,6 @@
     "abitno.linpie.com";
     "ablwang.com";
     "aboluowang.com";
-    "about.google";
     "about.me";
     "aboutgfw.com";
     "abs.edu";
@@ -217,7 +216,6 @@
     "ai-kan.net";
     "ai-wen.net";
     "ai.binwang.me";
-    "ai.google";
     "aiosearch.com";
     "aiph.net";
     "airasia.com";
@@ -654,7 +652,6 @@
     "blog.foolsmountain.com";
     "blog.fuckgfw233.org";
     "blog.goo.ne.jp";
-    "blog.google";
     "blog.istef.info";
     "blog.jackjia.com";
     "blog.jp";
@@ -1115,7 +1112,6 @@
     "chrlawyers.hk";
     "chrome.com";
     "chromecast.com";
-    "chromeenterprise.google";
     "chromeexperiments.com";
     "chromercise.com";
     "chromestatus.com";
@@ -1235,7 +1231,6 @@
     "colacloud.net";
     "collateralmurder.com";
     "collateralmurder.org";
-    "com.google";
     "comefromchina.com";
     "comic-mega.me";
     "commandarms.com";
@@ -1281,7 +1276,6 @@
     "creaders.net";
     "creadersnet.com";
     "creativelab5.com";
-    "crisisresponse.google";
     "cristyli.com";
     "crocotube.com";
     "crossfire.co.kr";
@@ -1422,7 +1416,6 @@
     "depositphotos.com";
     "derekhsu.homeip.net";
     "desc.se";
-    "design.google";
     "desipro.de";
     "dessci.com";
     "destiny.xfiles.to";
@@ -1482,7 +1475,6 @@
     "dmm.co.jp";
     "dns-dns.com";
     "dns-stuff.com";
-    "dns.google";
     "dns04.com";
     "dns05.com";
     "dns1.us";
@@ -1506,7 +1498,6 @@
     "dolf.org.hk";
     "dollf.com";
     "domain.club.tw";
-    "domains.google";
     "domaintoday.com.au";
     "dongtaiwang.com";
     "dongtaiwang.net";
@@ -1674,7 +1665,6 @@
     "englishpen.org";
     "enlighten.org.tw";
     "entermap.com";
-    "environment.google";
     "epa.gov.tw";
     "epac.to";
     "episcopalchurch.org";
@@ -2149,7 +2139,6 @@
     "geekheart.info";
     "gekikame.com";
     "gelbooru.com";
-    "gemini.google";
     "generated.photos";
     "genius.com";
     "geocities.co.jp";
@@ -2547,7 +2536,6 @@
     "grotty-monday.com";
     "ground.news";
     "groups.google.cn";
-    "grow.google";
     "gs-discuss.com";
     "gsearch.media";
     "gsp.target.com";
@@ -3337,7 +3325,6 @@
     "lenwhite.com";
     "leorockwell.com";
     "lerosua.org";
-    "lers.google";
     "lesoir.be";
     "letou.com";
     "letscorp.net";
@@ -3928,7 +3915,6 @@
     "nhi.gov.tw";
     "nhk-ondemand.jp";
     "nic.cz.cc";
-    "nic.google";
     "nic.gov";
     "nicovideo.jp";
     "nighost.org";
@@ -3969,7 +3955,6 @@
     "nordstromrack.com";
     "nordvpn.com";
     "nos.nl";
-    "notebooklm.google";
     "notepad-plus-plus.org";
     "nottinghampost.com";
     "novelasia.com";
@@ -4126,7 +4111,6 @@
     "openid.net";
     "openleaks.org";
     "opensea.io";
-    "opensource.google";
     "openstreetmap.org";
     "opentech.fund";
     "openvpn.net";
@@ -4209,7 +4193,6 @@
     "partypoker.com";
     "passion.com";
     "passiontimes.hk";
-    "passwords.google";
     "paste.ee";
     "pastebin.com";
     "pastie.org";
@@ -4303,7 +4286,6 @@
     "pkuanvil.com";
     "placemix.com";
     "play-asia.com";
-    "play.google";
     "playboy.com";
     "playboyplus.com";
     "player.fm";
@@ -4388,7 +4370,6 @@
     "presentationzen.com";
     "presidentlee.tw";
     "prestige-av.com";
-    "pride.google";
     "primevideo.com";
     "prism-break.org";
     "prisoneralert.com";
@@ -4569,7 +4550,6 @@
     "redtube.com";
     "referer.us";
     "reflectivecode.com";
-    "registry.google";
     "relaxbbs.com";
     "relay.com.tw";
     "relay.firefox.com";
@@ -4578,7 +4558,6 @@
     "religioustolerance.org";
     "renminbao.com";
     "renyurenquan.org";
-    "research.google";
     "resilio.com";
     "resistchina.org";
     "retweeteffect.com";
@@ -4671,7 +4650,6 @@
     "safechat.com";
     "safeguarddefenders.com";
     "safervpn.com";
-    "safety.google";
     "sagernet.org";
     "saintyculture.com";
     "saiq.me";
@@ -5062,7 +5040,6 @@
     "storage.yandex.net";
     "storagenewsletter.com";
     "store.steampowered.com";
-    "stories.google";
     "storify.com";
     "storj.io";
     "storm.mg";
@@ -5118,7 +5095,6 @@
     "surfshark.com";
     "suroot.com";
     "surrenderat20.net";
-    "sustainability.google";
     "svsfx.com";
     "swagbucks.com";
     "swissinfo.ch";
@@ -5577,7 +5553,6 @@
     "tuvpn.com";
     "tuzaijidi.com";
     "tv.com";
-    "tv.google";
     "tv.jtbc.joins.com";
     "tvants.com";
     "tvboxnow.com";
@@ -6545,4 +6520,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 6529 domains"
+/log info "GFW domain list updated with 6504 domains"
