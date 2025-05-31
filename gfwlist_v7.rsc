@@ -631,6 +631,7 @@
     "bl-doujinsouko.com";
     "blacked.com";
     "blacklogic.com";
+    "blackmagicdesign.com";
     "blackvpn.com";
     "blewpass.com";
     "blinkx.com";
@@ -6526,4 +6527,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 6510 domains"
+/log info "GFW domain list updated with 6511 domains"
