@@ -1297,6 +1297,7 @@
     "ct.org.tw";
     "ctao.org";
     "ctfriend.net";
+    "ctinews.com";
     "ctitv.com.tw";
     "ctowc.org";
     "cts.com.tw";
@@ -6527,4 +6528,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 6511 domains"
+/log info "GFW domain list updated with 6512 domains"
