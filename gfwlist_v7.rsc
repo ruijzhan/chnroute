@@ -963,6 +963,7 @@
     "cdjp.org";
     "cdn-images.mailchimp.com";
     "cdn-telegram.org";
+    "cdn.arstechnica.net";
     "cdn.assets.lfpcontent.com";
     "cdn.helixstudios.net";
     "cdn.jwplayer.com";
@@ -1123,6 +1124,7 @@
     "churchinhongkong.org";
     "chushigangdrug.ch";
     "ci-en.jp";
+    "cici.com";
     "ciciai.com";
     "cienen.com";
     "cineastentreff.de";
@@ -6528,4 +6530,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 6512 domains"
+/log info "GFW domain list updated with 6514 domains"
