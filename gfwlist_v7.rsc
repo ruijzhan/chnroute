@@ -1219,6 +1219,7 @@
     "codeshare.io";
     "codeskulptor.org";
     "cofacts.tw";
+    "coffeemanga.to";
     "coin2co.in";
     "coinbase.com";
     "coinbene.com";
@@ -6530,4 +6531,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 6514 domains"
+/log info "GFW domain list updated with 6515 domains"
