@@ -136,6 +136,7 @@
     "8z1.net";
     "9001700.com";
     "908taiwan.org";
+    "91dasai.com";
     "91porn.com";
     "91porny.com";
     "91vps.club";
@@ -6531,4 +6532,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 6515 domains"
+/log info "GFW domain list updated with 6516 domains"
