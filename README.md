@@ -57,6 +57,7 @@ make
 #### 2.1.1 依赖项
 
 脚本需要以下依赖：
+
 - bash
 - curl 或 wget
 - awk
@@ -176,7 +177,7 @@ add interval=1d name=update_chnroute on-event="/system script run cn\r\n/system 
 
 ## 4. 项目结构
 
-```
+```text
 .
 ├── .github/workflows/  # GitHub Actions 工作流配置
 ├── CN.rsc             # 中国大陆 IP 地址段 RouterOS 脚本
@@ -209,6 +210,7 @@ A: 检查您的 DNS 服务器配置，确保 `$dnsserver` 变量指向可靠的 
 **Q: 如何验证规则是否生效？**
 
 A: 在 RouterOS 中运行以下命令查看已加载的规则：
+
 ```ros
 /ip dns static print count-only
 ```
