@@ -3366,6 +3366,7 @@
     "line.naver.jp";
     "linear-abematv.akamaized.net";
     "linglingfa.com";
+    "lingualeo.com";
     "lingvodics.com";
     "link-o-rama.com";
     "linkedin.com";
@@ -6532,4 +6533,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 6516 domains"
+/log info "GFW domain list updated with 6517 domains"
