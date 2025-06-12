@@ -1270,6 +1270,7 @@
     "coursehero.com";
     "coze.com";
     "cpj.org";
+    "cpu-monkey.com";
     "cq99.us";
     "crackle.com";
     "crazypool.org";
@@ -2856,7 +2857,6 @@
     "huyandex.com";
     "hwadzan.tw";
     "hwayue.org.tw";
-    "hwinfo.com";
     "hxwk.org";
     "hxwq.org";
     "hybrid-analysis.com";
