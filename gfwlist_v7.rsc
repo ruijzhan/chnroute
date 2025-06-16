@@ -3688,6 +3688,7 @@
     "onmypc.org";
     "onthehunt.com";
     "ontrac.com";
+    "oojj.de";
     "open.com.hk";
     "open.firstory.me";
     "openai.com";
@@ -5872,4 +5873,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5856 domains"
+/log info "GFW domain list updated with 5857 domains"
