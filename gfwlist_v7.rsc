@@ -1747,6 +1747,7 @@
     "focusvpn.com";
     "fofg.org";
     "fooooo.com";
+    "forbes.com";
     "foreignaffairs.com";
     "foreignpolicy.com";
     "form.new";
@@ -5877,4 +5878,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5861 domains"
+/log info "GFW domain list updated with 5862 domains"
