@@ -359,6 +359,7 @@
     "artofpeacefoundation.org";
     "artstation.com";
     "artsy.net";
+    "arvanstorage.ir";
     "asacp.org";
     "asdfg.jp";
     "asg.to";
@@ -2270,6 +2271,7 @@
     "gotquestions.org";
     "gotrusted.com";
     "gotw.ca";
+    "gov.ir";
     "gov.taipei";
     "gov.tw";
     "gr8domain.biz";
@@ -2709,7 +2711,9 @@
     "iptv.com.tw";
     "iptvbin.com";
     "ipvanish.com";
+    "irangov.ir";
     "iredmail.org";
+    "irna.ir";
     "ironpython.net";
     "ironsocket.com";
     "is-a-hunter.com";
@@ -3944,6 +3948,7 @@
     "premproxy.com";
     "presentation.new";
     "presentationzen.com";
+    "president.ir";
     "presidentlee.tw";
     "prestige-av.com";
     "primevideo.com";
@@ -5879,4 +5884,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5863 domains"
+/log info "GFW domain list updated with 5868 domains"
