@@ -928,7 +928,6 @@
     "chenshan20042005.wordpress.com";
     "cherrysave.com";
     "chhongbi.org";
-    "chicagoncmtv.com";
     "china-mmm.jp.net";
     "china-mmm.net";
     "china-review.com.ua";
@@ -1796,8 +1795,6 @@
     "freedominfonetweb.wordpress.com";
     "freedomsherald.org";
     "freeforums.org";
-    "freefq.com";
-    "freefuckvids.com";
     "freegao.com";
     "freehongkong.org";
     "freeilhamtohti.org";
@@ -4059,6 +4056,7 @@
     "radioline.co";
     "radiovaticana.org";
     "radiovncr.com";
+    "radmin-vpn.com";
     "rael.org";
     "raggedbanner.com";
     "raidcall.com.tw";
@@ -5884,4 +5882,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5868 domains"
+/log info "GFW domain list updated with 5866 domains"
