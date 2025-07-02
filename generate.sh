@@ -29,21 +29,28 @@ readonly OUTPUT_GFWLIST_AUTOPROXY="gfwlist_autoproxy.txt"
 readonly TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "${TMP_DIR}"' EXIT
 
-# Logging functions with timestamps
+# Color definitions for logging
+COLOR_RESET='\033[0m'
+COLOR_RED='\033[0;31m'
+COLOR_GREEN='\033[0;32m'
+COLOR_YELLOW='\033[1;33m'
+COLOR_BLUE='\033[0;34m'
+
+# Logging functions with timestamps and colors
 log_info() {
-    printf "[%s] [INFO] %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$1"
+    printf "[%s] ${COLOR_BLUE}[INFO]${COLOR_RESET} %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$1"
 }
 
 log_error() {
-    printf "[%s] [ERROR] %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$1" >&2
+    printf "[%s] ${COLOR_RED}[ERROR]${COLOR_RESET} %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$1" >&2
 }
 
 log_warn() {
-    printf "[%s] [WARN] %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$1" >&2
+    printf "[%s] ${COLOR_YELLOW}[WARN]${COLOR_RESET} %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$1" >&2
 }
 
 log_success() {
-    printf "[%s] [SUCCESS] %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$1"
+    printf "[%s] ${COLOR_GREEN}[SUCCESS]${COLOR_RESET} %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$1"
 }
 
 # Sort and validate domain lists
