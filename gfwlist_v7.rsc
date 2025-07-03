@@ -1356,6 +1356,7 @@
     "dongtaiwang.net";
     "dongyangjing.com";
     "dontfilter.us";
+    "doom9.org";
     "doosho.com";
     "doourbest.org";
     "dorjeshugden.com";
@@ -5883,4 +5884,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5867 domains"
+/log info "GFW domain list updated with 5868 domains"
