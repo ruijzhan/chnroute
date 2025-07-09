@@ -1438,6 +1438,7 @@
     "e-info.org.tw";
     "e-zone.com.hk";
     "e123.hk";
+    "e621.net";
     "earlytibet.com";
     "earthcam.com";
     "earthvpn.com";
@@ -2024,6 +2025,7 @@
     "goldenfrog.com";
     "goldstep.net";
     "goldwave.com";
+    "gollow.is";
     "gongm.in";
     "goo.gl";
     "goo.gle";
@@ -5884,4 +5886,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5868 domains"
+/log info "GFW domain list updated with 5870 domains"
