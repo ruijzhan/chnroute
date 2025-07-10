@@ -1749,6 +1749,7 @@
     "focustaiwan.tw";
     "focusvpn.com";
     "fofg.org";
+    "follow.is";
     "fooooo.com";
     "forbes.com";
     "foreignaffairs.com";
@@ -2025,7 +2026,6 @@
     "goldenfrog.com";
     "goldstep.net";
     "goldwave.com";
-    "gollow.is";
     "gongm.in";
     "goo.gl";
     "goo.gle";

@@ -1,4 +1,4 @@
 codeium.com
 codeiumdata.com
 docker.io
-gollow.is
+follow.is
