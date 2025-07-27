@@ -3096,6 +3096,7 @@
     "lsxszzg.com";
     "ltn.com.tw";
     "luckydesigner.space";
+    "ludepress.com";
     "luke54.com";
     "luke54.org";
     "lupm.org";
@@ -5718,6 +5719,7 @@
     "yam.org.tw";
     "yande.re";
     "yanghengjun.com";
+    "yangzhi.org";
     "yasni.co.uk";
     "yasukuni.or.jp";
     "yayabay.com";
@@ -5887,4 +5889,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5871 domains"
+/log info "GFW domain list updated with 5873 domains"
