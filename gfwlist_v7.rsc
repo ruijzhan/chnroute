@@ -5622,6 +5622,8 @@
     "www2.ohchr.org";
     "www2.rocketbbs.com";
     "wwwhost.biz";
+    "wxw.cat";
+    "wxw.moe";
     "wzyboy.im";
     "x-art.com";
     "x-berry.com";
@@ -5890,4 +5892,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5874 domains"
+/log info "GFW domain list updated with 5876 domains"
