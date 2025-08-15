@@ -4622,6 +4622,7 @@
     "surrenderat20.net";
     "svsfx.com";
     "swagbucks.com";
+    "swapspace.co";
     "swissinfo.ch";
     "swissvpn.net";
     "switch1.jp";
@@ -5902,4 +5903,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5886 domains"
+/log info "GFW domain list updated with 5887 domains"
