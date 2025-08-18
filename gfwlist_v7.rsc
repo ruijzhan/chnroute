@@ -1279,6 +1279,7 @@
     "demo.unlock-music.dev";
     "democrats.org";
     "demosisto.hk";
+    "deno.dev";
     "depositphotos.com";
     "desc.se";
     "desipro.de";
@@ -1347,6 +1348,7 @@
     "doc.new";
     "docker.com";
     "docker.io";
+    "docs.deno.com";
     "docs.new";
     "doctorvoice.org";
     "documentingreality.com";
@@ -1870,6 +1872,7 @@
     "furbo.org";
     "furhhdl.org";
     "furinkan.com";
+    "furrybar.com";
     "futurechinaforum.org";
     "futuremessage.org";
     "fux.com";
@@ -3449,6 +3452,7 @@
     "nationsonline.org";
     "nationwide.com";
     "naughtyamerica.com";
+    "naver.com";
     "navyfamily.navy.mil";
     "navyreserve.navy.mil";
     "naweeklytimes.com";
@@ -5906,4 +5910,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5890 domains"
+/log info "GFW domain list updated with 5894 domains"
