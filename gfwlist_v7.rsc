@@ -5159,6 +5159,7 @@
     "udn.com";
     "udn.com.tw";
     "udnbkk.com";
+    "udomain.hk";
     "uforadio.com.tw";
     "ufreevpn.com";
     "ugo.com";
@@ -5910,4 +5911,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5894 domains"
+/log info "GFW domain list updated with 5895 domains"
