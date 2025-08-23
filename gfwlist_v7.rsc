@@ -1862,6 +1862,8 @@
     "ftx.com";
     "fucd.com";
     "fuchsia.dev";
+    "fuckccp.com";
+    "fuckccp.xyz";
     "fuckgfw.org";
     "fulione.com";
     "fullerconsideration.com";
@@ -5913,4 +5915,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5897 domains"
+/log info "GFW domain list updated with 5899 domains"
