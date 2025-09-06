@@ -2718,6 +2718,7 @@
     "iphonetaiwan.org";
     "iphonix.fr";
     "ipicture.ru";
+    "ipify.org";
     "ipjetable.net";
     "ipobar.com";
     "ipoock.com";
@@ -5920,4 +5921,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5904 domains"
+/log info "GFW domain list updated with 5905 domains"
