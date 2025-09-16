@@ -2,6 +2,8 @@
 
 [![built with Codeium](https://codeium.com/badges/main)](https://codeium.com) [![Daily Make and Commit](https://github.com/ruijzhan/chnroute/actions/workflows/main.yaml/badge.svg)](https://github.com/ruijzhan/chnroute/actions/workflows/main.yaml)
 
+[English](./README.en.md)
+
 ## 项目简介
 
 `chnroute` 是一个自动更新的工具集，提供中国大陆 IP 地址列表和特定域名列表，并为 RouterOS 路由器生成即用型配置脚本。本项目通过 GitHub Actions 实现每日自动更新，确保您始终使用最新的网络规则。
@@ -234,6 +236,5 @@ A: 在 RouterOS 中运行以下命令查看已加载的规则：
 
 ---
 
-[English Version](./README.en.md)
 
 [![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
