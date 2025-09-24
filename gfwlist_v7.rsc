@@ -1177,6 +1177,7 @@
     "csw.org.uk";
     "ct.org.tw";
     "ctao.org";
+    "ctinets.com";
     "ctinews.com";
     "ctitv.com.tw";
     "ctowc.org";
@@ -2708,6 +2709,7 @@
     "internetdefenseleague.org";
     "internetfreedom.org";
     "internetpopculture.com";
+    "interseclab.org";
     "inthenameofconfuciusmovie.com";
     "investigating.wordpress.com";
     "invidio.us";
@@ -5929,4 +5931,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5913 domains"
+/log info "GFW domain list updated with 5915 domains"
