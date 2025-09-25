@@ -5545,6 +5545,7 @@
     "wikimapia.org";
     "wikimedia.org";
     "wikinews.org";
+    "wikipedia.com";
     "wikipedia.org";
     "wikisource.org";
     "wikiversity.org";
@@ -5931,4 +5932,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5915 domains"
+/log info "GFW domain list updated with 5916 domains"
