@@ -4707,8 +4707,10 @@
     "tangren.us";
     "tanks.gg";
     "taoism.net";
+    "tap.io";
     "tapanwap.com";
     "tapatalk.com";
+    "taptap.io";
     "tardigrade.io";
     "tarr.uspto.gov";
     "taup.net";
@@ -5932,4 +5934,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5916 domains"
+/log info "GFW domain list updated with 5918 domains"
