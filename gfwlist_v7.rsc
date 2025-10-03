@@ -125,6 +125,7 @@
     "91vps.club";
     "92ccav.com";
     "991.com";
+    "996.icu";
     "99btgc01.com";
     "99cn.info";
     "9bis.com";
@@ -5934,4 +5935,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5918 domains"
+/log info "GFW domain list updated with 5919 domains"
