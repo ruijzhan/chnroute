@@ -1813,6 +1813,8 @@
     "freedomsherald.org";
     "freeforums.org";
     "freegao.com";
+    "freegpt.es";
+    "freegpt.tech";
     "freehongkong.org";
     "freeilhamtohti.org";
     "freekazakhs.org";
@@ -5937,4 +5939,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5921 domains"
+/log info "GFW domain list updated with 5923 domains"
