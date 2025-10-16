@@ -759,7 +759,6 @@
     "btcbank.bank";
     "btctrade.im";
     "btdig.com";
-    "btdigg.org";
     "btguard.com";
     "btku.me";
     "btku.org";
@@ -5483,6 +5482,7 @@
     "webrtc.org";
     "webrush.net";
     "webs-tv.net";
+    "websdr.org";
     "website.informer.com";
     "website.new";
     "websitepulse.com";
@@ -5730,6 +5730,7 @@
     "xn--noss43i.com";
     "xn--oiq.cc";
     "xn--p8j9a0d9c9a.xn--q9jyb4c";
+    "xn--u2u927b.com";
     "xnpool.com";
     "xnxx.com";
     "xpdo.net";
@@ -5942,4 +5943,4 @@
 /ip dns cache flush
 
 # Log completion
-/log info "GFW domain list updated with 5926 domains"
+/log info "GFW domain list updated with 5927 domains"
