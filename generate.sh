@@ -27,30 +27,38 @@ readonly OUTPUT_GFWLIST_AUTOPROXY="gfwlist_autoproxy.txt"
 
 # Temporary files
 readonly TMP_DIR="$(mktemp -d)"
-trap 'rm -rf "${TMP_DIR}"' EXIT
 
 # Color definitions for logging
-COLOR_RESET='\033[0m'
-COLOR_RED='\033[0;31m'
-COLOR_GREEN='\033[0;32m'
-COLOR_YELLOW='\033[1;33m'
-COLOR_BLUE='\033[0;34m'
+readonly COLOR_RESET='\033[0m'
+readonly COLOR_RED='\033[0;31m'
+readonly COLOR_GREEN='\033[0;32m'
+readonly COLOR_YELLOW='\033[1;33m'
+readonly COLOR_BLUE='\033[0;34m'
 
 # Logging functions with timestamps and colors
+log_message() {
+    local color="$1"
+    local label="$2"
+    local destination="$3"
+    shift 3
+    local message="$*"
+    printf "[%s] %b%s%b %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "${color}" "${label}" "${COLOR_RESET}" "${message}" >&"${destination}"
+}
+
 log_info() {
-    printf "[%s] ${COLOR_BLUE}[INFO]${COLOR_RESET} %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$1"
+    log_message "${COLOR_BLUE}" "[INFO]" 1 "$@"
 }
 
 log_error() {
-    printf "[%s] ${COLOR_RED}[ERROR]${COLOR_RESET} %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$1" >&2
+    log_message "${COLOR_RED}" "[ERROR]" 2 "$@"
 }
 
 log_warn() {
-    printf "[%s] ${COLOR_YELLOW}[WARN]${COLOR_RESET} %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$1" >&2
+    log_message "${COLOR_YELLOW}" "[WARN]" 2 "$@"
 }
 
 log_success() {
-    printf "[%s] ${COLOR_GREEN}[SUCCESS]${COLOR_RESET} %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$1"
+    log_message "${COLOR_GREEN}" "[SUCCESS]" 1 "$@"
 }
 
 # Sort and validate domain lists
@@ -236,19 +244,16 @@ generate_cn_ip_list() {
 :local ipList {
 EOL
 
-    # Read the input file, extract IP addresses and subnets, and write them to ipList
-    # Use grep for faster pattern matching and awk for formatting
-    grep -o 'address=[0-9./]\+' "$input_file" | \
-        awk -F= '{print "    \"" $2 "\";"}' >> "$tmp_file" || {
+    # Read the input file once, extract IP addresses, and count them simultaneously
+    local ip_count
+    if ! ip_count=$(grep -o 'address=[0-9./]\+' "$input_file" \
+        | tee >(awk -F= '{printf "    \"%s\";\n", $2}' >> "$tmp_file") \
+        | wc -l | tr -d '[:space:]'); then
         log_error "Failed to extract IP addresses from $input_file"
         return 1
-    }
+    fi
 
-    # Count the number of IP addresses extracted
-    local ip_count
-    ip_count=$(grep -c '"[0-9./]\+";' "$tmp_file" || echo 0)
-    
-    if [ "$ip_count" -eq 0 ]; then
+    if [ -z "$ip_count" ] || [ "$ip_count" -eq 0 ]; then
         log_error "No IP addresses found in $input_file"
         return 1
     fi
@@ -303,12 +308,9 @@ modify_cn_rsc() {
     return 0
 }
 
-# Enhanced cleanup function to remove all temporary files
+# Enhanced cleanup function to remove all temporary files and directories
 cleanup() {
     log_info "Cleaning up temporary files..."
-    
-    # The TMP_DIR is already set to be removed by the trap at the top of the script
-    # This function handles any additional cleanup needed
     
     # List of specific files to clean up
     local files_to_clean=("$OUTPUT_GFWLIST_AUTOPROXY")
@@ -320,6 +322,8 @@ cleanup() {
             log_info "Removed temporary file: $file"
         fi
     done
+
+    rm -rf "$TMP_DIR"
 }
 
 trap cleanup EXIT
@@ -362,12 +366,12 @@ download_with_retry() {
 }
 
 # Parallelize downloads with robust retry logic and improved error handling
-declare -a PARALLEL_PIDS=()
 parallel_downloads() {
     log_info "Starting parallel downloads..."
     local download_success=true
     local cn_success=false
     local gfwlist_success=false
+    local -a parallel_pids=()
     
     # Create a named pipe for status updates
     local status_pipe="${TMP_DIR}/status_pipe"
@@ -381,7 +385,7 @@ parallel_downloads() {
             echo "cn_failed" > "$status_pipe"
         fi
     ) &
-    PARALLEL_PIDS+=("$!")
+    parallel_pids+=("$!")
     
     # Download gfwlist in background with retry and decode after download
     (
@@ -399,10 +403,10 @@ parallel_downloads() {
             echo "gfwlist_failed" > "$status_pipe"
         fi
     ) &
-    PARALLEL_PIDS+=("$!")
+    parallel_pids+=("$!")
     
     # Process status updates
-    for i in {1..2}; do
+    for ((i = 0; i < 2; i++)); do
         local status
         read -r status < "$status_pipe"
         case "$status" in
@@ -426,7 +430,7 @@ parallel_downloads() {
     done
     
     # Wait for all background processes to complete
-    for pid in "${PARALLEL_PIDS[@]}"; do
+    for pid in "${parallel_pids[@]}"; do
         wait "$pid" || download_success=false
     done
     
