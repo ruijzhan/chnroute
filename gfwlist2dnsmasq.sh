@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Name:        gfwlist2dnsmasq.sh
 # Description: A shell script which converts gfwlist into dnsmasq rules or domain lists
@@ -7,14 +7,23 @@
 # Original Website: https://github.com/cokebar
 # Modified by: ruijzhan
 
+# Fail fast and behave consistently across environments
+set -euo pipefail
+
 # Ensure consistent behavior across different environments
 export LC_ALL=POSIX
 
+# Track temporary directory for cleanup
+TMP_DIR=''
+USE_WGET=0
+BASE64_DECODE=''
+SED_ERES=''
+
 # Terminal color definitions for better readability
-COLOR_RED='\033[1;31m'
-COLOR_GREEN='\033[1;32m'
-COLOR_YELLOW='\033[1;33m'
-COLOR_RESET='\033[0m'
+readonly COLOR_RED=$'\033[1;31m'
+readonly COLOR_GREEN=$'\033[1;32m'
+readonly COLOR_YELLOW=$'\033[1;33m'
+readonly COLOR_RESET=$'\033[0m'
 
 # Print colored messages
 log_info() {
@@ -45,6 +54,15 @@ _red() {
 _yellow() {
     printf "${COLOR_YELLOW}%b${COLOR_RESET}" "$1"
 }
+
+# Remove leftovers even on unexpected exits
+cleanup() {
+    if [[ -n "${TMP_DIR:-}" && -d "$TMP_DIR" ]]; then
+        rm -rf "$TMP_DIR"
+    fi
+}
+
+trap cleanup EXIT
 
 # Display usage information and exit
 usage() {
@@ -104,27 +122,6 @@ ${COLOR_GREEN}Examples:${COLOR_RESET}
     sh gfwlist2dnsmasq.sh -d 8.8.8.8 -p 53 -s gfwlist -o gfwlist.conf
 EOF
     exit $1
-}
-
-# Clean up temporary files and exit with status code
-clean_and_exit() {
-    local exit_code=$1
-    
-    # Clean up temp files
-    log_info "Cleaning up temporary files..."
-    if [ -d "$TMP_DIR" ]; then
-        rm -rf "$TMP_DIR"
-        log_success "Temporary directory removed"
-    fi
-    
-    # Print exit message based on exit code
-    if [ $exit_code -eq 0 ]; then
-        log_success "Job completed successfully"
-    else
-        log_error "Job failed with exit code $exit_code"
-    fi
-    
-    exit $exit_code
 }
 
 # Check for required dependencies
@@ -187,13 +184,13 @@ get_args() {
     EXCLUDE_DOMAIN_FILE=''
     
     # IP address validation patterns
-    IPV4_PATTERN='^((2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)\.){3}(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)$'
-    IPV6_PATTERN='^((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:)))(%.+)?$'
+    local IPV4_PATTERN='^((2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)\.){3}(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)$'
+    local IPV6_PATTERN='^((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:)))(%.+)?$'
     
     log_info "Parsing command line arguments"
     
     # Parse command line arguments
-    while [ ${#} -gt 0 ]; do
+    while [ $# -gt 0 ]; do
         case "${1}" in
             --help | -h)
                 usage 0
@@ -208,7 +205,7 @@ get_args() {
                 log_warn "Certificate validation disabled (insecure mode)"
                 ;;
             --dns | -d)
-                if [ -z "$2" ] || [ "${2:0:1}" = "-" ]; then
+                if [ $# -lt 2 ] || [[ ${2-} == -* ]]; then
                     log_error "Missing value for DNS IP parameter"
                     usage 1
                 fi
@@ -217,7 +214,7 @@ get_args() {
                 shift
                 ;;
             --port | -p)
-                if [ -z "$2" ] || [ "${2:0:1}" = "-" ]; then
+                if [ $# -lt 2 ] || [[ ${2-} == -* ]]; then
                     log_error "Missing value for DNS port parameter"
                     usage 1
                 fi
@@ -226,7 +223,7 @@ get_args() {
                 shift
                 ;;
             --ipset | -s)
-                if [ -z "$2" ] || [ "${2:0:1}" = "-" ]; then
+                if [ $# -lt 2 ] || [[ ${2-} == -* ]]; then
                     log_error "Missing value for ipset parameter"
                     usage 1
                 fi
@@ -235,7 +232,7 @@ get_args() {
                 shift
                 ;;
             --output | -o)
-                if [ -z "$2" ] || [ "${2:0:1}" = "-" ]; then
+                if [ $# -lt 2 ] || [[ ${2-} == -* ]]; then
                     log_error "Missing value for output file parameter"
                     usage 1
                 fi
@@ -244,7 +241,7 @@ get_args() {
                 shift
                 ;;
             --extra-domain-file)
-                if [ -z "$2" ] || [ "${2:0:1}" = "-" ]; then
+                if [ $# -lt 2 ] || [[ ${2-} == -* ]]; then
                     log_error "Missing value for extra domain file parameter"
                     usage 1
                 fi
@@ -253,7 +250,7 @@ get_args() {
                 shift
                 ;;
             --exclude-domain-file)
-                if [ -z "$2" ] || [ "${2:0:1}" = "-" ]; then
+                if [ $# -lt 2 ] || [[ ${2-} == -* ]]; then
                     log_error "Missing value for exclude domain file parameter"
                     usage 1
                 fi
@@ -290,28 +287,25 @@ get_args() {
     # Validate parameters for DNSMASQ_RULES output type
     if [ "$OUT_TYPE" = "DNSMASQ_RULES" ]; then
         # Validate DNS IP
-        IPV4_TEST=$(echo "$DNS_IP" | grep -E "$IPV4_PATTERN")
-        IPV6_TEST=$(echo "$DNS_IP" | grep -E "$IPV6_PATTERN")
-        if [ "$IPV4_TEST" != "$DNS_IP" ] && [ "$IPV6_TEST" != "$DNS_IP" ]; then
+        if [[ ! $DNS_IP =~ $IPV4_PATTERN && ! $DNS_IP =~ $IPV6_PATTERN ]]; then
             log_error "Invalid DNS server IP address: $DNS_IP"
             exit 1
         fi
-        
+
         # Validate DNS port
-        if ! echo "$DNS_PORT" | grep -qE '^[0-9]+$' || [ "$DNS_PORT" -lt 1 ] || [ "$DNS_PORT" -gt 65535 ]; then
+        if ! [[ $DNS_PORT =~ ^[0-9]+$ ]] || [ "$DNS_PORT" -lt 1 ] || [ "$DNS_PORT" -gt 65535 ]; then
             log_error "Invalid DNS port: $DNS_PORT (must be between 1-65535)"
             exit 1
         fi
-        
+
         # Validate ipset name if provided
         if [ -n "$IPSET_NAME" ]; then
-            IPSET_TEST=$(echo "$IPSET_NAME" | grep -E '^\w+(,\w+)*$')
-            if [ "$IPSET_TEST" != "$IPSET_NAME" ]; then
-                log_error "Invalid ipset name: $IPSET_NAME"
-                exit 1
-            else
+            if [[ $IPSET_NAME =~ ^[[:alnum:]_]+(,[[:alnum:]_]+)*$ ]]; then
                 WITH_IPSET=1
                 log_info "Ipset rules will be generated"
+            else
+                log_error "Invalid ipset name: $IPSET_NAME"
+                exit 1
             fi
         else
             log_info "Ipset rules will not be generated"
@@ -343,41 +337,38 @@ get_args() {
 
 # Process GFWList and generate output files
 process() {
-    # Set global variables
-    BASE_URL='https://github.com/gfwlist/gfwlist/raw/master/gfwlist.txt'
-    TMP_DIR=$(mktemp -d /tmp/gfwlist2dnsmasq.XXXXXX)
-    BASE64_FILE="$TMP_DIR/base64.txt"
-    GFWLIST_FILE="$TMP_DIR/gfwlist.txt"
-    DOMAIN_TEMP_FILE="$TMP_DIR/gfwlist2domain.tmp"
-    DOMAIN_FILE="$TMP_DIR/gfwlist2domain.txt"
-    CONF_TMP_FILE="$TMP_DIR/gfwlist.conf.tmp"
-    OUT_TMP_FILE="$TMP_DIR/gfwlist.out.tmp"
-    GOOGLE_DOMAINS_FILE="$TMP_DIR/google_domains.txt"
-    BLOGSPOT_DOMAINS_FILE="$TMP_DIR/blogspot_domains.txt"
-    
+    # Prepare working paths
+    local base_url='https://github.com/gfwlist/gfwlist/raw/master/gfwlist.txt'
+    TMP_DIR=$(mktemp -d "${TMPDIR:-/tmp}/gfwlist2dnsmasq.XXXXXX")
+    local base64_file="$TMP_DIR/base64.txt"
+    local gfwlist_file="$TMP_DIR/gfwlist.txt"
+    local domain_temp_file="$TMP_DIR/gfwlist2domain.tmp"
+    local domain_file="$TMP_DIR/gfwlist2domain.txt"
+    local out_tmp_file="$TMP_DIR/gfwlist.out.tmp"
+
     # Step 1: Fetch GFWList
-    log_info "Fetching GFWList from $BASE_URL"
+    log_info "Fetching GFWList from $base_url"
     
     # Download with appropriate tool
     if [ $USE_WGET -eq 0 ]; then
-        if ! curl -s -L --connect-timeout 30 --retry 3 $CURL_EXTARG -o "$BASE64_FILE" "$BASE_URL"; then
+        if ! curl -s -L --connect-timeout 30 --retry 3 $CURL_EXTARG -o "$base64_file" "$base_url"; then
             log_error "Failed to fetch gfwlist.txt using curl"
             log_error "Please check your internet connection and TLS support"
-            clean_and_exit 2
+            exit 2
         fi
     else
-        if ! wget -q --timeout=30 --tries=3 $WGET_EXTARG -O "$BASE64_FILE" "$BASE_URL"; then
+        if ! wget -q --timeout=30 --tries=3 $WGET_EXTARG -O "$base64_file" "$base_url"; then
             log_error "Failed to fetch gfwlist.txt using wget"
             log_error "Please check your internet connection and TLS support"
-            clean_and_exit 2
+            exit 2
         fi
     fi
-    
+
     # Decode base64 content
     log_info "Decoding base64 content"
-    if ! $BASE64_DECODE "$BASE64_FILE" > "$GFWLIST_FILE"; then
+    if ! $BASE64_DECODE "$base64_file" > "$gfwlist_file"; then
         log_error "Failed to decode gfwlist.txt"
-        clean_and_exit 2
+        exit 2
     fi
     
     log_success "GFWList fetched and decoded successfully"
@@ -394,334 +385,67 @@ process() {
     
     # Extract domains using patterns
     log_info "Filtering and processing domains"
-    grep -vE "$IGNORE_PATTERN" "$GFWLIST_FILE" | \
+    set +e
+    grep -vE "$IGNORE_PATTERN" "$gfwlist_file" | \
         $SED_ERES "$HEAD_FILTER_PATTERN" | \
         $SED_ERES "$TAIL_FILTER_PATTERN" | \
         grep -E "$DOMAIN_PATTERN" | \
-        $SED_ERES "$HANDLE_WILDCARD_PATTERN" > "$DOMAIN_TEMP_FILE"
-    
+        $SED_ERES "$HANDLE_WILDCARD_PATTERN" > "$domain_temp_file"
+    local pipeline_status=$?
+    set -e
+    if [ $pipeline_status -ne 0 ]; then
+        log_warn "Domain extraction pipeline returned status $pipeline_status"
+    fi
+
     # Count extracted domains
     local extracted_count
-    extracted_count=$(wc -l < "$DOMAIN_TEMP_FILE")
+    extracted_count=$(wc -l < "$domain_temp_file")
     log_info "Extracted $extracted_count domains from GFWList"
     
-    # Step 3: Add additional domains
-    log_info "Adding additional domain lists"
-    
-    # Create Google domains file
-    cat > "$GOOGLE_DOMAINS_FILE" << 'EOL'
-google.com
-google.ad
-google.ae
-google.com.af
-google.com.ag
-google.com.ai
-google.al
-google.am
-google.co.ao
-google.com.ar
-google.as
-google.at
-google.com.au
-google.az
-google.ba
-google.com.bd
-google.be
-google.bf
-google.bg
-google.com.bh
-google.bi
-google.bj
-google.com.bn
-google.com.bo
-google.com.br
-google.bs
-google.bt
-google.co.bw
-google.by
-google.com.bz
-google.ca
-google.cd
-google.cf
-google.cg
-google.ch
-google.ci
-google.co.ck
-google.cl
-google.cm
-google.cn
-google.com.co
-google.co.cr
-google.com.cu
-google.cv
-google.com.cy
-google.cz
-google.de
-google.dj
-google.dk
-google.dm
-google.com.do
-google.dz
-google.com.ec
-google.ee
-google.com.eg
-google.es
-google.com.et
-google.fi
-google.com.fj
-google.fm
-google.fr
-google.ga
-google.ge
-google.gg
-google.com.gh
-google.com.gi
-google.gl
-google.gm
-google.gp
-google.gr
-google.com.gt
-google.gy
-google.com.hk
-google.hn
-google.hr
-google.ht
-google.hu
-google.co.id
-google.ie
-google.co.il
-google.im
-google.co.in
-google.iq
-google.is
-google.it
-google.je
-google.com.jm
-google.jo
-google.co.jp
-google.co.ke
-google.com.kh
-google.ki
-google.kg
-google.co.kr
-google.com.kw
-google.kz
-google.la
-google.com.lb
-google.li
-google.lk
-google.co.ls
-google.lt
-google.lu
-google.lv
-google.com.ly
-google.co.ma
-google.md
-google.me
-google.mg
-google.mk
-google.ml
-google.com.mm
-google.mn
-google.ms
-google.com.mt
-google.mu
-google.mv
-google.mw
-google.com.mx
-google.com.my
-google.co.mz
-google.com.na
-google.com.nf
-google.com.ng
-google.com.ni
-google.ne
-google.nl
-google.no
-google.com.np
-google.nr
-google.nu
-google.co.nz
-google.com.om
-google.com.pa
-google.com.pe
-google.com.pg
-google.com.ph
-google.com.pk
-google.pl
-google.pn
-google.com.pr
-google.ps
-google.pt
-google.com.py
-google.com.qa
-google.ro
-google.ru
-google.rw
-google.com.sa
-google.com.sb
-google.sc
-google.se
-google.com.sg
-google.sh
-google.si
-google.sk
-google.com.sl
-google.sn
-google.so
-google.sm
-google.sr
-google.st
-google.com.sv
-google.td
-google.tg
-google.co.th
-google.com.tj
-google.tk
-google.tl
-google.tm
-google.tn
-google.to
-google.com.tr
-google.tt
-google.com.tw
-google.co.tz
-google.com.ua
-google.co.ug
-google.co.uk
-google.com.uy
-google.co.uz
-google.com.vc
-google.co.ve
-google.vg
-google.co.vi
-google.com.vn
-google.vu
-google.ws
-google.rs
-google.co.za
-google.co.zm
-google.co.zw
-google.cat
-EOL
-    
-    # Create Blogspot domains file
-    cat > "$BLOGSPOT_DOMAINS_FILE" << 'EOL'
-blogspot.ca
-blogspot.co.uk
-blogspot.com
-blogspot.com.ar
-blogspot.com.au
-blogspot.com.br
-blogspot.com.by
-blogspot.com.co
-blogspot.com.cy
-blogspot.com.ee
-blogspot.com.eg
-blogspot.com.es
-blogspot.com.mt
-blogspot.com.ng
-blogspot.com.tr
-blogspot.com.uy
-blogspot.de
-blogspot.gr
-blogspot.in
-blogspot.mx
-blogspot.ch
-blogspot.fr
-blogspot.ie
-blogspot.it
-blogspot.pt
-blogspot.ro
-blogspot.sg
-blogspot.be
-blogspot.no
-blogspot.se
-blogspot.jp
-blogspot.in
-blogspot.ae
-blogspot.al
-blogspot.am
-blogspot.ba
-blogspot.bg
-blogspot.ch
-blogspot.cl
-blogspot.cz
-blogspot.dk
-blogspot.fi
-blogspot.gr
-blogspot.hk
-blogspot.hr
-blogspot.hu
-blogspot.ie
-blogspot.is
-blogspot.kr
-blogspot.li
-blogspot.lt
-blogspot.lu
-blogspot.md
-blogspot.mk
-blogspot.my
-blogspot.nl
-blogspot.no
-blogspot.pe
-blogspot.qa
-blogspot.ro
-blogspot.ru
-blogspot.se
-blogspot.sg
-blogspot.si
-blogspot.sk
-blogspot.sn
-blogspot.tw
-blogspot.ug
-blogspot.cat
-EOL
-    
-    # Add Google domains
-    cat "$GOOGLE_DOMAINS_FILE" >> "$DOMAIN_TEMP_FILE"
-    log_info "Added Google search domains"
-    
-    # Add Blogspot domains
-    cat "$BLOGSPOT_DOMAINS_FILE" >> "$DOMAIN_TEMP_FILE"
-    log_info "Added Blogspot domains"
-    
-    # Add other special domains
-    echo "twimg.edgesuite.net" >> "$DOMAIN_TEMP_FILE"
-    log_info "Added additional special domains"
-    
-    # Step 4: Apply exclude and include domain lists
+      
+    # Step 3: Apply exclude and include domain lists
     
     # Handle exclude domains if specified
     if [ -n "$EXCLUDE_DOMAIN_FILE" ]; then
         log_info "Applying exclude domain list from $EXCLUDE_DOMAIN_FILE"
-        grep -vF -f "$EXCLUDE_DOMAIN_FILE" "$DOMAIN_TEMP_FILE" > "$DOMAIN_FILE"
-        local excluded_count
-        excluded_count=$(wc -l < "$EXCLUDE_DOMAIN_FILE")
+        local before_count
+        before_count=$(wc -l < "$domain_temp_file")
+        if grep -vF -f "$EXCLUDE_DOMAIN_FILE" "$domain_temp_file" > "$domain_file"; then
+            :
+        else
+            : > "$domain_file"
+            log_warn "All domains were excluded by $EXCLUDE_DOMAIN_FILE"
+        fi
+        local after_count
+        after_count=$(wc -l < "$domain_file")
+        local excluded_count=$((before_count - after_count))
         log_info "Excluded $excluded_count domains"
     else
-        cp "$DOMAIN_TEMP_FILE" "$DOMAIN_FILE"
+        cp "$domain_temp_file" "$domain_file"
     fi
-    
+
     # Add extra domains if specified
     if [ -n "$EXTRA_DOMAIN_FILE" ]; then
         log_info "Adding extra domains from $EXTRA_DOMAIN_FILE"
-        cat "$EXTRA_DOMAIN_FILE" >> "$DOMAIN_FILE"
         local extra_count
-        extra_count=$(wc -l < "$EXTRA_DOMAIN_FILE")
-        log_info "Added $extra_count extra domains"
+        extra_count=$(grep -cv '^[[:space:]]*$' "$EXTRA_DOMAIN_FILE" || true)
+        if [ "${extra_count:-0}" -gt 0 ]; then
+            grep -v '^[[:space:]]*$' "$EXTRA_DOMAIN_FILE" >> "$domain_file" || true
+            log_info "Added $extra_count extra domains"
+        else
+            log_warn "Extra domain file $EXTRA_DOMAIN_FILE is empty after filtering"
+        fi
     fi
     
-    # Step 5: Generate output file based on output type
+    # Step 4: Generate output file based on output type
     log_info "Generating $OUT_TYPE output"
     
     # Sort and remove duplicates
-    sort -u "$DOMAIN_FILE" > "$OUT_TMP_FILE.sorted"
-    mv "$OUT_TMP_FILE.sorted" "$DOMAIN_FILE"
+    LC_ALL=POSIX sort -u "$domain_file" -o "$domain_file"
     
     # Count final domains
     local final_count
-    final_count=$(wc -l < "$DOMAIN_FILE")
+    final_count=$(wc -l < "$domain_file")
     log_info "Final domain count: $final_count"
     
     if [ "$OUT_TYPE" = "DNSMASQ_RULES" ]; then
@@ -729,7 +453,7 @@ EOL
         log_info "Generating dnsmasq rules"
         
         # Create header for the output file
-        cat > "$OUT_TMP_FILE" << EOL
+        cat > "$out_tmp_file" << EOL
 # dnsmasq rules generated by gfwlist2dnsmasq
 # Last Updated: $(date "+%Y-%m-%d %H:%M:%S")
 # Total domains: $final_count
@@ -746,25 +470,22 @@ EOL
             log_info "Including ipset rules for $IPSET_NAME"
             awk -v dns="$DNS_IP" -v port="$DNS_PORT" -v ipset="$IPSET_NAME" \
                 '{printf "server=/%s/%s#%s\nipset=/%s/%s\n", $0, dns, port, $0, ipset}' \
-                "$DOMAIN_FILE" >> "$OUT_TMP_FILE"
+                "$domain_file" >> "$out_tmp_file"
         else
             log_info "Ipset rules not included"
             awk -v dns="$DNS_IP" -v port="$DNS_PORT" \
                 '{printf "server=/%s/%s#%s\n", $0, dns, port}' \
-                "$DOMAIN_FILE" >> "$OUT_TMP_FILE"
+                "$domain_file" >> "$out_tmp_file"
         fi
     else
         # Generate simple domain list
         log_info "Generating simple domain list"
-        cp "$DOMAIN_FILE" "$OUT_TMP_FILE"
+        cp "$domain_file" "$out_tmp_file"
     fi
-    
-    # Step 6: Write to output file
-    cp "$OUT_TMP_FILE" "$OUT_FILE"
+
+    # Step 5: Write to output file
+    cp "$out_tmp_file" "$OUT_FILE"
     log_success "Successfully generated $OUT_TYPE to $OUT_FILE with $final_count domains"
-    
-    # Clean up and exit
-    clean_and_exit 0
 }
 
 # Main function to coordinate script execution
