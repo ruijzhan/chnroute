@@ -251,7 +251,6 @@ parallel_downloads() {
 
     local download_success=true
     local cn_success=false
-    local gfwlist_success=false  # Used in the case statement below
     local parallel_pids=()
 
     (
@@ -292,7 +291,6 @@ parallel_downloads() {
                     log_error "CN list download failed"
                     ;;
                 gfwlist_success)
-                    gfwlist_success=true
                     log_success "GFW list download and decode completed"
                     ;;
                 gfwlist_failed)

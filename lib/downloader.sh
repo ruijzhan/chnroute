@@ -33,7 +33,6 @@ download_with_retry() {
             --retry "$retries"
             --retry-delay "$retry_delay"
             --retry-max-time "$((timeout * DEFAULT_RETRY_MAX_TIME_FACTOR))"
-            --dns-servers "8.8.8.8,1.1.1.1"
             --keepalive-time 30
             --no-buffer
             -H "User-Agent: Mozilla/5.0 (compatible; chnroute/${SCRIPT_VERSION})"
