@@ -7,7 +7,8 @@ export LC_ALL=POSIX
 # Constants
 readonly URL="https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf"
 readonly OUTPUT_RSC="cnlist.rsc"
-readonly TMP_FILE="$(mktemp)"
+readonly TMP_FILE
+TMP_FILE="$(mktemp)"
 
 cleanup() {
     rm -f "$TMP_FILE"

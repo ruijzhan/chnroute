@@ -4,6 +4,10 @@
 # Download helpers with retry logic.
 
 download_with_retry() {
+    # Ensure proper locale for this function
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
     local url=$1
     local output=$2
     local timeout=${3:-$DEFAULT_CONNECT_TIMEOUT}
@@ -20,18 +24,30 @@ download_with_retry() {
     local curl_exit=0
 
     while (( attempt < retries )); do
-        if curl -fsSL \
-            --connect-timeout "$timeout" \
-            --max-time "$((timeout * DEFAULT_RETRY_MAX_TIME_FACTOR))" \
-            --retry "$retries" \
-            --retry-delay "$retry_delay" \
-            --retry-max-time "$((timeout * DEFAULT_RETRY_MAX_TIME_FACTOR))" \
-            --dns-servers "8.8.8.8,1.1.1.1" \
-            --keepalive-time 30 \
-            --no-buffer \
-            -H "User-Agent: Mozilla/5.0 (compatible; chnroute/${SCRIPT_VERSION})" \
-            "${extra_args[@]}" \
-            "$url" -o "$output"; then
+        # Build curl command as an array to avoid string interpolation issues
+        local curl_cmd=(
+            curl
+            -fsSL
+            --connect-timeout "$timeout"
+            --max-time "$((timeout * DEFAULT_RETRY_MAX_TIME_FACTOR))"
+            --retry "$retries"
+            --retry-delay "$retry_delay"
+            --retry-max-time "$((timeout * DEFAULT_RETRY_MAX_TIME_FACTOR))"
+            --dns-servers "8.8.8.8,1.1.1.1"
+            --keepalive-time 30
+            --no-buffer
+            -H "User-Agent: Mozilla/5.0 (compatible; chnroute/${SCRIPT_VERSION})"
+        )
+
+        # Add extra arguments if provided
+        if (( ${#extra_args[@]} > 0 )); then
+            curl_cmd+=("${extra_args[@]}")
+        fi
+
+        # Add URL and output file
+        curl_cmd+=("$url" -o "$output")
+
+        if "${curl_cmd[@]}"; then
             log_success "Downloaded ${url}"
             return 0
         fi

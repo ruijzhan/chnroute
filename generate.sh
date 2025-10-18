@@ -161,8 +161,10 @@ generate_cn_ip_list() {
         return 1
     fi
 
-    local tmp_rsc="${TMP_DIR}/processing/$(basename "$output_file")"
-    local processed_ips="${TMP_DIR}/processing/$(basename "$output_file").ips"
+    local tmp_rsc
+    local processed_ips
+    tmp_rsc="${TMP_DIR}/processing/$(basename "$output_file")"
+    processed_ips="${TMP_DIR}/processing/$(basename "$output_file").ips"
 
     cat <<EOL >"$tmp_rsc"
 /log info "Loading CN ipv4 address list"
@@ -249,7 +251,7 @@ parallel_downloads() {
 
     local download_success=true
     local cn_success=false
-    local gfwlist_success=false
+    local gfwlist_success=false  # Used in the case statement below
     local parallel_pids=()
 
     (

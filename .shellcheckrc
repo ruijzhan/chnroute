@@ -1,0 +1,2 @@
+# Shellcheck configuration for chnroute project
+disable=SC1091  # Not following library files (lib/*.sh) - they're sourced at runtime
