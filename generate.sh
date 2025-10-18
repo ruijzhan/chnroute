@@ -8,501 +8,383 @@ set -euo pipefail
 
 export LC_ALL=POSIX
 
-# Configuration constants
-readonly GFWLIST2DNSMASQ_SH="gfwlist2dnsmasq.sh"
-readonly INCLUDE_LIST_TXT="include_list.txt"
-readonly EXCLUDE_LIST_TXT="exclude_list.txt"
-readonly GFWLIST="gfwlist.txt"
-readonly LIST_NAME="gfw_list"
-readonly DNS_SERVER="\$dnsserver"
-readonly GFWLIST_V7_RSC="gfwlist_v7.rsc"
-readonly CN_RSC="CN.rsc"
-readonly CN_IN_MEM_RSC="CN_mem.rsc"
-readonly GFWLIST_CONF="03-gfwlist.conf"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LIB_DIR="${SCRIPT_DIR}/lib"
 
-# Source URLs
-readonly CN_URL="http://www.iwik.org/ipcountry/mikrotik/CN"
-readonly GFWLIST_URL="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"
-readonly OUTPUT_GFWLIST_AUTOPROXY="gfwlist_autoproxy.txt"
+# shellcheck source=lib/config.sh
+. "${LIB_DIR}/config.sh"
+# shellcheck source=lib/logger.sh
+. "${LIB_DIR}/logger.sh"
+# shellcheck source=lib/temp.sh
+. "${LIB_DIR}/temp.sh"
+# shellcheck source=lib/error.sh
+. "${LIB_DIR}/error.sh"
+# shellcheck source=lib/platform.sh
+. "${LIB_DIR}/platform.sh"
+# shellcheck source=lib/dependencies.sh
+. "${LIB_DIR}/dependencies.sh"
+# shellcheck source=lib/resources.sh
+. "${LIB_DIR}/resources.sh"
+# shellcheck source=lib/validation.sh
+. "${LIB_DIR}/validation.sh"
+# shellcheck source=lib/downloader.sh
+. "${LIB_DIR}/downloader.sh"
+# shellcheck source=lib/processor.sh
+. "${LIB_DIR}/processor.sh"
 
-# Temporary files
-readonly TMP_DIR="$(mktemp -d)"
+TMP_DIR=""
+PARALLEL_THREADS=""
 
-# Color definitions for logging
-readonly COLOR_RESET='\033[0m'
-readonly COLOR_RED='\033[0;31m'
-readonly COLOR_GREEN='\033[0;32m'
-readonly COLOR_YELLOW='\033[1;33m'
-readonly COLOR_BLUE='\033[0;34m'
-
-# Logging functions with timestamps and colors
-log_message() {
-    local color="$1"
-    local label="$2"
-    local destination="$3"
-    shift 3
-    local message="$*"
-    printf "[%s] %b%s%b %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "${color}" "${label}" "${COLOR_RESET}" "${message}" >&"${destination}"
+cleanup_artifacts() {
+    if [[ -f "${SCRIPT_DIR}/${OUTPUT_GFWLIST_AUTOPROXY}" ]]; then
+        rm -f "${SCRIPT_DIR}/${OUTPUT_GFWLIST_AUTOPROXY}"
+        log_debug "Removed artifact ${OUTPUT_GFWLIST_AUTOPROXY}"
+    fi
 }
 
-log_info() {
-    log_message "${COLOR_BLUE}" "[INFO]" 1 "$@"
-}
-
-log_error() {
-    log_message "${COLOR_RED}" "[ERROR]" 2 "$@"
-}
-
-log_warn() {
-    log_message "${COLOR_YELLOW}" "[WARN]" 2 "$@"
-}
-
-log_success() {
-    log_message "${COLOR_GREEN}" "[SUCCESS]" 1 "$@"
-}
-
-# Sort and validate domain lists
 sort_files() {
-    log_info "Sorting and validating domain lists..."
-    
-    # Check if files exist, create if they don't
-    for file in "$INCLUDE_LIST_TXT" "$EXCLUDE_LIST_TXT"; do
+    log_info "Sorting and validating custom domain lists..."
+
+    local include_path="${SCRIPT_DIR}/${INCLUDE_LIST_TXT}"
+    local exclude_path="${SCRIPT_DIR}/${EXCLUDE_LIST_TXT}"
+
+    for file in "$include_path" "$exclude_path"; do
         if [[ ! -f "$file" ]]; then
-            log_warn "$file not found, creating empty file"
-            touch "$file"
+            log_warn "$(basename "$file") not found, creating empty file"
+            : >"$file"
         fi
+
+        sort -uo "$file" "$file"
     done
-    
-    # Sort and remove duplicates
-    sort -uo "$INCLUDE_LIST_TXT" "$INCLUDE_LIST_TXT"
-    sort -uo "$EXCLUDE_LIST_TXT" "$EXCLUDE_LIST_TXT"
-    
-    # Count domains
+
+    validate_domain_list "$include_path" "Include domain list"
+    validate_domain_list "$exclude_path" "Exclude domain list"
+
     local include_count exclude_count
-    include_count=$(wc -l < "$INCLUDE_LIST_TXT")
-    exclude_count=$(wc -l < "$EXCLUDE_LIST_TXT")
-    log_info "Domain lists processed: $include_count domains to include, $exclude_count domains to exclude"
+    include_count=$(wc -l <"$include_path")
+    exclude_count=$(wc -l <"$exclude_path")
+    log_info "Include domains: ${include_count}, Exclude domains: ${exclude_count}"
 }
 
-# Run gfwlist2dnsmasq to generate gfwlist with error handling (silent mode)
 run_gfwlist2dnsmasq() {
-    log_info "Running gfwlist2dnsmasq to generate domain list..."
-    
-    # Check if gfwlist2dnsmasq.sh exists
-    if [[ ! -f "$GFWLIST2DNSMASQ_SH" ]]; then
-        log_error "$GFWLIST2DNSMASQ_SH not found"
-        return 1
-    fi
-    
-    # Check if gfwlist_autoproxy.txt exists
-    if [[ ! -f "$OUTPUT_GFWLIST_AUTOPROXY" ]]; then
-        log_error "$OUTPUT_GFWLIST_AUTOPROXY not found. Run parallel_downloads first."
-        return 1
-    fi
-    
-    # Create a log file for the output in our temp directory
+    log_info "Generating domain list via ${GFWLIST2DNSMASQ_SH}..."
+
+    local script_path="${SCRIPT_DIR}/${GFWLIST2DNSMASQ_SH}"
+    local autop_proxy="${SCRIPT_DIR}/${OUTPUT_GFWLIST_AUTOPROXY}"
+    local output_path="${SCRIPT_DIR}/${GFWLIST_TXT}"
+    local include_path="${SCRIPT_DIR}/${INCLUDE_LIST_TXT}"
+    local exclude_path="${SCRIPT_DIR}/${EXCLUDE_LIST_TXT}"
     local log_file="${TMP_DIR}/gfwlist2dnsmasq.log"
-    
-    # Run gfwlist2dnsmasq.sh with appropriate options, redirecting all output to the log file
-    if bash "$GFWLIST2DNSMASQ_SH" \
+
+    if [[ ! -f "$script_path" ]]; then
+        log_error "${GFWLIST2DNSMASQ_SH} not found under ${SCRIPT_DIR}"
+        return 1
+    fi
+
+    if [[ ! -f "$autop_proxy" ]]; then
+        log_error "${OUTPUT_GFWLIST_AUTOPROXY} not found. Run parallel downloads first."
+        return 1
+    fi
+
+    if bash "$script_path" \
         --domain-list \
-        --extra-domain-file "$INCLUDE_LIST_TXT" \
-        --exclude-domain-file "$EXCLUDE_LIST_TXT" \
-        --output "$GFWLIST" > "$log_file" 2>&1; then
-        
+        --extra-domain-file "$include_path" \
+        --exclude-domain-file "$exclude_path" \
+        --output "$output_path" >"$log_file" 2>&1; then
         local domain_count
-        domain_count=$(wc -l < "$GFWLIST")
-        log_success "Generated gfwlist with $domain_count domains"
+        domain_count=$(wc -l <"$output_path")
+        log_success "Generated ${GFWLIST_TXT} with ${domain_count} domains"
     else
         local exit_code=$?
-        log_error "Failed to generate gfwlist (exit code: $exit_code)"
-        log_error "Check log file for details: $log_file"
+        log_error "Failed to generate ${GFWLIST_TXT} (exit code ${exit_code}). See ${log_file} for details."
         return 1
     fi
 }
 
-# Create gfwlist rsc file with improved performance and error handling
 create_gfwlist_rsc() {
-    local version="$1"
-    local output_rsc="$2"
-    local input_file="$GFWLIST"
-    
-    # Check if input file exists
-    if [[ ! -f "$input_file" ]]; then
-        log_error "Input file $input_file not found"
+    local version=$1
+    local output_rsc=$2
+    local input_file="${SCRIPT_DIR}/${GFWLIST_TXT}"
+
+    if ! validate_file_exists "$input_file" "Generated domain list"; then
         return 1
     fi
-    
-    log_info "Creating RouterOS script $output_rsc for version $version..."
-    
-    # Create a temporary file in our managed temp directory
-    local tmp_file="${TMP_DIR}/$(basename "$output_rsc")"
-    
-    # Write header to the temporary file
-    cat <<EOL >"$tmp_file"
-# RouterOS script for GFW domain list - Version $version
-# Source: https://github.com/ruijzhan/chnroute
+
+    log_info "Creating RouterOS script ${output_rsc} for version ${version}..."
+
+    local tmp_rsc="${TMP_DIR}/processing/${output_rsc}"
+    local processed_domains="${TMP_DIR}/processing/${output_rsc}.domains"
+
+    process_domains_parallel "$input_file" "$processed_domains" "$PARALLEL_THREADS"
+
+    local domain_count
+    domain_count=$(wc -l <"$input_file")
+
+    cat <<EOL >"$tmp_rsc"
+# RouterOS script for GFW domain list - Version ${version}
+# Source: ${SCRIPT_REPO}
 
 :global dnsserver
-/ip dns static remove [/ip dns static find forward-to=\$dnsserver ]
+/ip dns static remove [/ip dns static find forward-to=${DNS_SERVER} ]
 /ip dns static
 :local domainList {
 EOL
-    
-    # Count domains for progress reporting
-    local domain_count
-    domain_count=$(wc -l < "$input_file")
-    log_info "Processing $domain_count domains..."
-    
-    # Process domains in batches for better performance
-    # Use awk for faster processing instead of reading line by line
-    awk '{print "    \""$0"\";"}' "$input_file" >> "$tmp_file"
-    
-    # Write footer to the temporary file
-    cat <<EOL >>"$tmp_file"
+
+    cat "$processed_domains" >>"$tmp_rsc"
+
+    cat <<EOL >>"$tmp_rsc"
 }
 
-# Add each domain to DNS static entries
 :foreach domain in=\$domainList do={
-    /ip dns static add forward-to=\$dnsserver type=FWD address-list=gfw_list match-subdomain=yes name=\$domain
+    /ip dns static add forward-to=${DNS_SERVER} type=FWD address-list=${LIST_NAME} match-subdomain=yes name=\$domain
 }
 
-# Flush DNS cache to apply changes
 /ip dns cache flush
-
-# Log completion
-/log info "GFW domain list updated with $domain_count domains"
+/log info "GFW domain list updated with ${domain_count} domains"
 EOL
-    
-    # Move the temporary file to the output file
-    mv "$tmp_file" "$output_rsc"
-    
-    log_success "Created $output_rsc with $domain_count domains"
-    return 0
+
+    mv "$tmp_rsc" "${SCRIPT_DIR}/${output_rsc}"
+    log_success "Created ${output_rsc} with ${domain_count} domains"
 }
 
-# Check if there are any changes in the git repository
-check_git_status() {
-    log_info "Checking git status..."
-    
-    # Check if we're in a git repository
-    if ! git rev-parse --is-inside-work-tree &>/dev/null; then
-        log_warn "Not in a git repository, skipping git status check"
-        return 0
-    fi
-    
-    # Check if GFWLIST_CONF exists and is tracked by git
-    if [[ ! -f "$GFWLIST_CONF" ]] || ! git ls-files --error-unmatch "$GFWLIST_CONF" &>/dev/null; then
-        log_warn "$GFWLIST_CONF is not tracked by git, skipping checkout"
-        return 0
-    fi
-    
-    # Check if there's only one change in the git repository
-    if [[ $(git status -s | wc -l) -eq 1 ]]; then
-        log_info "Only one change detected, checking out $GFWLIST_CONF"
-        if git checkout "$GFWLIST_CONF"; then
-            log_success "Successfully checked out $GFWLIST_CONF"
-        else
-            log_error "Failed to checkout $GFWLIST_CONF"
-            return 1
-        fi
-    else
-        log_info "Multiple changes detected, not checking out $GFWLIST_CONF"
-    fi
-    
-    return 0
-}
-
-# Generate CN IP list with improved error handling and performance
 generate_cn_ip_list() {
-    local input_file="$1"
-    local output_file="$2"
-    local timeout="$3"
+    local input_file=$1
+    local output_file=$2
+    local timeout=$3
 
-    # Check the number of parameters
-    if [ "$#" -ne 3 ]; then
-        log_error "Usage: generate_cn_ip_list <input file> <output file> <timeout>"
+    if [[ $# -ne 3 ]]; then
+        log_error "Usage: generate_cn_ip_list <input> <output> <timeout>"
         return 1
     fi
 
-    # Check if input file exists
-    if [ ! -f "$input_file" ]; then
-        log_error "Input file '$input_file' does not exist"
+    if ! validate_file_exists "$input_file" "RouterOS source script"; then
         return 1
     fi
 
-    log_info "Generating CN IP list from $input_file to $output_file with timeout $timeout"
+    local tmp_rsc="${TMP_DIR}/processing/$(basename "$output_file")"
+    local processed_ips="${TMP_DIR}/processing/$(basename "$output_file").ips"
 
-    # Create a temporary file in our managed temp directory
-    local tmp_file="${TMP_DIR}/$(basename "$output_file")"
-
-    # Use heredoc to write the initial part to the temporary file
-    cat <<EOL > "$tmp_file"
+    cat <<EOL >"$tmp_rsc"
 /log info "Loading CN ipv4 address list"
 /ip firewall address-list remove [/ip firewall address-list find list=CN]
 /ip firewall address-list
 :local ipList {
 EOL
 
-    # Read the input file once, extract IP addresses, and count them simultaneously
     local ip_count
-    if ! ip_count=$(grep -o 'address=[0-9./]\+' "$input_file" \
-        | tee >(awk -F= '{printf "    \"%s\";\n", $2}' >> "$tmp_file") \
-        | wc -l | tr -d '[:space:]'); then
-        log_error "Failed to extract IP addresses from $input_file"
+    if ! ip_count=$(process_ip_stream "$input_file" "$processed_ips"); then
+        log_error "Failed to parse IP addresses from ${input_file}"
         return 1
     fi
 
-    if [ -z "$ip_count" ] || [ "$ip_count" -eq 0 ]; then
-        log_error "No IP addresses found in $input_file"
+    if [[ -z "$ip_count" || "$ip_count" -eq 0 ]]; then
+        log_error "No IP addresses found in ${input_file}"
         return 1
     fi
 
-    # Write the loop part to the temporary file
-    cat <<EOL >> "$tmp_file"
+    cat "$processed_ips" >>"$tmp_rsc"
+
+    cat <<EOL >>"$tmp_rsc"
 }
 :foreach ip in=\$ipList do={
-    /ip firewall address-list add address=\$ip list=CN timeout=$timeout
+    /ip firewall address-list add address=\$ip list=CN timeout=${timeout}
 }
 EOL
 
-    # Move the temporary file to the output file
-    mv "$tmp_file" "$output_file"
-
-    log_success "CN IP list generated successfully with $ip_count IP addresses to $output_file"
-    return 0
+    mv "$tmp_rsc" "$output_file"
+    log_success "Generated ${output_file} with ${ip_count} IP addresses"
 }
 
-# Modify CN.rsc to create versions with different timeouts
 modify_cn_rsc() {
-    local input_file="$CN_RSC"
-    local output_file="$CN_IN_MEM_RSC"
-    
-    log_info "Modifying CN.rsc to create versions with different timeouts..."
-    
-    # Check if input file exists
-    if [[ ! -f "$input_file" ]]; then
-        log_error "Input file $input_file not found"
+    local input_file="${SCRIPT_DIR}/${CN_RSC}"
+    local mem_output="${SCRIPT_DIR}/${CN_MEM_RSC}"
+
+    if ! validate_file_exists "$input_file" "${CN_RSC}"; then
         return 1
     fi
-    
-    # Create in-memory version with 248-day timeout
-    log_info "Creating in-memory version with 248-day timeout: $output_file"
-    if generate_cn_ip_list "$input_file" "$output_file" "248d"; then
-        log_success "Successfully created in-memory version: $output_file"
-    else
-        log_error "Failed to create in-memory version"
-        return 1
-    fi
-    
-    # Create permanent version with 0 timeout
-    log_info "Creating permanent version with 0 timeout: $input_file"
-    if generate_cn_ip_list "$input_file" "${TMP_DIR}/$(basename "$input_file")" "0"; then
-        mv "${TMP_DIR}/$(basename "$input_file")" "$input_file"
-        log_success "Successfully updated permanent version: $input_file"
-    else
-        log_error "Failed to update permanent version"
-        return 1
-    fi
-    
-    return 0
+
+    log_info "Creating CN list variants..."
+
+    generate_cn_ip_list "$input_file" "$mem_output" "248d"
+
+    local tmp_permanent="${TMP_DIR}/cache/${CN_RSC}"
+    generate_cn_ip_list "$input_file" "$tmp_permanent" "0"
+    mv "$tmp_permanent" "$input_file"
+    log_success "Updated CN list variants"
 }
 
-# Enhanced cleanup function to remove all temporary files and directories
-cleanup() {
-    log_info "Cleaning up temporary files..."
-    
-    # List of specific files to clean up
-    local files_to_clean=("$OUTPUT_GFWLIST_AUTOPROXY")
-    
-    # Remove each file if it exists
-    for file in "${files_to_clean[@]}"; do
-        if [[ -f "$file" ]]; then
-            rm -f "$file"
-            log_info "Removed temporary file: $file"
-        fi
-    done
+check_git_status() {
+    log_info "Checking git repository status..."
 
-    rm -rf "$TMP_DIR"
-}
+    if ! git -C "$SCRIPT_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        log_warn "Not inside a git repository. Skipping git status checks."
+        return 0
+    fi
 
-trap cleanup EXIT
+    if [[ ! -f "${SCRIPT_DIR}/${GFWLIST_CONF}" ]] || ! git -C "$SCRIPT_DIR" ls-files --error-unmatch "$GFWLIST_CONF" >/dev/null 2>&1; then
+        log_warn "${GFWLIST_CONF} is not tracked by git. Skipping checkout logic."
+        return 0
+    fi
 
-# Enhanced download function with retries, timeout, and progress indication
-# Usage: download_with_retry <url> <output_file> [timeout_seconds]
-download_with_retry() {
-    local url="$1"
-    local output="$2"
-    local timeout=${3:-30}  # Default timeout: 30 seconds
-    local max_retries=3
-    local retry_count=0
-    local retry_delay=2
-    
-    log_info "Downloading $url to $output"
-    
-    while ((retry_count < max_retries)); do
-        if curl -fsSL --connect-timeout "$timeout" --retry 3 --retry-delay 2 \
-                --retry-max-time $((timeout * 2)) \
-                -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" \
-                "$url" -o "$output"; then
-            log_success "Downloaded $url to $output"
-            return 0
-        fi
-        
-        local curl_exit=$?
-        ((retry_count++))
-        
-        if [[ $retry_count -lt $max_retries ]]; then
-            log_warn "Download failed with exit code $curl_exit. Retry $retry_count/$max_retries for $url in $retry_delay seconds"
-            sleep $retry_delay
-            # Increase retry delay exponentially
-            retry_delay=$((retry_delay * 2))
+    local changes
+    changes=$(git -C "$SCRIPT_DIR" status -s | wc -l)
+    if [[ "$changes" -eq 1 ]]; then
+        log_info "Single change detected. Restoring ${GFWLIST_CONF}."
+        if git -C "$SCRIPT_DIR" checkout "$GFWLIST_CONF"; then
+            log_success "${GFWLIST_CONF} restored"
         else
-            log_error "Failed to download $url after $max_retries attempts"
+            log_error "Failed to restore ${GFWLIST_CONF}"
+            return 1
         fi
-    done
-    
-    return 1
+    else
+        log_info "Multiple changes present. Leaving git state untouched."
+    fi
 }
 
-# Parallelize downloads with robust retry logic and improved error handling
 parallel_downloads() {
     log_info "Starting parallel downloads..."
+
+    local status_pipe="${TMP_DIR}/status_pipe"
+    mkfifo "$status_pipe"
+
     local download_success=true
     local cn_success=false
     local gfwlist_success=false
-    local -a parallel_pids=()
-    
-    # Create a named pipe for status updates
-    local status_pipe="${TMP_DIR}/status_pipe"
-    mkfifo "$status_pipe"
-    
-    # Download CN.rsc in background with retry
+    local parallel_pids=()
+
     (
-        if download_with_retry "$CN_URL" "$CN_RSC" 60; then
-            echo "cn_success" > "$status_pipe"
+        if download_with_retry "$CN_URL" "${SCRIPT_DIR}/${CN_RSC}" 60; then
+            echo "cn_success" >"$status_pipe"
         else
-            echo "cn_failed" > "$status_pipe"
+            echo "cn_failed" >"$status_pipe"
         fi
     ) &
     parallel_pids+=("$!")
-    
-    # Download gfwlist in background with retry and decode after download
+
     (
-        local tmp_base64_file="${TMP_DIR}/gfwlist.base64"
-        if download_with_retry "$GFWLIST_URL" "$tmp_base64_file" 60; then
-            if base64 --decode "$tmp_base64_file" > "$OUTPUT_GFWLIST_AUTOPROXY"; then
-                log_success "Decoded content saved to $OUTPUT_GFWLIST_AUTOPROXY"
-                echo "gfwlist_success" > "$status_pipe"
+        local tmp_base64="${TMP_DIR}/cache/gfwlist.base64"
+        if download_with_retry "$GFWLIST_URL" "$tmp_base64" 60; then
+            if $BASE64_DECODE "$tmp_base64" >"${SCRIPT_DIR}/${OUTPUT_GFWLIST_AUTOPROXY}"; then
+                log_success "Decoded GFW list to ${OUTPUT_GFWLIST_AUTOPROXY}"
+                echo "gfwlist_success" >"$status_pipe"
             else
-                log_error "Failed to decode base64 for gfwlist"
-                echo "gfwlist_failed" > "$status_pipe"
+                log_error "Failed to decode GFW list"
+                echo "gfwlist_failed" >"$status_pipe"
             fi
         else
-            log_error "Failed to download gfwlist"
-            echo "gfwlist_failed" > "$status_pipe"
+            log_error "Failed to download GFW list"
+            echo "gfwlist_failed" >"$status_pipe"
         fi
     ) &
     parallel_pids+=("$!")
-    
-    # Process status updates
+
     for ((i = 0; i < 2; i++)); do
-        local status
-        read -r status < "$status_pipe"
-        case "$status" in
-            "cn_success")
-                cn_success=true
-                log_success "CN.rsc download completed successfully"
-                ;;
-            "cn_failed")
-                download_success=false
-                log_error "CN.rsc download failed"
-                ;;
-            "gfwlist_success")
-                gfwlist_success=true
-                log_success "GFWList download and decode completed successfully"
-                ;;
-            "gfwlist_failed")
-                download_success=false
-                log_error "GFWList download or decode failed"
-                ;;
-        esac
+        if read -r status <"$status_pipe"; then
+            case "$status" in
+                cn_success)
+                    cn_success=true
+                    log_success "CN list downloaded successfully"
+                    ;;
+                cn_failed)
+                    download_success=false
+                    log_error "CN list download failed"
+                    ;;
+                gfwlist_success)
+                    gfwlist_success=true
+                    log_success "GFW list download and decode completed"
+                    ;;
+                gfwlist_failed)
+                    download_success=false
+                    log_error "GFW list download or decode failed"
+                    ;;
+            esac
+        fi
     done
-    
-    # Wait for all background processes to complete
+
     for pid in "${parallel_pids[@]}"; do
-        wait "$pid" || download_success=false
+        if ! wait "$pid"; then
+            download_success=false
+        fi
     done
-    
-    # Clean up named pipe
+
     rm -f "$status_pipe"
-    
-    # Proceed only if both downloads were successful
+
     if $download_success; then
-        log_success "All downloads completed successfully"
+        log_success "All downloads completed"
         if $cn_success; then
             modify_cn_rsc
         fi
     else
-        log_error "Some downloads failed, check logs for details"
+        log_error "Some downloads failed. Aborting."
         return 1
     fi
 }
 
-# Enhanced main function with better error handling and execution flow
 main() {
-    local start_time=$(date +%s)
+    initialize_logging
+    create_temp_root
+    trap 'cleanup_artifacts; cleanup_temp_root' EXIT
+    setup_error_trap
+    setup_platform_specific
+    check_dependencies_detailed
+
+    check_system_resources
+    local optimal_threads="${SYSTEM_OPTIMAL_THREADS:-$DEFAULT_THREAD_COUNT}"
+    if ! [[ "$optimal_threads" =~ ^[0-9]+$ ]]; then
+        log_warn "Detected non-numeric optimal thread value '${optimal_threads}', defaulting to ${DEFAULT_THREAD_COUNT}"
+        optimal_threads=$DEFAULT_THREAD_COUNT
+    fi
+    if [[ -z "${PARALLEL_THREADS:-}" ]]; then
+        PARALLEL_THREADS=$optimal_threads
+        log_info "Using ${PARALLEL_THREADS} parallel threads for domain processing"
+    else
+        log_info "Using user-defined parallel thread count: ${PARALLEL_THREADS}"
+        if ! [[ "$PARALLEL_THREADS" =~ ^[0-9]+$ ]]; then
+            log_warn "Provided parallel thread count '${PARALLEL_THREADS}' is not numeric, defaulting to ${optimal_threads}"
+            PARALLEL_THREADS=$optimal_threads
+        fi
+    fi
+
+    local start_time
+    start_time=$(date +%s)
     local exit_code=0
-    
-    log_info "Starting chnroute generation process..."
-    
-    # Step 1: Download resources in parallel first
-    log_info "Step 1/5: Downloading resources"
+
+    log_info "Starting chnroute generation pipeline..."
+
+    log_info "Step 1/5: Downloading source data"
     if ! parallel_downloads; then
-        log_error "Failed to download resources"
         exit_code=1
     fi
-    
-    # Step 2: Sort and validate domain lists
-    log_info "Step 2/5: Sorting and validating domain lists"
-    if ! sort_files; then
-        log_warn "Issues with domain lists, but continuing"
-    fi
-    
-    # Step 3: Generate GFW list
-    log_info "Step 3/5: Generating GFW list"
+
+    log_info "Step 2/5: Sorting custom domain lists"
+    sort_files
+
+    log_info "Step 3/5: Generating domain list"
     if ! run_gfwlist2dnsmasq; then
-        log_error "Failed to generate GFW list"
         exit_code=1
     fi
-    
-    # Step 4: Create RouterOS scripts
+
     if [[ $exit_code -eq 0 ]]; then
         log_info "Step 4/5: Creating RouterOS scripts"
         if ! create_gfwlist_rsc "v7" "$GFWLIST_V7_RSC"; then
-            log_error "Failed to create RouterOS scripts"
             exit_code=1
         fi
     fi
-    
-    # Step 5: Check git status
-    log_info "Step 5/5: Checking git status"
-    if ! check_git_status; then
-        log_warn "Issues with git status check, but continuing"
-    fi
-    
-    # Calculate execution time
-    local end_time=$(date +%s)
+
+    log_info "Step 5/5: Checking git repository"
+    check_git_status || exit_code=1
+
+    local end_time
+    end_time=$(date +%s)
     local duration=$((end_time - start_time))
-    
+
     if [[ $exit_code -eq 0 ]]; then
-        log_success "All tasks completed successfully in $duration seconds"
+        log_success "All tasks completed successfully in ${duration} seconds"
     else
-        log_error "Some tasks failed, check logs for details. Execution time: $duration seconds"
+        log_error "Completed with errors in ${duration} seconds. Check logs for details."
     fi
-    
-    return $exit_code
+
+    return "$exit_code"
 }
 
-# Execute main function
 main

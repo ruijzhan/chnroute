@@ -5735,13 +5735,9 @@
     "zzux.com";
 }
 
-# Add each domain to DNS static entries
 :foreach domain in=$domainList do={
     /ip dns static add forward-to=$dnsserver type=FWD address-list=gfw_list match-subdomain=yes name=$domain
 }
 
-# Flush DNS cache to apply changes
 /ip dns cache flush
-
-# Log completion
 /log info "GFW domain list updated with 5728 domains"
