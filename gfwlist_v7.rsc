@@ -4566,6 +4566,7 @@
     "telesco.pe";
     "tellapart.com";
     "tellme.pw";
+    "temu.com";
     "tenacy.com";
     "tenor.com";
     "tensorflow.org";
@@ -5741,4 +5742,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 5729 domains"
+/log info "GFW domain list updated with 5730 domains"
