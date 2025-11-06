@@ -1685,6 +1685,7 @@
     "flecheinthepeche.fr";
     "fleshbot.com";
     "fleursdeslettres.com";
+    "flexclip.com";
     "flexpool.io";
     "flgjustice.org";
     "flickr.com";
@@ -5742,4 +5743,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 5730 domains"
+/log info "GFW domain list updated with 5731 domains"
