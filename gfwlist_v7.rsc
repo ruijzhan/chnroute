@@ -2463,6 +2463,7 @@
     "imageflea.com";
     "imageglass.org";
     "images-gaytube.com";
+    "images.prismic.io";
     "imageshack.us";
     "imagevenue.com";
     "imagezilla.net";
@@ -5743,4 +5744,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 5731 domains"
+/log info "GFW domain list updated with 5732 domains"
