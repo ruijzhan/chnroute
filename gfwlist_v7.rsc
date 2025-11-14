@@ -305,6 +305,7 @@
     "aojiao.org";
     "aomedia.org";
     "aomiwang.com";
+    "aoxvpn.com";
     "apartmentratings.com";
     "apartments.com";
     "apat1989.org";
@@ -522,6 +523,7 @@
     "bet365.com";
     "betaclouds.net";
     "betfair.com";
+    "bettergpt.chat";
     "betterhash.net";
     "betternet.co";
     "bettervpn.com";
@@ -767,6 +769,7 @@
     "cams.org.sg";
     "canadameet.com";
     "canalporno.com";
+    "canva.com";
     "canyu.org";
     "caobian.info";
     "caochangqing.com";
@@ -805,6 +808,7 @@
     "cccat.co";
     "ccfd.org.tw";
     "cchere.com";
+    "cchostvps.xyz";
     "ccim.org";
     "cclife.ca";
     "cclife.org";
@@ -867,9 +871,11 @@
     "chaoex.com";
     "chaos.social";
     "character.ai";
+    "chat.com";
     "chat.lmsys.org";
     "chatgpt.com";
     "chatnook.com";
+    "chatpdf.com";
     "chaturbate.com";
     "checkgfw.com";
     "chengmingmag.com";
@@ -1189,6 +1195,7 @@
     "daodu14.jigsy.com";
     "daolan.net";
     "darktech.org";
+    "darmau.co";
     "darpa.mil";
     "darrenliuwei.com";
     "dashlane.com";
@@ -1659,6 +1666,7 @@
     "fiddle.jshell.net";
     "figprayer.com";
     "fileflyer.com";
+    "files.oaiusercontent.com";
     "fileserve.com";
     "filesor.com";
     "fillthesquare.org";
@@ -1695,6 +1703,7 @@
     "flitto.com";
     "flnet.org";
     "flog.tw";
+    "flowgpt.com";
     "flowhongkong.net";
     "flypool.org";
     "flyvpn.com";
@@ -1709,6 +1718,7 @@
     "follow.is";
     "fooooo.com";
     "forbes.com";
+    "forefront.ai";
     "foreignaffairs.com";
     "foreignpolicy.com";
     "form.new";
@@ -2208,6 +2218,7 @@
     "hhdcb3office.org";
     "hhthesakyatrizin.org";
     "hi-on.org.tw";
+    "hicairo.com";
     "hiccears.com";
     "hidden-advent.org";
     "hide.me";
@@ -2397,6 +2408,7 @@
     "hxwk.org";
     "hxwq.org";
     "hybrid-analysis.com";
+    "hyperbeam.com";
     "hyperrate.com";
     "hypothes.is";
     "i-cable.com";
@@ -2635,7 +2647,6 @@
     "jgoodies.com";
     "jiangweiping.com";
     "jiaoyou8.com";
-    "jichangtj.com";
     "jiehua.cz";
     "jieshibaobao.com";
     "jifangge.com";
@@ -2831,6 +2842,7 @@
     "lesoir.be";
     "letou.com";
     "letscorp.net";
+    "lexica.art";
     "lflink.com";
     "lflinkup.com";
     "lflinkup.net";
@@ -2870,6 +2882,7 @@
     "linkideo.com";
     "linktr.ee";
     "linkuswell.com";
+    "linux.do";
     "linux.org.hk";
     "linuxtoy.org";
     "lionsroar.com";
@@ -2894,6 +2907,7 @@
     "livingstream.com";
     "lizhizhuangbi.com";
     "lkcn.net";
+    "lmarena.ai";
     "load.to";
     "lobsangwangyal.com";
     "localbitcoins.com";
@@ -2923,6 +2937,7 @@
     "lsmradio.com";
     "lsmwebcast.com";
     "lsxszzg.com";
+    "lt.sntp.uk";
     "ltn.com.tw";
     "luckydesigner.space";
     "luckymobile.ca";
@@ -3962,6 +3977,7 @@
     "releaseinternational.org";
     "religionnews.com";
     "renminbao.com";
+    "rentry.co";
     "renyurenquan.org";
     "resilio.com";
     "resistchina.org";
@@ -4299,6 +4315,7 @@
     "sonidodelaesperanza.org";
     "sopcast.com";
     "sopcast.org";
+    "sora.com";
     "sorting-algorithms.com";
     "sos.org";
     "sosad.fun";
@@ -4572,6 +4589,7 @@
     "tensorflow.org";
     "tenzinpalmo.com";
     "terabox.com";
+    "terobox.com";
     "tew.org";
     "textnow.com";
     "textnow.me";
@@ -5742,4 +5760,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 5730 domains"
+/log info "GFW domain list updated with 5748 domains"
