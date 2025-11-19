@@ -198,6 +198,7 @@
     "agoogleaday.com";
     "agro.hk";
     "ai.binwang.me";
+    "ai.dev";
     "aiosearch.com";
     "aiph.net";
     "airasia.com";
@@ -1010,6 +1011,7 @@
     "cloud.mail.ru";
     "cloudflare-dns.com";
     "cloudflare-ipfs.com";
+    "cloudflarestatus.com";
     "cloudfunctions.net";
     "club1069.com";
     "clubhouseapi.com";
@@ -2859,6 +2861,7 @@
     "liberal.org.hk";
     "libertysculpturepark.com";
     "libertytimes.com.tw";
+    "library-access.sk";
     "library.usc.cuhk.edu.hk";
     "libredd.it";
     "lifemiles.com";
@@ -3084,6 +3087,7 @@
     "middle-way.net";
     "mihr.com";
     "mihua.org";
+    "mij.rip";
     "mikanani.me";
     "mike.cz.cc";
     "mikesoltys.com";
@@ -3128,6 +3132,7 @@
     "mixpod.com";
     "mixx.com";
     "mizzmona.com";
+    "mji.rip";
     "mjib.gov.tw";
     "mjj.rip";
     "mjlsh.usc.cuhk.edu.hk";
@@ -5548,6 +5553,7 @@
     "xmovies.com";
     "xn--11xs86f.icu";
     "xn--4gq171p.com";
+    "xn--9iqy04a7fi01l.com";
     "xn--9pr62r24a.com";
     "xn--czq75pvv1aj5c.org";
     "xn--i2ru8q2qg.com";
@@ -5764,4 +5770,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 5752 domains"
+/log info "GFW domain list updated with 5758 domains"
