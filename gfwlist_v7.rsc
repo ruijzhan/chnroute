@@ -299,6 +299,7 @@
     "antichristendom.com";
     "antiwave.net";
     "antpool.com";
+    "anuneko.com";
     "anyporn.com";
     "anysex.com";
     "ao3.org";
@@ -2650,6 +2651,7 @@
     "jetos.com";
     "jex.com";
     "jgoodies.com";
+    "jhelab.org";
     "jiangweiping.com";
     "jiaoyou8.com";
     "jiehua.cz";
@@ -3754,6 +3756,7 @@
     "podbean.com";
     "podcast.co";
     "podictionary.com";
+    "podwise.ai";
     "poe.com";
     "points-media.com";
     "pokerstars.com";
@@ -3920,9 +3923,11 @@
     "radiko.jp";
     "radio-canada.ca";
     "radio-en-ligne.fr";
+    "radio.co";
     "radio.garden";
     "radioaustralia.net.au";
     "radiohilight.net";
+    "radiojar.com";
     "radioline.co";
     "radiovaticana.org";
     "radiovncr.com";
@@ -5774,4 +5779,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 5762 domains"
+/log info "GFW domain list updated with 5767 domains"
