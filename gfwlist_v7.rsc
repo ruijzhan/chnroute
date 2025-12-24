@@ -3320,6 +3320,7 @@
     "nemesis2.qx.net";
     "neo-miracle.com";
     "neowin.net";
+    "nephobox.com";
     "netalert.me";
     "netbirds.com";
     "netcolony.com";
@@ -5783,4 +5784,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 5771 domains"
+/log info "GFW domain list updated with 5772 domains"
