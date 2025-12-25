@@ -2,3 +2,4 @@ codeium.com
 codeiumdata.com
 docker.io
 follow.is
+google.com.hk
