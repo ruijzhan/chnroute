@@ -2034,6 +2034,7 @@
     "google.co.ma";
     "google.co.uk";
     "google.com";
+    "google.com.hk";
     "google.de";
     "google.dev";
     "google.dj";
@@ -5784,4 +5785,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 5772 domains"
+/log info "GFW domain list updated with 5773 domains"
