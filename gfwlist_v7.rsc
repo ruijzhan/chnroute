@@ -2034,7 +2034,64 @@
     "google.co.ma";
     "google.co.uk";
     "google.com";
+    "google.com.af";
+    "google.com.ag";
+    "google.com.ai";
+    "google.com.ar";
+    "google.com.au";
+    "google.com.bd";
+    "google.com.bh";
+    "google.com.bn";
+    "google.com.bo";
+    "google.com.br";
+    "google.com.bz";
+    "google.com.co";
+    "google.com.cu";
+    "google.com.cy";
+    "google.com.do";
+    "google.com.ec";
+    "google.com.eg";
+    "google.com.et";
+    "google.com.fj";
+    "google.com.gh";
+    "google.com.gi";
+    "google.com.gt";
     "google.com.hk";
+    "google.com.jm";
+    "google.com.kh";
+    "google.com.kw";
+    "google.com.lb";
+    "google.com.ly";
+    "google.com.mm";
+    "google.com.mt";
+    "google.com.mx";
+    "google.com.my";
+    "google.com.na";
+    "google.com.nf";
+    "google.com.ng";
+    "google.com.ni";
+    "google.com.np";
+    "google.com.om";
+    "google.com.pa";
+    "google.com.pe";
+    "google.com.pg";
+    "google.com.ph";
+    "google.com.pk";
+    "google.com.pr";
+    "google.com.py";
+    "google.com.qa";
+    "google.com.sa";
+    "google.com.sb";
+    "google.com.sg";
+    "google.com.sl";
+    "google.com.sv";
+    "google.com.tj";
+    "google.com.tr";
+    "google.com.tw";
+    "google.com.ua";
+    "google.com.uy";
+    "google.com.vc";
+    "google.com.vn";
     "google.de";
     "google.dev";
     "google.dj";
@@ -5785,4 +5842,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 5773 domains"
+/log info "GFW domain list updated with 5830 domains"
