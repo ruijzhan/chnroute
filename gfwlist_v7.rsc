@@ -227,6 +227,7 @@
     "aliengu.com";
     "alive.bar";
     "aljazeera.com";
+    "aljazeera.net";
     "alkasir.com";
     "all4mom.org";
     "allcoin.com";
@@ -1238,7 +1239,6 @@
     "delcamp.net";
     "demo.unlock-music.dev";
     "demosisto.hk";
-    "deno.dev";
     "depositphotos.com";
     "desc.se";
     "desipro.de";
@@ -1308,7 +1308,6 @@
     "docker.com";
     "docker.io";
     "dockerstatus.com";
-    "docs.deno.com";
     "docs.new";
     "doctorvoice.org";
     "documentingreality.com";
@@ -1935,6 +1934,7 @@
     "gfw.press";
     "gfw.report";
     "gfwatch.org";
+    "gfwbao.com";
     "ggpht.com";
     "ggssl.com";
     "ghidra-sre.org";
@@ -2640,6 +2640,7 @@
     "ismprofessional.net";
     "isohunt.com";
     "israbox.com";
+    "issues.chromium.org ";
     "issuu.com";
     "istars.co.nz";
     "istockphoto.com";
@@ -4479,6 +4480,7 @@
     "stboy.net";
     "stc.com.sa";
     "steamcommunity.com";
+    "steamladder.com";
     "steamstatic.com";
     "steel-storm.com";
     "steemit.com";
@@ -5842,4 +5844,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 5830 domains"
+/log info "GFW domain list updated with 5832 domains"
