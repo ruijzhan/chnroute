@@ -968,6 +968,7 @@
     "chromecast.com";
     "chromeexperiments.com";
     "chromestatus.com";
+    "chromium.org ";
     "chuang-yen.org";
     "chubold.com";
     "chubun.com";
@@ -2642,7 +2643,6 @@
     "ismprofessional.net";
     "isohunt.com";
     "israbox.com";
-    "issues.chromium.org ";
     "issuu.com";
     "istars.co.nz";
     "istockphoto.com";
