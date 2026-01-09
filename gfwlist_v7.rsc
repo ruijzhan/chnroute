@@ -147,7 +147,6 @@
     "abitno.linpie.com";
     "ablwang.com";
     "aboluowang.com";
-    "about.gitlab.com";
     "about.me";
     "abplive.com";
     "abs.edu";
@@ -968,7 +967,7 @@
     "chromecast.com";
     "chromeexperiments.com";
     "chromestatus.com";
-    "chromium.org ";
+    "chromium.org";
     "chuang-yen.org";
     "chubold.com";
     "chubun.com";
@@ -1956,6 +1955,7 @@
     "githubassets.com";
     "githubcopilot.com";
     "githubusercontent.com";
+    "gitlab.com";
     "gitlab.net";
     "gizlen.net";
     "gjczz.com";
