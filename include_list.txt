@@ -64,3 +64,4 @@ google.com.vn
 igoogle.com
 thinkwithgoogle.com
 withgoogle.com
+hysteria.network
