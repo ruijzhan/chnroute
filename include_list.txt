@@ -61,7 +61,7 @@ google.com.ua
 google.com.uy
 google.com.vc
 google.com.vn
+hysteria.network
 igoogle.com
 thinkwithgoogle.com
 withgoogle.com
-hysteria.network

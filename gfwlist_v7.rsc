@@ -2481,6 +2481,7 @@
     "hyperbeam.com";
     "hyperrate.com";
     "hypothes.is";
+    "hysteria.network";
     "i-cable.com";
     "i-part.com.tw";
     "i-scmp.com";
@@ -5875,4 +5876,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 5863 domains"
+/log info "GFW domain list updated with 5864 domains"
