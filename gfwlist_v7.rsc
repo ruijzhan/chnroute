@@ -472,6 +472,7 @@
     "bbc.co.uk";
     "bbc.com";
     "bbc.in";
+    "bbc.pdn.tritondigital.com";
     "bbcchinese.com";
     "bbchat.tv";
     "bbci.co.uk";
@@ -1223,6 +1224,7 @@
     "dbgjd.com";
     "dcard.tw";
     "dcmilitary.com";
+    "dcs-spotify.megaphone.fm";
     "ddc.com.tw";
     "ddex.io";
     "ddns.info";
@@ -2271,6 +2273,7 @@
     "helloandroid.com";
     "helloqueer.com";
     "hellouk.org";
+    "help.byspotify.com";
     "helpeachpeople.com";
     "helpster.de";
     "helpzhuling.org";
@@ -5880,4 +5883,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 5868 domains"
+/log info "GFW domain list updated with 5871 domains"
