@@ -2202,6 +2202,7 @@
     "greenvpn.org";
     "grindr.com";
     "grok.com";
+    "grokipedia.com";
     "ground.news";
     "gs-discuss.com";
     "gsearch.media";
@@ -5887,4 +5888,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 5875 domains"
+/log info "GFW domain list updated with 5876 domains"
