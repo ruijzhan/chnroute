@@ -133,7 +133,6 @@
     "airconsole.com";
     "airitilibrary.com";
     "airvpn.org";
-    "aiss.anws.gov.tw";
     "ait.org.tw";
     "aiweiweiblog.com";
     "akademiye.org";
@@ -253,7 +252,6 @@
     "archiveofourown.com";
     "archiveofourown.org";
     "archives.gov";
-    "archives.gov.tw";
     "arctosia.com";
     "areca-backup.org";
     "arena.taipei";
@@ -853,7 +851,6 @@
     "darrenliuwei.com";
     "dashlane.com";
     "data-vocabulary.org";
-    "data.gov.tw";
     "daum.net";
     "david-kilgour.com";
     "dawangidc.com";
@@ -1063,7 +1060,6 @@
     "evchk.wikia.com";
     "everipedia.org";
     "evschool.net";
-    "exam.gov.tw";
     "exchristian.hk";
     "exhentai.org";
     "exmo.com";
@@ -1075,13 +1071,11 @@
     "expressvpn.com";
     "exrates.me";
     "extmatrix.com";
-    "ey.gov.tw";
     "eyevio.jp";
     "eyny.com";
     "f-droid.org";
     "f2pool.com";
     "f8.com";
-    "fa.gov.tw";
     "facebook.com";
     "facebook.de";
     "facebook.design";
@@ -1137,7 +1131,6 @@
     "fbsbx.com";
     "fbworkmail.com";
     "fc2cn.com";
-    "fda.gov.tw";
     "feedburner.com";
     "feeder.co";
     "feedly.com";
@@ -1634,6 +1627,7 @@
     "gotw.ca";
     "gov.ir";
     "gov.taipei";
+    "gov.tw";
     "grammaly.com";
     "graph.org";
     "graphis.ne.jp";
@@ -1781,7 +1775,6 @@
     "howtoforge.com";
     "hoxx.com";
     "hoy.tv";
-    "hpa.gov.tw";
     "hpjav.com";
     "hqcdp.org";
     "hqjapanesesex.com";
@@ -1892,7 +1885,6 @@
     "imgur.com";
     "imkev.com";
     "imlive.co";
-    "immigration.gov.tw";
     "improd.works";
     "incloak.com";
     "incredibox.fr";
@@ -1957,7 +1949,6 @@
     "israbox.com";
     "issuu.com";
     "isupportuyghurs.org";
-    "itaiwan.gov.tw";
     "italiatibet.org";
     "itasoftware.com";
     "itch.io";
@@ -2020,7 +2011,6 @@
     "jpl.nasa.gov";
     "jsdelivr.net";
     "jtvnw.net";
-    "judicial.gov.tw";
     "jukujo-club.com";
     "juliepost.com";
     "juliereyc.com";
@@ -2193,7 +2183,6 @@
     "lushstories.com";
     "lvhai.org";
     "lvv2.com";
-    "ly.gov.tw";
     "lyfhk.net";
     "lzjscript.com";
     "lzmtnews.org";
@@ -2326,7 +2315,6 @@
     "mixx.com";
     "mizzmona.com";
     "mji.rip";
-    "mjib.gov.tw";
     "mjj.rip";
     "mjlsh.usc.cuhk.edu.hk";
     "mlc.ai";
@@ -2339,16 +2327,12 @@
     "moby.to";
     "mod.io";
     "modernchinastudies.org";
-    "moeaic.gov.tw";
     "moeerolibrary.com";
     "moeshare.cc";
-    "mofa.gov.tw";
     "mog.com";
     "mohu.club";
     "mohu.rocks";
-    "moj.gov.tw";
     "mojim.com";
-    "mol.gov.tw";
     "momoshop.com.tw";
     "mondex.org";
     "money-link.com.tw";
@@ -2384,7 +2368,6 @@
     "muzi.com";
     "muzi.net";
     "muzu.tv";
-    "mvdis.gov.tw";
     "mvg.jp";
     "mx981.com";
     "my-private-network.co.uk";
@@ -2414,7 +2397,6 @@
     "nanopool.org";
     "nanyang.com";
     "nanyangpost.com";
-    "nat.gov.tw";
     "nat.moe";
     "national-lottery.co.uk";
     "nationalawakening.org";
@@ -2477,7 +2459,6 @@
     "nftstorage.link";
     "nga.mil";
     "nhentai.net";
-    "nhi.gov.tw";
     "nic.cz.cc";
     "nic.gov";
     "nicovideo.jp";
@@ -2512,16 +2493,10 @@
     "nownews.com";
     "noxinfluencer.com";
     "npa.go.jp";
-    "npa.gov.tw";
-    "npm.gov.tw";
     "npnt.me";
     "npsboost.com";
     "nradio.me";
     "nrk.no";
-    "nsc.gov.tw";
-    "ntbk.gov.tw";
-    "ntbna.gov.tw";
-    "ntbt.gov.tw";
     "ntd.tv";
     "ntdtv.com";
     "ntdtv.com.tw";
@@ -2660,7 +2635,6 @@
     "pbworks.com";
     "pbxes.com";
     "pbxes.org";
-    "pcc.gov.tw";
     "pcgamestorrents.com";
     "pcij.org";
     "pct.org.tw";
@@ -3025,7 +2999,6 @@
     "seed4.me";
     "seevpn.com";
     "seezone.net";
-    "sef.org.tw";
     "sehuatang.net";
     "sehuatang.org";
     "sensortower.com";
@@ -3197,7 +3170,6 @@
     "starp2p.com";
     "startpage.com";
     "startuplivingchina.com";
-    "stat.gov.tw";
     "static-economist.com";
     "static.pocketcasts.com";
     "static.shemalez.com";
@@ -3270,16 +3242,13 @@
     "t66y.com";
     "taa-usa.org";
     "taaze.tw";
-    "tacc.cwb.gov.tw";
     "taedp.org.tw";
     "tagwalk.com";
     "tails.net";
-    "taipei.gov.tw";
     "taipeisociety.org";
     "taipeitimes.com";
     "taisounds.com";
     "taiwanhot.net";
-    "taiwanjobs.gov.tw";
     "taiwanjustice.net";
     "taiwanncf.org.tw";
     "taiwannews.com.tw";
@@ -3336,7 +3305,6 @@
     "tfiflve.com";
     "tg-me.com";
     "tg.dev";
-    "thb.gov.tw";
     "theatlantic.com";
     "theatrum-belli.com";
     "thebcomplex.com";
@@ -3456,7 +3424,6 @@
     "tinypaste.com";
     "tinyurl.com";
     "tipas.net";
-    "tipo.gov.tw";
     "tkcs-collins.com";
     "tl.gd";
     "tma.co.jp";
@@ -3563,6 +3530,7 @@
     "twelve.today";
     "twerkingbutt.com";
     "twftp.org";
+    "twgov.tw";
     "twgreatdaily.com";
     "twibble.de";
     "twibs.com";
@@ -3816,7 +3784,6 @@
     "waybig.com";
     "waymo.com";
     "wd.bible";
-    "wda.gov.tw";
     "wealth.com.tw";
     "wearn.com";
     "web.dev";
@@ -4166,4 +4133,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4154 domains"
+/log info "GFW domain list updated with 4121 domains"
