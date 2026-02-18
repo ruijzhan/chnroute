@@ -1658,7 +1658,7 @@
     "gutteruncensored.com";
     "gvlib.com";
     "gvm.com.tw";
-    "gvt1.com]";
+    "gvt1.com";
     "gvt3.com";
     "gwins.org";
     "gwtproject.org";
@@ -2349,6 +2349,7 @@
     "moresci.sale";
     "morningsun.org";
     "mos.ru";
+    "mosavi.io";
     "motherless.com";
     "movements.org";
     "moviefap.com";
@@ -4133,4 +4134,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4121 domains"
+/log info "GFW domain list updated with 4122 domains"
