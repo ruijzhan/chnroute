@@ -1210,6 +1210,7 @@
     "freebeacon.com";
     "freebrowser.org";
     "freechinaweibo.com";
+    "freedom.gov";
     "freedomhouse.org";
     "freedominfonetweb.wordpress.com";
     "freedomsherald.org";
@@ -4141,4 +4142,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4129 domains"
+/log info "GFW domain list updated with 4130 domains"
