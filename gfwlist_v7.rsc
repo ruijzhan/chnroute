@@ -1002,6 +1002,7 @@
     "ebtcbank.com";
     "ecfa.org.tw";
     "ecimg.tw";
+    "economist.com";
     "edgecastcdn.net";
     "edubridge.com";
     "edx-cdn.org";
@@ -4088,7 +4089,6 @@
     "z-library.sk";
     "zalmos.com";
     "zamimg.com";
-    "zaobao.com.sg";
     "zaochenbao.com";
     "zattoo.com";
     "zb.com";
