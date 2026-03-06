@@ -923,6 +923,7 @@
     "dmcdn.net";
     "dmhy.org";
     "dmm.co.jp";
+    "dns.cloudflare.com";
     "dns2go.com";
     "dnscrypt.org";
     "dnssec.net";
@@ -1510,6 +1511,7 @@
     "google.cv";
     "google.cz";
     "google.de";
+    "google.dev";
     "google.dk";
     "google.dm";
     "google.dz";
@@ -1925,6 +1927,7 @@
     "interseclab.org";
     "inthenameofconfuciusmovie.com";
     "investigating.wordpress.com";
+    "investing.com";
     "invidio.us";
     "inxian.com";
     "ipdefenseforum.com";
@@ -4147,4 +4150,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4135 domains"
+/log info "GFW domain list updated with 4138 domains"
