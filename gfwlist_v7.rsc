@@ -3045,6 +3045,7 @@
     "shenzhoufilm.com";
     "shenzhouzhengdao.org";
     "shiksha.com";
+    "shitjournal.org";
     "shixiao.org";
     "shizhao.org";
     "shodanhq.com";
@@ -4150,4 +4151,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4138 domains"
+/log info "GFW domain list updated with 4139 domains"
