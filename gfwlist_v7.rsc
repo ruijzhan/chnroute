@@ -3969,6 +3969,7 @@
     "xcafe.in";
     "xcancel.com";
     "xcity.jp";
+    "xdaforums.com";
     "xerotica.com";
     "xfinity.com";
     "xfxssr.me";
@@ -4151,4 +4152,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4139 domains"
+/log info "GFW domain list updated with 4140 domains"
