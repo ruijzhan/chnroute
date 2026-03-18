@@ -82,6 +82,7 @@
     "a-normal-day.com";
     "a248.e.akamai.net";
     "aamacau.com";
+    "aave.com";
     "abc.net.au";
     "abc.xyz";
     "abebooks.co.uk";
@@ -4152,4 +4153,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4140 domains"
+/log info "GFW domain list updated with 4141 domains"
