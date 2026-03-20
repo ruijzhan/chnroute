@@ -690,6 +690,7 @@
     "chromestatus.com";
     "chromium.org";
     "ci-en.jp";
+    "cia.gov";
     "cici.com";
     "ciciai.com";
     "cirosantilli.com";
@@ -4155,4 +4156,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4143 domains"
+/log info "GFW domain list updated with 4144 domains"
