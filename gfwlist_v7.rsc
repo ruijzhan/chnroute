@@ -4001,6 +4001,7 @@
     "xn--9pr62r24a.com";
     "xn--czq75pvv1aj5c.org";
     "xn--i2ru8q2qg.com";
+    "xn--kcrv3utim32hx9f6qe.com";
     "xn--ngstr-lra8j.com";
     "xn--noss43i.com";
     "xn--oiq.cc";
@@ -4158,4 +4159,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4146 domains"
+/log info "GFW domain list updated with 4147 domains"
