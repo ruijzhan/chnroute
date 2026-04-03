@@ -2608,6 +2608,7 @@
     "orientaldaily.com.my";
     "orn.jp";
     "osfoora.com";
+    "osmand.net";
     "otcbtc.com";
     "otto.de";
     "ourdearamy.com";
@@ -4158,4 +4159,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4146 domains"
+/log info "GFW domain list updated with 4147 domains"
