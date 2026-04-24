@@ -3293,6 +3293,7 @@
     "tbsn.org";
     "tbssqh.org";
     "teachparentstech.org";
+    "techbang.com";
     "technews.tw";
     "techviz.net";
     "teck.in";
@@ -4155,4 +4156,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4143 domains"
+/log info "GFW domain list updated with 4144 domains"
