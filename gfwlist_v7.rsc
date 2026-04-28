@@ -3637,6 +3637,7 @@
     "upmedia.mg";
     "upornia.com";
     "uproxy.org";
+    "upsangel.com";
     "uptodown.com";
     "uraban.me";
     "urbandictionary.com";
@@ -4156,4 +4157,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4144 domains"
+/log info "GFW domain list updated with 4145 domains"
