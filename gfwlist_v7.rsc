@@ -3637,6 +3637,7 @@
     "ultrasurf.us";
     "ultravpn.com";
     "ultravpn.fr";
+    "umap.openstreetmap.fr";
     "unblock-us.com";
     "unblock.cn.com";
     "unblockdmm.com";
@@ -4182,4 +4183,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4170 domains"
+/log info "GFW domain list updated with 4171 domains"
