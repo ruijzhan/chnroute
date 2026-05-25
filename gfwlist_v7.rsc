@@ -2394,6 +2394,7 @@
     "motherless.com";
     "movements.org";
     "moviefap.com";
+    "mozilla.ai";
     "mpettis.com";
     "mpfinance.com";
     "mpinews.com";
@@ -4197,4 +4198,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4185 domains"
+/log info "GFW domain list updated with 4186 domains"
