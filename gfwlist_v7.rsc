@@ -2668,7 +2668,6 @@
     "pacom.mil";
     "pacopacomama.com";
     "page.link";
-    "pages.dev";
     "paimon.moe";
     "pancakeswap.finance";
     "pandafan.pub";
@@ -3281,6 +3280,7 @@
     "surfeasy.com.au";
     "surfshark.com";
     "surrenderat20.net";
+    "suyingtv.com";
     "swagbucks.com";
     "swapspace.co";
     "swissinfo.ch";
@@ -3963,6 +3963,7 @@
     "wowporn.com";
     "woyaolian.org";
     "wp.com";
+    "wplace.live";
     "wpoforum.com";
     "writesonic.com";
     "wsj.com";
@@ -4203,4 +4204,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4191 domains"
+/log info "GFW domain list updated with 4192 domains"
