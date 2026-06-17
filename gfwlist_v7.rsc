@@ -3116,6 +3116,7 @@
     "sinoca.com";
     "sinocast.com";
     "sinoinsider.com";
+    "sinyalee.com";
     "sipml5.org";
     "sis001.com";
     "site.new";
@@ -4204,4 +4205,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4192 domains"
+/log info "GFW domain list updated with 4193 domains"
