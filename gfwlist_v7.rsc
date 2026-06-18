@@ -94,6 +94,7 @@
     "about.me";
     "abplive.com";
     "acast.com";
+    "accountboy.com";
     "accountkit.com";
     "acevpn.com";
     "acg.mn";
@@ -2389,6 +2390,7 @@
     "monocloud.me";
     "monster.com";
     "moodyz.com";
+    "moomoo.com";
     "moon.fm";
     "moonbbs.com";
     "moonbingo.com";
@@ -4053,6 +4055,7 @@
     "xn--oiq.cc";
     "xn--p8j9a0d9c9a.xn--q9jyb4c";
     "xn--u2u927b.com";
+    "xn--vuqv2cf7wzyig79c.com";
     "xnpool.com";
     "xnxx.com";
     "xpud.org";
@@ -4205,4 +4208,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4193 domains"
+/log info "GFW domain list updated with 4196 domains"
