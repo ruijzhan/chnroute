@@ -20,6 +20,7 @@
     "173ng.com";
     "18board.com";
     "18comic.org";
+    "18mh.net";
     "1984bbs.com";
     "1991way.com";
     "1e100.net";
@@ -80,6 +81,7 @@
     "9cache.com";
     "9gag.com";
     "9news.com.au";
+    "9oju31.launches.appsflyersdk.com";
     "a-normal-day.com";
     "a248.e.akamai.net";
     "aamacau.com";
@@ -215,13 +217,18 @@
     "apartmentratings.com";
     "apartments.com";
     "apat1989.org";
+    "api-gl.lbkrs.com";
     "api-secure.recaptcha.net";
     "api-verify.recaptcha.net";
     "api.ai";
+    "api.futunn.com";
+    "api.lbkrs.com";
+    "api.moomoobull.com";
     "api.palworldgame.com";
     "api.pureapk.com";
     "api.recaptcha.net";
     "api.steampowered.com";
+    "api5.futunn.com";
     "apiary.io";
     "apigee.com";
     "apk.support";
@@ -399,6 +406,7 @@
     "bignews.org";
     "bigone.com";
     "bild.de";
+    "bilinovel.com";
     "biliworld.com";
     "binance.com";
     "binance.org";
@@ -602,6 +610,7 @@
     "cdn-images.mailchimp.com";
     "cdn-telegram.org";
     "cdn.arstechnica.net";
+    "cdn.futustatic.com";
     "cdn.jwplayer.com";
     "cdn.printfriendly.com";
     "cdn.seatguru.com";
@@ -625,6 +634,7 @@
     "certificate-transparency.org";
     "certificate.revocationcheck.com";
     "cfr.org";
+    "cg.play-analytics.com";
     "cgdepot.org";
     "change.org";
     "changp.com";
@@ -973,6 +983,7 @@
     "doujincafe.com";
     "dowjones.io";
     "download.dappcdn.com";
+    "download.futunn.com";
     "dpool.top";
     "dpp.org.tw";
     "dpr.info";
@@ -1289,7 +1300,36 @@
     "furbo.org";
     "furinkan.com";
     "furrybar.com";
+    "futu.cn";
+    "futu.com";
+    "futu.link";
+    "futu0.com";
+    "futu1.com";
+    "futu2.com";
+    "futu3.com";
+    "futu4.com";
+    "futu5.com";
+    "futu6.com";
+    "futu7.com";
+    "futu8.com";
+    "futu9.com";
+    "futuau.com";
+    "futubull.cn";
+    "futuchain.com";
+    "futuesop.com";
+    "futufin.com";
+    "futuhk.com";
+    "futuhk2.com";
+    "futuhkapp.com";
+    "futuhn.com";
+    "futuholdings.com";
+    "futuinc.com";
+    "futuniuniu.com";
+    "futunn.com";
     "futuremessage.org";
+    "futustatic.com";
+    "fututrade.com";
+    "fututrustee.com";
     "fw.cm";
     "fxcm-chinese.com";
     "fxnetworks.com";
@@ -1992,6 +2032,7 @@
     "itch.io";
     "itemfix.com";
     "itiger.com";
+    "itigerup.com";
     "itshidden.com";
     "itweet.net";
     "iuhrdf.org";
@@ -2130,12 +2171,15 @@
     "lantern.io";
     "laogai.org";
     "laogairesearch.org";
+    "laohu8.com";
     "laqingdan.net";
     "larsgeorge.com";
     "lastcombat.com";
     "lastfm.es";
     "lausan.hk";
     "lbank.info";
+    "lbctrl.com";
+    "lbkrs.com";
     "ldplayer.net";
     "ldplayer.tw";
     "le-vpn.com";
@@ -2204,6 +2248,15 @@
     "lockestek.com";
     "login.target.com";
     "logos.com.hk";
+    "longbridge.cloud";
+    "longbridge.com";
+    "longbridge.global";
+    "longbridge.hk";
+    "longbridge.sg";
+    "longbridgeapp.com";
+    "longbridgehk.com";
+    "longportapp.cn";
+    "longportapp.com";
     "longtermly.net";
     "longtoes.com";
     "lookpic.com";
@@ -2391,6 +2444,8 @@
     "monster.com";
     "moodyz.com";
     "moomoo.com";
+    "moomooequity.com";
+    "moomootrustee.com";
     "moon.fm";
     "moonbbs.com";
     "moonbingo.com";
@@ -2631,6 +2686,13 @@
     "ooni.org";
     "open.firstory.me";
     "openai.com";
+    "openapi-quote.longbridge.cn";
+    "openapi-quote.longbridge.com";
+    "openapi-trade.longbridge.cn";
+    "openapi-trade.longbridge.com";
+    "openapi.futunn.com";
+    "openapi.longbridge.cn";
+    "openapi.longbridge.com";
     "openart.ai";
     "opencritic.com";
     "opendemocracy.net";
@@ -2885,12 +2947,15 @@
     "qoos.com";
     "qq.co.za";
     "qstatus.com";
+    "qtcard.futunn.com";
+    "qtcardfthk.futufin.com";
     "qtrac.eu";
     "questvisual.com";
     "quitccp.org";
     "quiz.directory";
     "quora.com";
     "quoracdn.net";
+    "quote.longbridge.global";
     "quran.com";
     "qz.com";
     "r-pool.net";
@@ -3032,6 +3097,10 @@
     "sbme.me";
     "sbti.unun.dev";
     "schema.org";
+    "schwab.co.uk";
+    "schwab.com";
+    "schwab.com.cn";
+    "schwab.com.hk";
     "scmp.com";
     "scramble.io";
     "scratch.mit.edu";
@@ -3070,6 +3139,7 @@
     "sf.net";
     "sfshibao.com";
     "sftuk.org";
+    "sgqt0j.launches.appsflyersdk.com";
     "shadeyouvpn.com";
     "shadowsocks.be";
     "shadowsocks.com.hk";
@@ -3094,6 +3164,7 @@
     "shooshtime.com";
     "shopee.tw";
     "shopping.yahoo.co.jp";
+    "shortconn.im.qcloud.com";
     "showwe.tw";
     "shutterstock.com";
     "shwchurch.org";
@@ -3278,6 +3349,7 @@
     "superpages.com";
     "supervpn.net";
     "superzooi.com";
+    "support.futunn.com";
     "suprememastertv.com";
     "surfeasy.com";
     "surfeasy.com.au";
@@ -3467,6 +3539,12 @@
     "tibettimes.net";
     "tibettruth.com";
     "tibetwrites.org";
+    "tigerbbs.cn";
+    "tigerbbs.com";
+    "tigerbrokers.com";
+    "tigerbrokers.net";
+    "tigerbrokers.nz";
+    "tigerfintech.com";
     "tigervpn.com";
     "tiktok.com";
     "tiktokcdn-eu.com";
@@ -3529,6 +3607,9 @@
     "tou.tv";
     "tpi.org.tw";
     "tracfone.com";
+    "trade.futunn.com";
+    "trade.longportapp.com";
+    "tradeup.com";
     "tradingview.com";
     "translate.goog";
     "transparency.org";
@@ -3853,6 +3934,7 @@
     "waveprotocol.org";
     "waybig.com";
     "waymo.com";
+    "wbrks.com";
     "wd.bible";
     "wealth.com.tw";
     "wearn.com";
@@ -4031,6 +4113,7 @@
     "xhamster.com";
     "xianjian.tw";
     "xiaohexie.com";
+    "xiaohu8.com";
     "xiaolan.me";
     "xiaoma.org";
     "xiaomi.eu";
@@ -4170,6 +4253,8 @@
     "zhengjian.org";
     "zhengwunet.org";
     "zhenxiang.biz";
+    "zhijianfengyi.cn";
+    "zhijianfengyi.com";
     "zhizhu.top";
     "zhongguo.ca";
     "zhongguotese.net";
@@ -4208,4 +4293,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4196 domains"
+/log info "GFW domain list updated with 4281 domains"
