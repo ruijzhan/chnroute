@@ -1372,6 +1372,7 @@
     "genius.com";
     "geph.io";
     "get.app";
+    "get.dappcdn.com";
     "get.dev";
     "get.how";
     "get.page";
@@ -4293,4 +4294,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4281 domains"
+/log info "GFW domain list updated with 4282 domains"
