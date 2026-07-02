@@ -3962,6 +3962,7 @@
     "webpkgcache.com";
     "webrtc.org";
     "websdr.org";
+    "webshare.io";
     "website.new";
     "webwarper.net";
     "wechatlawsuit.com";
@@ -4312,4 +4313,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4300 domains"
+/log info "GFW domain list updated with 4301 domains"
