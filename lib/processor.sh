@@ -60,20 +60,42 @@ process_domains_parallel() {
 process_ip_stream() {
     local input_file=$1
     local output_file=$2
-    local ip_count=0
 
     if ! validate_file_exists "$input_file" "RouterOS script"; then
         return 1
     fi
 
-    : >"$output_file"
+    # Single-pass awk replaces a per-line bash loop that opened and closed
+    # the output file on every match (O(n) syscalls across ~8600 CN IPs).
+    #
+    # Regex-equivalence contract with the original `address=([0-9./]+)`
+    # bash partial match:
+    #   - index() finds the first "address=" (mirrors partial match).
+    #   - match(/^[0-9.\/]+/) captures the greedy [0-9./]+ prefix only,
+    #     skipping lines whose first post-"address=" byte is not in the
+    #     class (e.g. "address=NOT_AN_IP" is dropped).
+    # POSIX two-arg match() is used instead of gawk's three-arg form so
+    # this also runs under BSD awk on macOS.
+    local count_file
+    count_file=$(mktemp "${TMP_DIR}/.ip_count.XXXXXX")
 
-    while IFS= read -r line; do
-        if [[ $line =~ address=([0-9./]+) ]]; then
-            printf '    "%s";\n' "${BASH_REMATCH[1]}" >>"$output_file"
-            ((ip_count++))
-        fi
-    done <"$input_file"
+    awk -v count_file="$count_file" '
+        {
+            idx = index($0, "address=")
+            if (idx == 0) next
+            rest = substr($0, idx + 8)
+            if (match(rest, /^[0-9.\/]+/)) {
+                printf "    \"%s\";\n", substr(rest, 1, RLENGTH)
+                count++
+            }
+        }
+        END {
+            print count + 0 > count_file
+        }
+    ' "$input_file" >"$output_file"
 
+    local ip_count
+    ip_count=$(<"$count_file")
+    rm -f "$count_file"
     echo "$ip_count"
 }
