@@ -3599,6 +3599,7 @@
     "togetter.com";
     "token.im";
     "tokenlon.im";
+    "tokenplus.app";
     "tokyo-porn-tube.com";
     "tokyocn.com";
     "tomp3.cc";
@@ -4317,4 +4318,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4305 domains"
+/log info "GFW domain list updated with 4306 domains"
