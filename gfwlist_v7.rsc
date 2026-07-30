@@ -2207,6 +2207,7 @@
     "leonardo.ai";
     "lesoir.be";
     "letscorp.net";
+    "level-plus.net";
     "lexica.art";
     "lhakar.org";
     "li.taipei";
@@ -3824,6 +3825,7 @@
     "uyghurtribunal.com";
     "uygur.fc2web.com";
     "uymaarip.com";
+    "v.recipes";
     "v2.help";
     "v2.hysteria.network";
     "v2ex.com";
@@ -4321,4 +4323,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4309 domains"
+/log info "GFW domain list updated with 4311 domains"
