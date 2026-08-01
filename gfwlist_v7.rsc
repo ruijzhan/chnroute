@@ -2626,6 +2626,7 @@
     "ntdtv.com";
     "ntdtv.com.tw";
     "ntdtv.cz";
+    "nthlink.com";
     "nuexpo.com";
     "nurgo-software.com";
     "nusatrip.com";
@@ -4323,4 +4324,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4311 domains"
+/log info "GFW domain list updated with 4312 domains"
