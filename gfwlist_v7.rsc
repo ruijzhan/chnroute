@@ -135,6 +135,7 @@
     "agro.hk";
     "ai.dev";
     "ai.studio";
+    "aihub.top";
     "aiosearch.com";
     "aiph.net";
     "airconsole.com";
@@ -349,6 +350,7 @@
     "barnabu.co.uk";
     "bartender.dowjones.com";
     "barton.de";
+    "basemaps.arcgis.com";
     "bastillepost.com";
     "bayvoice.net";
     "bb-chat.tv";
@@ -1092,6 +1094,7 @@
     "eromangadouzin.com";
     "eromon.net";
     "esg.t91y.com";
+    "esim.redteago.com";
     "eslite.com";
     "esurance.com";
     "etherdelta.com";
@@ -1114,6 +1117,7 @@
     "expatshield.com";
     "expecthim.com";
     "expekt.com";
+    "experience.arcgis.com";
     "exploader.net";
     "expressnews.com";
     "expressvpn.com";
@@ -4320,4 +4324,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4308 domains"
+/log info "GFW domain list updated with 4312 domains"
