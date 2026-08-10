@@ -945,6 +945,7 @@
     "disp.cc";
     "disqus.com";
     "dit-inc.us";
+    "divdyn.com";
     "diyin.org";
     "dizhuzhishang.com";
     "dl-laby.jp";
@@ -4324,4 +4325,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4312 domains"
+/log info "GFW domain list updated with 4313 domains"
