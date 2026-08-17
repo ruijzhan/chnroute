@@ -2260,6 +2260,7 @@
     "livemint.com";
     "livestream.com";
     "livevideo.com";
+    "livingatlas.arcgis.com";
     "livingstream.com";
     "lmarena.ai";
     "localbitcoins.com";
@@ -4325,4 +4326,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4313 domains"
+/log info "GFW domain list updated with 4314 domains"
