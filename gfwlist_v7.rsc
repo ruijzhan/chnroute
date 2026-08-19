@@ -2677,6 +2677,7 @@
     "okpool.me";
     "okx.com";
     "old.honeynet.org";
+    "oldmapsonline.org";
     "olehdtv.com";
     "olelive.com";
     "olevod.com";
@@ -4328,4 +4329,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4316 domains"
+/log info "GFW domain list updated with 4317 domains"
