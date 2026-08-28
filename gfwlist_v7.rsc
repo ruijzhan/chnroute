@@ -4092,6 +4092,7 @@
     "wp.com";
     "wplace.live";
     "wpoforum.com";
+    "write.as";
     "writesonic.com";
     "wsj.com";
     "wsj.net";
@@ -4337,4 +4338,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4325 domains"
+/log info "GFW domain list updated with 4326 domains"
