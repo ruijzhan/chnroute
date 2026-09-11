@@ -222,19 +222,15 @@
     "apartmentratings.com";
     "apartments.com";
     "apat1989.org";
-    "api-gl.lbkrs.com";
     "api-secure.recaptcha.net";
     "api-verify.recaptcha.net";
     "api.ai";
-    "api.futunn.com";
-    "api.lbkrs.com";
     "api.moomoobull.com";
     "api.palworldgame.com";
     "api.pureapk.com";
     "api.recaptcha.net";
     "api.shuaiapi.com";
     "api.steampowered.com";
-    "api5.futunn.com";
     "apiary.io";
     "apigee.com";
     "apk.support";
@@ -617,7 +613,6 @@
     "cdn-images.mailchimp.com";
     "cdn-telegram.org";
     "cdn.arstechnica.net";
-    "cdn.futustatic.com";
     "cdn.jwplayer.com";
     "cdn.printfriendly.com";
     "cdn.seatguru.com";
@@ -767,7 +762,6 @@
     "cn.sandscotaicentral.com";
     "cn.shafaqna.com";
     "cn.theaustralian.com.au";
-    "cn.uptodown.com";
     "cna.com.tw";
     "cnbbnews.wordpress.com";
     "cnbeta.com.tw";
@@ -998,7 +992,6 @@
     "doujincafe.com";
     "dowjones.io";
     "download.dappcdn.com";
-    "download.futunn.com";
     "dpool.top";
     "dpp.org.tw";
     "dpr.info";
@@ -2314,7 +2307,6 @@
     "lyfhk.net";
     "lzjscript.com";
     "lzmtnews.org";
-    "m.hkgalden.com";
     "m.me";
     "m.moegirl.org";
     "macgamestore.com";
@@ -2723,12 +2715,8 @@
     "open.firstory.me";
     "openai.com";
     "openapi-quote.longbridge.cn";
-    "openapi-quote.longbridge.com";
     "openapi-trade.longbridge.cn";
-    "openapi-trade.longbridge.com";
-    "openapi.futunn.com";
     "openapi.longbridge.cn";
-    "openapi.longbridge.com";
     "openart.ai";
     "opencritic.com";
     "opendemocracy.net";
@@ -2984,9 +2972,8 @@
     "qoos.com";
     "qq.co.za";
     "qstatus.com";
-    "qtcard.futunn.com";
-    "qtcardfthk.futufin.com";
     "qtrac.eu";
+    "quakemachinex.com";
     "questvisual.com";
     "quitccp.org";
     "quiz.directory";
@@ -3391,7 +3378,6 @@
     "supervpn.net";
     "superzooi.com";
     "supjav.com";
-    "support.futunn.com";
     "supremecourt.gov";
     "suprememastertv.com";
     "surfeasy.com";
@@ -3655,8 +3641,6 @@
     "tou.tv";
     "tpi.org.tw";
     "tracfone.com";
-    "trade.futunn.com";
-    "trade.longportapp.com";
     "tradeup.com";
     "tradingview.com";
     "translate.goog";
@@ -4352,4 +4336,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4340 domains"
+/log info "GFW domain list updated with 4324 domains"
