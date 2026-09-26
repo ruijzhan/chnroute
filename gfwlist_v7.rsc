@@ -556,6 +556,7 @@
     "c-est-simple.com";
     "c-span.org";
     "c-spanvideo.org";
+    "c.go-mpulse.net";
     "c.mi.com";
     "c2cx.com";
     "c3pool.com";
@@ -2386,7 +2387,9 @@
     "meripet.com";
     "merit-times.com.tw";
     "messenger.com";
+    "meta.ai";
     "meta.com";
+    "metaaivm.com";
     "metafilter.com";
     "metamask.io";
     "metart.com";
@@ -2496,6 +2499,7 @@
     "mubi.com";
     "mullvad.net";
     "multiply.com";
+    "muse.ai";
     "music.amazon.com";
     "musixmatch.com";
     "muzi.com";
@@ -2971,6 +2975,7 @@
     "qianmo.tw";
     "qiwen.lu";
     "qmp4.com";
+    "qobuz.com";
     "qoos.com";
     "qq.co.za";
     "qstatus.com";
@@ -3848,6 +3853,7 @@
     "vansky.com";
     "vaticannews.va";
     "vatn.org";
+    "vava8.com";
     "vcf-online.org";
     "vcfbuilder.org";
     "veed.io";
@@ -4338,4 +4344,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4326 domains"
+/log info "GFW domain list updated with 4332 domains"

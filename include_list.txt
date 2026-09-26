@@ -63,5 +63,8 @@ google.com.vc
 google.com.vn
 hysteria.network
 igoogle.com
+meta.ai
+metaaivm.com
+muse.ai
 thinkwithgoogle.com
 withgoogle.com
