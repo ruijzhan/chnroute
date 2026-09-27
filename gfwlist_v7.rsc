@@ -774,8 +774,6 @@
     "coat.co.jp";
     "cobinhood.com";
     "cochina.org";
-    "codeium.com";
-    "codeiumdata.com";
     "codeshare.io";
     "codeskulptor.org";
     "cofacts.tw";
@@ -4344,4 +4342,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4332 domains"
+/log info "GFW domain list updated with 4330 domains"
