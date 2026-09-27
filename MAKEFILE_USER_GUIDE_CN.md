@@ -60,7 +60,6 @@ Makefile 会自动检查这些必需的依赖项：
 这些工具增强功能但不是严格必需的：
 
 - **shellcheck** - Shell 脚本的静态分析
-- **python3** - 高级基准测试计算
 - **/usr/bin/time** (GNU time) - 详细的时间和内存分析
 - **systemctl** - Systemd 服务管理
 
@@ -264,7 +263,7 @@ make benchmark
 **功能特性：**
 - 冷缓存计时
 - 热缓存计时
-- 3次运行的平均值（如果 python3 可用）
+- 3次运行的平均值
 - GNU time 集成以获得详细指标
 
 **示例输出：**

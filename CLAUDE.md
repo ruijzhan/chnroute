@@ -36,7 +36,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Dependencies
 The scripts require these standard Unix tools:
 - **Core**: bash, curl or wget, awk, sort, base64, grep, sed, tar
-- **Optional**: shellcheck (for static analysis), python3 (for benchmark averages), /usr/bin/time (for detailed timing)
+- **Optional**: shellcheck (for static analysis), /usr/bin/time (for detailed timing)
 
 Most Linux distributions include these by default.
 

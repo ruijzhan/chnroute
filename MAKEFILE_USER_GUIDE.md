@@ -60,7 +60,6 @@ The Makefile automatically checks for these mandatory dependencies:
 These tools enhance functionality but are not strictly required:
 
 - **shellcheck** - Static analysis for shell scripts
-- **python3** - Advanced benchmarking calculations
 - **/usr/bin/time** (GNU time) - Detailed timing and memory profiling
 - **systemctl** - Systemd service management
 
@@ -264,7 +263,7 @@ make benchmark
 **Features:**
 - Cold cache timing
 - Warm cache timing
-- Average of 3 runs (if python3 available)
+- Average of 3 runs
 - GNU time integration for detailed metrics
 
 **Example output:**
