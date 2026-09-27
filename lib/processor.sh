@@ -70,6 +70,30 @@ extract_domains() {
     fi
 }
 
+# Applies the exclude list, the extra-domain list and the final unique sort to
+# an already extracted domain file, in place.
+merge_domain_lists() {
+    local domain_file=$1
+    local extra_file=$2
+    local exclude_file=$3
+
+    if [[ -n "$exclude_file" ]]; then
+        log_info "Applying exclude list ${exclude_file}"
+        local filtered_file="${domain_file}.filtered"
+        if ! grep -vF -f "$exclude_file" "$domain_file" >"$filtered_file"; then
+            log_warn "All domains excluded by ${exclude_file}"
+        fi
+        mv "$filtered_file" "$domain_file"
+    fi
+
+    if [[ -n "$extra_file" ]]; then
+        log_info "Appending extra domains from ${extra_file}"
+        grep -v '^[[:space:]]*$' "$extra_file" >>"$domain_file" || true
+    fi
+
+    LC_ALL=POSIX sort -u "$domain_file" -o "$domain_file"
+}
+
 # Emits the "    \"1.2.3.0/24\";" entries of a RouterOS script and reports how
 # many were written.
 #

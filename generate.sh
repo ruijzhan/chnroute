@@ -35,10 +35,10 @@ LIB_DIR="${SCRIPT_DIR}/lib"
 TMP_DIR=""
 
 cleanup_artifacts() {
-    rm -f "${SCRIPT_DIR}/${OUTPUT_GFWLIST_AUTOPROXY}" \
-        "${SCRIPT_DIR}/${CN_RSC}.tmp" \
+    rm -f "${SCRIPT_DIR}/${CN_RSC}.tmp" \
         "${SCRIPT_DIR}/${CN_MEM_RSC}.tmp" \
-        "${SCRIPT_DIR}/${GFWLIST_V7_RSC}.tmp"
+        "${SCRIPT_DIR}/${GFWLIST_V7_RSC}.tmp" \
+        "${SCRIPT_DIR}"/gfwlist_autoproxy.txt
     log_debug "Removed temporary artifacts"
 }
 
@@ -66,34 +66,29 @@ sort_files() {
     log_info "Include domains: ${include_count}, Exclude domains: ${exclude_count}"
 }
 
-run_gfwlist2dnsmasq() {
-    log_info "Generating domain list via ${GFWLIST2DNSMASQ_SH}..."
+# Builds gfwlist.txt from the downloaded GFWList copy plus the custom
+# include/exclude lists. Same pipeline the standalone gfwlist2dnsmasq.sh runs,
+# shared via lib/processor.sh, but without a second script process.
+generate_domain_list() {
+    local gfwlist_file="${TMP_DIR}/cache/gfwlist.txt"
+    local domain_file="${TMP_DIR}/processing/domains.txt"
 
-    local script_path="${SCRIPT_DIR}/${GFWLIST2DNSMASQ_SH}"
-    local autop_proxy="${SCRIPT_DIR}/${OUTPUT_GFWLIST_AUTOPROXY}"
-    local log_file="${TMP_DIR}/gfwlist2dnsmasq.log"
-
-    if [[ ! -f "$script_path" ]]; then
-        log_error "${GFWLIST2DNSMASQ_SH} not found under ${SCRIPT_DIR}"
+    if [[ ! -s "$gfwlist_file" ]]; then
+        log_error "GFWList input is empty or missing: ${gfwlist_file}"
         return 1
     fi
 
-    # The GFWList was already fetched and decoded by the download step; passing
-    # it in skips a second download of the same file.
-    if ! bash "$script_path" \
-        --domain-list \
-        --input "$autop_proxy" \
-        --extra-domain-file "${SCRIPT_DIR}/${INCLUDE_LIST_TXT}" \
-        --exclude-domain-file "${SCRIPT_DIR}/${EXCLUDE_LIST_TXT}" \
-        --output "${SCRIPT_DIR}/${GFWLIST_TXT}" >"$log_file" 2>&1; then
-        log_error "Failed to generate ${GFWLIST_TXT}:"
-        cat "$log_file" >&2
+    log_info "Extracting domains from GFWList"
+    if ! extract_domains "$gfwlist_file" "$domain_file"; then
+        log_error "Failed to extract domains from GFWList"
         return 1
     fi
 
-    local domain_count
-    domain_count=$(wc -l <"${SCRIPT_DIR}/${GFWLIST_TXT}")
-    log_success "Generated ${GFWLIST_TXT} with ${domain_count} domains"
+    merge_domain_lists "$domain_file" \
+        "${SCRIPT_DIR}/${INCLUDE_LIST_TXT}" "${SCRIPT_DIR}/${EXCLUDE_LIST_TXT}"
+
+    mv "$domain_file" "${SCRIPT_DIR}/${GFWLIST_TXT}"
+    log_success "Generated ${GFWLIST_TXT} with $(wc -l <"${SCRIPT_DIR}/${GFWLIST_TXT}") domains"
 }
 
 create_gfwlist_rsc() {
@@ -237,14 +232,12 @@ parallel_downloads() {
     download_with_retry "$CN_URL" "${SCRIPT_DIR}/${CN_RSC}" 60 &
     local cn_pid=$!
 
-    # The decoded copy is only published once it exists, so a failed download
-    # can never be mistaken for a usable (empty) GFWList downstream.
+    # The decoded copy is only written inside the temp tree on success, so a
+    # failed download can never be mistaken for a usable (empty) GFWList.
     (
         local encoded_file="${TMP_DIR}/cache/gfwlist.base64"
-        local decoded_file="${TMP_DIR}/cache/gfwlist.txt"
         download_with_retry "$GFWLIST_URL" "$encoded_file" 60 &&
-            $BASE64_DECODE "$encoded_file" >"$decoded_file" &&
-            mv "$decoded_file" "${SCRIPT_DIR}/${OUTPUT_GFWLIST_AUTOPROXY}"
+            $BASE64_DECODE "$encoded_file" >"${TMP_DIR}/cache/gfwlist.txt"
     ) &
     local gfwlist_pid=$!
 
@@ -294,7 +287,7 @@ main() {
     sort_files
 
     log_info "Step 3/5: Generating domain list"
-    if ! run_gfwlist2dnsmasq; then
+    if ! generate_domain_list; then
         exit_code=1
     fi
 

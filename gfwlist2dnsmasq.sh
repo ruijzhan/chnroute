@@ -40,7 +40,6 @@ INPUT_FILE=''
 DNS_PORT='5353'
 IPSET_NAME=''
 OUT_FILE=''
-WITH_IPSET=0
 EXTRA_DOMAIN_FILE=''
 EXCLUDE_DOMAIN_FILE=''
 declare -a CURL_EXTRA_ARGS=()
@@ -181,13 +180,9 @@ get_args() {
             exit 1
         fi
 
-        if [[ -n "$IPSET_NAME" ]]; then
-            if [[ $IPSET_NAME =~ ^[[:alnum:]_]+(,[[:alnum:]_]+)*$ ]]; then
-                WITH_IPSET=1
-            else
-                log_error "Invalid ipset name: ${IPSET_NAME}"
-                exit 1
-            fi
+        if [[ -n "$IPSET_NAME" ]] && ! [[ $IPSET_NAME =~ ^[[:alnum:]_]+(,[[:alnum:]_]+)*$ ]]; then
+            log_error "Invalid ipset name: ${IPSET_NAME}"
+            exit 1
         fi
     fi
 
@@ -250,21 +245,7 @@ process_gfwlist() {
         exit 2
     fi
 
-    if [[ -n "$EXCLUDE_DOMAIN_FILE" ]]; then
-        log_info "Applying exclude list ${EXCLUDE_DOMAIN_FILE}"
-        local filtered_file="${domain_file}.filtered"
-        if ! grep -vF -f "$EXCLUDE_DOMAIN_FILE" "$domain_file" >"$filtered_file"; then
-            log_warn "All domains excluded by ${EXCLUDE_DOMAIN_FILE}"
-        fi
-        mv "$filtered_file" "$domain_file"
-    fi
-
-    if [[ -n "$EXTRA_DOMAIN_FILE" ]]; then
-        log_info "Appending extra domains from ${EXTRA_DOMAIN_FILE}"
-        grep -v '^[[:space:]]*$' "$EXTRA_DOMAIN_FILE" >>"$domain_file" || true
-    fi
-
-    LC_ALL=POSIX sort -u "$domain_file" -o "$domain_file"
+    merge_domain_lists "$domain_file" "$EXTRA_DOMAIN_FILE" "$EXCLUDE_DOMAIN_FILE"
 
     local final_count
     final_count=$(wc -l <"$domain_file")
@@ -284,15 +265,10 @@ process_gfwlist() {
 
 EOL
 
-        if (( WITH_IPSET == 1 )); then
-            awk -v dns="$DNS_IP" -v port="$DNS_PORT" -v ipset="$IPSET_NAME" \
-                '{printf "server=/%s/%s#%s\nipset=/%s/%s\n", $0, dns, port, $0, ipset}' \
-                "$domain_file" >>"$OUT_FILE"
-        else
-            awk -v dns="$DNS_IP" -v port="$DNS_PORT" \
-                '{printf "server=/%s/%s#%s\n", $0, dns, port}' \
-                "$domain_file" >>"$OUT_FILE"
-        fi
+        awk -v dns="$DNS_IP" -v port="$DNS_PORT" -v ipset="$IPSET_NAME" '
+            ipset == "" { printf "server=/%s/%s#%s\n", $0, dns, port }
+            ipset != "" { printf "server=/%s/%s#%s\nipset=/%s/%s\n", $0, dns, port, $0, ipset }
+        ' "$domain_file" >>"$OUT_FILE"
     else
         log_info "Generating plain domain list"
         cp "$domain_file" "$OUT_FILE"

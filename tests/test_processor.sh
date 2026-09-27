@@ -113,10 +113,33 @@ EOF
     assert_equals '    "2.2.2.0/24";' "${ip_lines[1]}" "ip line 2 matches"
 }
 
+test_merge_domain_lists() {
+    local domain_file="${TMP_DIR}/processing/merge_domains.txt"
+    local extra_file="${TMP_DIR}/processing/merge_extra.txt"
+    local exclude_file="${TMP_DIR}/processing/merge_exclude.txt"
+    cat <<EOF >"$domain_file"
+keep.example.com
+drop.example.com
+dup.example.com
+dup.example.com
+EOF
+    printf 'added.example.com\n\n' >"$extra_file"
+    printf 'drop.example.com\n' >"$exclude_file"
+
+    merge_domain_lists "$domain_file" "$extra_file" "$exclude_file"
+
+    mapfile -t lines <"$domain_file"
+    assert_equals "3" "${#lines[@]}" "excluded removed, extras added, deduped and sorted"
+    assert_equals "added.example.com" "${lines[0]}" "extra domain merged"
+    assert_equals "dup.example.com" "${lines[1]}" "duplicates collapsed"
+    assert_equals "keep.example.com" "${lines[2]}" "kept domain sorted last"
+}
+
 test_format_domain_lines
 test_format_domain_lines_empty
 test_extract_domains
 test_extract_domains_reports_failure
 test_process_ip_stream
+test_merge_domain_lists
 
 cleanup_temp_root

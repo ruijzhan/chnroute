@@ -27,8 +27,6 @@ readonly GFWLIST_V7_RSC="gfwlist_v7.rsc"
 readonly CN_RSC="CN.rsc"
 readonly CN_MEM_RSC="CN_mem.rsc"
 readonly GFWLIST_CONF="03-gfwlist.conf"
-readonly GFWLIST2DNSMASQ_SH="gfwlist2dnsmasq.sh"
-readonly OUTPUT_GFWLIST_AUTOPROXY="gfwlist_autoproxy.txt"
 
 # RouterOS specific defaults
 readonly LIST_NAME="gfw_list"

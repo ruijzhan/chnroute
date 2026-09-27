@@ -1,50 +1,14 @@
 #!/usr/bin/env bash
 # shellcheck shell=bash
 
-# Platform detection helpers.
-
-detect_platform() {
-    local os_type arch_type id
-    os_type=$(uname -s)
-    arch_type=$(uname -m)
-
-    case "$os_type" in
-        Darwin)
-            echo "macos-${arch_type}"
-            ;;
-        Linux)
-            if [[ -f /etc/os-release ]]; then
-                # shellcheck disable=SC1091
-                . /etc/os-release
-                id=${ID:-unknown}
-            else
-                id="unknown"
-            fi
-            echo "linux-${id}-${arch_type}"
-            ;;
-        FreeBSD|OpenBSD|NetBSD)
-            echo "bsd-${os_type}-${arch_type}"
-            ;;
-        *)
-            echo "unknown-${os_type}-${arch_type}"
-            ;;
-    esac
-}
+# Platform compatibility helpers.
 
 setup_platform_specific() {
-    local platform
-    platform=$(detect_platform)
-
-    case "$platform" in
-    macos-*)
-        BASE64_DECODE='base64 -D'
-        ;;
-    *)
-        BASE64_DECODE='base64 -d'
-        ;;
+    # macOS/BSD base64 uses -D to decode; everything else uses -d.
+    case "$(uname -s)" in
+        Darwin) BASE64_DECODE='base64 -D' ;;
+        *) BASE64_DECODE='base64 -d' ;;
     esac
 
     DATE_FORMAT=$(date -Iseconds 2>/dev/null || date '+%Y-%m-%dT%H:%M:%S%z')
-    log_info "Platform detected: ${platform}"
 }
-
