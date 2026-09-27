@@ -30,7 +30,10 @@ download_with_retry() {
     local attempt=0 curl_exit=0
     until "${curl_cmd[@]}"; do
         curl_exit=$?
-        ((attempt++))
+        # Assignment, not ((attempt++)): post-increment from 0 evaluates to 0,
+        # whose non-zero status would abort the script under set -e before the
+        # first retry ever runs.
+        attempt=$((attempt + 1))
         if (( attempt < retries )); then
             log_warn "Download failed (exit ${curl_exit}), retry ${attempt}/${retries} in ${retry_delay}s"
             sleep "$retry_delay"
