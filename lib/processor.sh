@@ -113,26 +113,18 @@ process_ip_stream() {
         return 1
     fi
 
-    local count_file
-    count_file=$(mktemp "${TMP_DIR}/.ip_count.XXXXXX")
-
-    awk -v count_file="$count_file" '
+    awk '
         {
             idx = index($0, "address=")
             if (idx == 0) next
             rest = substr($0, idx + 8)
             if (match(rest, /^[0-9.\/]+/)) {
                 printf "    \"%s\";\n", substr(rest, 1, RLENGTH)
-                count++
             }
-        }
-        END {
-            print count + 0 > count_file
         }
     ' "$input_file" >"$output_file"
 
-    local ip_count
-    ip_count=$(<"$count_file")
-    rm -f "$count_file"
-    echo "$ip_count"
+    # The count file awk used to write is redundant: every entry is one
+    # line. Arithmetic normalization strips the leading spaces BSD wc adds.
+    echo $(( $(wc -l <"$output_file") ))
 }

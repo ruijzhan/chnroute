@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `make` or `make generate` - Main command that executes the generation process (runs `generate.sh`)
 - `make fast` - Run generation without dependency checks (faster for development)
 - `bash generate.sh` - Main generation script that downloads latest data and creates all configuration files
-- `bash gfwlist2dnsmasq.sh` - GFW list converter (called automatically by main script)
+- `bash gfwlist2dnsmasq.sh` - Standalone GFW list converter (dnsmasq rules or plain domain lists)
 
 ### Testing and Validation
 - `make test` - Run generation and validate output files

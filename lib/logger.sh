@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # shellcheck shell=bash
 
-# Structured logging utilities with levels and optional log file support.
+# Structured logging utilities with levels.
 
 readonly LOG_LEVEL_DEBUG=0
 readonly LOG_LEVEL_INFO=1
@@ -51,10 +51,5 @@ log_error() {
 
 log_success() {
     _log_dispatch "SUCCESS" "$LOG_LEVEL_INFO" "$COLOR_GREEN" "$@"
-}
-
-initialize_logging() {
-    # Logging disabled - output to stdout only
-    :
 }
 

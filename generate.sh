@@ -37,8 +37,7 @@ TMP_DIR=""
 cleanup_artifacts() {
     rm -f "${SCRIPT_DIR}/${CN_RSC}.tmp" \
         "${SCRIPT_DIR}/${CN_MEM_RSC}.tmp" \
-        "${SCRIPT_DIR}/${GFWLIST_V7_RSC}.tmp" \
-        "${SCRIPT_DIR}"/gfwlist_autoproxy.txt
+        "${SCRIPT_DIR}/${GFWLIST_V7_RSC}.tmp"
     log_debug "Removed temporary artifacts"
 }
 
@@ -87,8 +86,10 @@ generate_domain_list() {
     merge_domain_lists "$domain_file" \
         "${SCRIPT_DIR}/${INCLUDE_LIST_TXT}" "${SCRIPT_DIR}/${EXCLUDE_LIST_TXT}"
 
+    local domain_count
+    domain_count=$(wc -l <"$domain_file")
     mv "$domain_file" "${SCRIPT_DIR}/${GFWLIST_TXT}"
-    log_success "Generated ${GFWLIST_TXT} with $(wc -l <"${SCRIPT_DIR}/${GFWLIST_TXT}") domains"
+    log_success "Generated ${GFWLIST_TXT} with ${domain_count} domains"
 }
 
 create_gfwlist_rsc() {
@@ -102,18 +103,16 @@ create_gfwlist_rsc() {
 
     log_info "Creating RouterOS script ${output_rsc} for version ${version}..."
 
-    # Written next to the target so the final mv is a rename, not a copy.
-    local tmp_rsc="${SCRIPT_DIR}/${output_rsc}.tmp"
-    local domain_entries="${TMP_DIR}/processing/${output_rsc}.domains"
-
-    if ! format_domain_lines "$input_file" "$domain_entries"; then
-        log_error "Failed to format domains from ${input_file}"
-        return 1
+    if [[ ! -s "$input_file" ]]; then
+        log_warn "Domain list is empty: ${input_file}"
     fi
 
     local domain_count
     domain_count=$(wc -l <"$input_file")
 
+    # Written next to the target so the final mv is a rename, not a copy.
+    # Domains are streamed straight into the script, no intermediate file.
+    local tmp_rsc="${SCRIPT_DIR}/${output_rsc}.tmp"
     {
         cat <<EOL
 # RouterOS script for GFW domain list - Version ${version}
@@ -124,7 +123,7 @@ create_gfwlist_rsc() {
 /ip dns static
 :local domainList {
 EOL
-        cat "$domain_entries"
+        awk '{printf "    \"%s\";\n", $0}' "$input_file"
         cat <<EOL
 }
 
@@ -196,34 +195,6 @@ generate_cn_ip_list() {
     log_success "Updated CN list variants"
 }
 
-check_git_status() {
-    log_info "Checking git repository status..."
-
-    if ! git -C "$SCRIPT_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-        log_warn "Not inside a git repository. Skipping git status checks."
-        return 0
-    fi
-
-    if [[ ! -f "${SCRIPT_DIR}/${GFWLIST_CONF}" ]] || ! git -C "$SCRIPT_DIR" ls-files --error-unmatch "$GFWLIST_CONF" >/dev/null 2>&1; then
-        log_warn "${GFWLIST_CONF} is not tracked by git. Skipping checkout logic."
-        return 0
-    fi
-
-    local changes
-    changes=$(git -C "$SCRIPT_DIR" status -s | wc -l)
-    if [[ "$changes" -eq 1 ]]; then
-        log_info "Single change detected. Restoring ${GFWLIST_CONF}."
-        if git -C "$SCRIPT_DIR" checkout "$GFWLIST_CONF"; then
-            log_success "${GFWLIST_CONF} restored"
-        else
-            log_error "Failed to restore ${GFWLIST_CONF}"
-            return 1
-        fi
-    else
-        log_info "Multiple changes present. Leaving git state untouched."
-    fi
-}
-
 parallel_downloads() {
     log_info "Starting parallel downloads..."
 
@@ -260,11 +231,9 @@ parallel_downloads() {
     fi
 
     log_success "All downloads completed"
-    generate_cn_ip_list "${SCRIPT_DIR}/${CN_RSC}" "${SCRIPT_DIR}/${CN_MEM_RSC}"
 }
 
 main() {
-    initialize_logging
     create_temp_root
     trap 'cleanup_artifacts; cleanup_temp_root' EXIT
     setup_error_trap
@@ -278,28 +247,27 @@ main() {
 
     log_info "Starting chnroute generation pipeline..."
 
-    log_info "Step 1/5: Downloading source data"
+    log_info "Step 1/4: Downloading source data and creating CN lists"
     if ! parallel_downloads; then
+        exit_code=1
+    elif ! generate_cn_ip_list "${SCRIPT_DIR}/${CN_RSC}" "${SCRIPT_DIR}/${CN_MEM_RSC}"; then
         exit_code=1
     fi
 
-    log_info "Step 2/5: Sorting custom domain lists"
+    log_info "Step 2/4: Sorting custom domain lists"
     sort_files
 
-    log_info "Step 3/5: Generating domain list"
+    log_info "Step 3/4: Generating domain list"
     if ! generate_domain_list; then
         exit_code=1
     fi
 
     if [[ $exit_code -eq 0 ]]; then
-        log_info "Step 4/5: Creating RouterOS scripts"
+        log_info "Step 4/4: Creating RouterOS scripts"
         if ! create_gfwlist_rsc "v7" "$GFWLIST_V7_RSC"; then
             exit_code=1
         fi
     fi
-
-    log_info "Step 5/5: Checking git repository"
-    check_git_status || exit_code=1
 
     local end_time
     end_time=$(date +%s)

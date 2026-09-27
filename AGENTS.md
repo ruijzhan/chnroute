@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 - **Core Scripts**:
-  - `generate.sh`: main pipeline using modular lib/ architecture; produces `CN.rsc`, `CN_mem.rsc`, `gfwlist_v7.rsc`, `03-gfwlist.conf`, `gfwlist.txt`.
+  - `generate.sh`: main pipeline using modular lib/ architecture; produces `CN.rsc`, `CN_mem.rsc`, `gfwlist_v7.rsc`, `gfwlist.txt`. (`03-gfwlist.conf` is committed but no longer regenerated; validate-output still checks it.)
   - `gfwlist2dnsmasq.sh`: converts gfwlist to dnsmasq rules or a plain domain list.
   - `generate_cn.sh`: optional/legacy helper.
 - **Library Modules (`lib/`)**:

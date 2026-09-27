@@ -15,7 +15,7 @@ create_temp_root() {
         TMP_DIR=$(mktemp -d -t "${prefix}XXXXXX")
     fi
 
-    mkdir -p "${TMP_DIR}/processing" "${TMP_DIR}/cache" "${TMP_DIR}/checkpoints"
+    mkdir -p "${TMP_DIR}/processing" "${TMP_DIR}/cache"
     log_debug "Temporary directory created at ${TMP_DIR}"
 }
 
