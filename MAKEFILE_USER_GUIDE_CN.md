@@ -784,10 +784,6 @@ make generate
 export SKIP_VALIDATION=true
 make fast
 
-# 设置自定义线程数
-export PARALLEL_THREADS=8
-make generate
-
 # 使用自定义 DNS 服务器
 export CUSTOM_DNS_SERVERS="8.8.8.8,1.1.1.1"
 make generate
@@ -806,9 +802,6 @@ sudo vim /etc/chnroute/config.conf
 ```bash
 # 日志级别：DEBUG, INFO, WARN, ERROR
 LOG_LEVEL=INFO
-
-# 并行处理线程数
-PARALLEL_THREADS=4
 
 # 自定义 DNS 服务器
 CUSTOM_DNS_SERVERS=8.8.8.8,1.1.1.1
@@ -971,8 +964,8 @@ make -j1
    # 监控 CPU 使用情况
    htop
 
-   # 根据 CPU 核心数调整线程数
-   export PARALLEL_THREADS=$(nproc)
+   # 无需调参：所有转换都是对单个文件的一次性 awk 扫描，
+   # 且两个数据源并行下载，CPU 仅在 awk 运行期间被占用。
    ```
 
 ### 基准测试
@@ -991,7 +984,7 @@ diff benchmarks/benchmark-20240101-120000.txt benchmarks/benchmark-20240102-1200
 ### 优化策略
 
 1. **缓存**：启用下载的本地缓存
-2. **并行处理**：根据系统资源调整线程数
+2. **并发下载**：两个数据源并行下载，GFWList 只下载一次并复用于后续处理
 3. **网络优化**：在可用时使用本地镜像或 CDN
 4. **内存管理**：监控和优化内存使用模式
 
@@ -1038,7 +1031,7 @@ A: 可以，您可以修改 `lib/processor.sh` 文件中的模板，但在部署
 A: Makefile 包含重试逻辑和超时处理。如果源仍然不可用，考虑使用缓存数据或替代镜像。
 
 ### Q: 如何减少生成期间的内存使用？
-A: 您可以减少 `PARALLEL_THREADS` 环境变量，或使用跳过某些验证步骤的 `fast` 目标。
+A: 域名与 IP 的转换都是单趟 `awk` 流式处理，内存占用与输入大小无关。也可以使用 `fast` 目标跳过依赖与语法检查。
 
 ### Q: 我可以在非 Linux 系统上使用吗？
 A: Makefile 主要为 Linux 设计，但经过修改可能适用于其他 Unix 类系统。Systemd 目标需要 Linux。

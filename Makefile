@@ -42,6 +42,16 @@ endef
 define log_info
 	printf '%b[INFO]%b %s\n' "$(COLOR_CYAN)" "$(COLOR_RESET)" "$(1)"
 endef
+define file_stats
+	for file in $(OUTPUT_FILES); do \
+		if [ -f "$$file" ]; then \
+			printf '  %s: %s lines, %s bytes\n' "$$file" "$$(wc -l < "$$file")" "$$(wc -c < "$$file")"; \
+		else \
+			printf '  %s: (not generated)\n' "$$file"; \
+		fi; \
+	done
+endef
+
 
 all: generate validate-output
 
@@ -76,7 +86,7 @@ help:
 check-deps:
 	@$(call log,Checking dependencies...)
 	@missing=0; \
-	for cmd in bash curl awk sort base64 grep sed tar; do \
+	for cmd in bash curl awk sort base64 grep wc mktemp tar; do \
 		if ! command -v $$cmd >/dev/null 2>&1; then \
 			$(call log_error,Command "$$cmd" is required but not found); \
 			missing=$$((missing + 1)); \
@@ -163,13 +173,7 @@ clean:
 
 test: generate validate-output
 	@$(call log,Running comprehensive checks...)
-	@for file in $(OUTPUT_FILES); do \
-		if [ -f "$$file" ]; then \
-			lines=$$(wc -l < "$$file"); \
-			size=$$(wc -c < "$$file"); \
-			printf '  %s: %s lines, %s bytes\n' "$$file" "$$lines" "$$size"; \
-		fi; \
-	done
+	@$(file_stats)
 	@$(call log_success,Comprehensive checks passed)
 
 benchmark:
@@ -298,7 +302,7 @@ install: generate validate-output
 	@cp exclude_list.txt "$(CONFIG_DIR)/" 2>/dev/null || true
 	@chmod 755 "$(INSTALL_DIR)"/*.sh
 	@chmod 644 "$(INSTALL_DIR)"/*.rsc "$(INSTALL_DIR)"/*.txt "$(INSTALL_DIR)"/*.conf
-	@printf 'LOG_LEVEL=INFO\nPARALLEL_THREADS=4\n' > "$(CONFIG_DIR)/config.conf"
+	@printf 'LOG_LEVEL=INFO\n' > "$(CONFIG_DIR)/config.conf"
 	@$(call log_success,Installation complete)
 
 service-setup: install
@@ -396,12 +400,4 @@ info:
 	@printf 'Install Dir: %s\n' "$(INSTALL_DIR)"
 	@printf 'Config Dir: %s\n\n' "$(CONFIG_DIR)"
 	@printf '%bOutput files:%b\n' "$(COLOR_BLUE)" "$(COLOR_RESET)"
-	@for file in $(OUTPUT_FILES); do \
-		if [ -f "$$file" ]; then \
-			size=$$(wc -c < "$$file"); \
-			lines=$$(wc -l < "$$file"); \
-			printf '  %s: %s lines, %s bytes\n' "$$file" "$$lines" "$$size"; \
-		else \
-			printf '  %s: (not generated)\n' "$$file"; \
-		fi; \
-	done
+	@$(file_stats)

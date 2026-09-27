@@ -29,11 +29,14 @@ LIB_DIR="${SCRIPT_DIR}/lib"
 # shellcheck source=lib/validation.sh
 . "${LIB_DIR}/validation.sh"
 # shellcheck source=lib/downloader.sh
+# shellcheck source=lib/processor.sh
+. "${LIB_DIR}/processor.sh"
 . "${LIB_DIR}/downloader.sh"
 
 TMP_DIR=""
 OUT_TYPE='DNSMASQ_RULES'
 DNS_IP='127.0.0.1'
+INPUT_FILE=''
 DNS_PORT='5353'
 IPSET_NAME=''
 OUT_FILE=''
@@ -67,6 +70,8 @@ ${COLOR_GREEN}Options:${COLOR_RESET}
                 Disable TLS certificate validation (curl only)
     -l, --domain-list
                 Generate a simple domain list instead of dnsmasq rules
+    --input <FILE>
+                Use an already downloaded (decoded) GFWList file
     --exclude-domain-file <FILE>
                 File with domains to exclude (one per line)
     --extra-domain-file <FILE>
@@ -101,6 +106,10 @@ get_args() {
     local IPV6_PATTERN='^(([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4}|(::1)|([0-9A-Fa-f]{1,4}:){1,7}:|:([0-9A-Fa-f]{1,4}:){1,7})(%.+)?$'
 
     while [[ $# -gt 0 ]]; do
+        # Options taking a value only pick their target here; the value itself
+        # is consumed once, after the case, so every option validates alike.
+        local target=''
+        local label=''
         case "$1" in
             --help|-h)
                 usage 0
@@ -114,64 +123,48 @@ get_args() {
                 log_warn "TLS certificate validation disabled"
                 ;;
             --dns|-d)
-                if [[ $# -lt 2 ]] || [[ ${2-} == -* ]]; then
-                    log_error "Missing value for DNS IP parameter"
-                    usage 1
-                fi
-                DNS_IP="$2"
-                log_info "DNS IP set to ${DNS_IP}"
-                shift
+                target=DNS_IP
+                label='DNS IP'
                 ;;
             --port|-p)
-                if [[ $# -lt 2 ]] || [[ ${2-} == -* ]]; then
-                    log_error "Missing value for DNS port parameter"
-                    usage 1
-                fi
-                DNS_PORT="$2"
-                log_info "DNS port set to ${DNS_PORT}"
-                shift
+                target=DNS_PORT
+                label='DNS port'
                 ;;
             --ipset|-s)
-                if [[ $# -lt 2 ]] || [[ ${2-} == -* ]]; then
-                    log_error "Missing value for ipset parameter"
-                    usage 1
-                fi
-                IPSET_NAME="$2"
-                log_info "Ipset name set to ${IPSET_NAME}"
-                shift
+                target=IPSET_NAME
+                label='ipset name'
                 ;;
             --output|-o)
-                if [[ $# -lt 2 ]] || [[ ${2-} == -* ]]; then
-                    log_error "Missing value for output file parameter"
-                    usage 1
-                fi
-                OUT_FILE="$2"
-                log_info "Output file set to ${OUT_FILE}"
-                shift
+                target=OUT_FILE
+                label='output file'
+                ;;
+            --input)
+                target=INPUT_FILE
+                label='input file'
                 ;;
             --extra-domain-file)
-                if [[ $# -lt 2 ]] || [[ ${2-} == -* ]]; then
-                    log_error "Missing value for extra domain file parameter"
-                    usage 1
-                fi
-                EXTRA_DOMAIN_FILE="$2"
-                log_info "Extra domain file set to ${EXTRA_DOMAIN_FILE}"
-                shift
+                target=EXTRA_DOMAIN_FILE
+                label='extra domain file'
                 ;;
             --exclude-domain-file)
-                if [[ $# -lt 2 ]] || [[ ${2-} == -* ]]; then
-                    log_error "Missing value for exclude domain file parameter"
-                    usage 1
-                fi
-                EXCLUDE_DOMAIN_FILE="$2"
-                log_info "Exclude domain file set to ${EXCLUDE_DOMAIN_FILE}"
-                shift
+                target=EXCLUDE_DOMAIN_FILE
+                label='exclude domain file'
                 ;;
             *)
                 log_error "Unknown argument: $1"
                 usage 1
                 ;;
         esac
+
+        if [[ -n "$target" ]]; then
+            if [[ $# -lt 2 ]] || [[ ${2-} == -* ]]; then
+                log_error "Missing value for ${label} parameter"
+                usage 1
+            fi
+            printf -v "$target" '%s' "$2"
+            log_info "${label^} set to ${!target}"
+            shift
+        fi
         shift
     done
 
@@ -215,55 +208,55 @@ get_args() {
             EXCLUDE_DOMAIN_FILE=''
         fi
     fi
+
+    if [[ -n "$INPUT_FILE" ]]; then
+        if ! validate_file_exists "$INPUT_FILE" "GFWList input"; then
+            exit 1
+        fi
+        if [[ ! -s "$INPUT_FILE" ]]; then
+            log_error "GFWList input is empty: ${INPUT_FILE}"
+            exit 1
+        fi
+    fi
 }
 
 process_gfwlist() {
-    local base_url='https://github.com/gfwlist/gfwlist/raw/master/gfwlist.txt'
-    local base64_file="${TMP_DIR}/cache/gfwlist.base64"
-    local gfwlist_file="${TMP_DIR}/cache/gfwlist.txt"
-    local domain_temp_file="${TMP_DIR}/processing/domains.tmp"
+    local gfwlist_file=$INPUT_FILE
     local domain_file="${TMP_DIR}/processing/domains.txt"
-    local out_tmp_file="${TMP_DIR}/processing/output.tmp"
 
-    log_info "Fetching GFWList from ${base_url}"
-    if ! download_with_retry "$base_url" "$base64_file" 30 "$DEFAULT_RETRY_COUNT" "$DEFAULT_RETRY_DELAY" "${CURL_EXTRA_ARGS[@]}"; then
-        log_error "Failed to download GFWList"
-        exit 2
+    if [[ -z "$gfwlist_file" ]]; then
+        local base_url='https://github.com/gfwlist/gfwlist/raw/master/gfwlist.txt'
+        local encoded_file="${TMP_DIR}/cache/gfwlist.base64"
+        gfwlist_file="${TMP_DIR}/cache/gfwlist.txt"
+
+        log_info "Fetching GFWList from ${base_url}"
+        if ! download_with_retry "$base_url" "$encoded_file" 30 "$DEFAULT_RETRY_COUNT" "$DEFAULT_RETRY_DELAY" "${CURL_EXTRA_ARGS[@]}"; then
+            log_error "Failed to download GFWList"
+            exit 2
+        fi
+
+        log_info "Decoding base64 content"
+        if ! $BASE64_DECODE "$encoded_file" >"$gfwlist_file"; then
+            log_error "Failed to decode GFWList"
+            exit 2
+        fi
+    else
+        log_info "Using local GFWList copy: ${gfwlist_file}"
     fi
-
-    log_info "Decoding base64 content"
-    if ! $BASE64_DECODE "$base64_file" >"$gfwlist_file"; then
-        log_error "Failed to decode GFWList"
-        exit 2
-    fi
-
-    local IGNORE_PATTERN='^\!|\[|^@@|(https?://){0,1}[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'
-    local HEAD_FILTER_PATTERN='s#^(\|\|?)?(https?://)?##g'
-    local TAIL_FILTER_PATTERN='s#/.*$|%2F.*$##g'
-    local DOMAIN_PATTERN='([a-zA-Z0-9][-a-zA-Z0-9]*(\.[a-zA-Z0-9][-a-zA-Z0-9]*)+)'
-    local HANDLE_WILDCARD_PATTERN='s#^(([a-zA-Z0-9]*\*[-a-zA-Z0-9]*)?(\.))?([a-zA-Z0-9][-a-zA-Z0-9]*(\.[a-zA-Z0-9][-a-zA-Z0-9]*)+)(\*[a-zA-Z0-9]*)?#\4#g'
 
     log_info "Extracting domains from GFWList"
-    set +e
-    grep -vE "$IGNORE_PATTERN" "$gfwlist_file" | \
-        $SED_ERES "$HEAD_FILTER_PATTERN" | \
-        $SED_ERES "$TAIL_FILTER_PATTERN" | \
-        grep -E "$DOMAIN_PATTERN" | \
-        $SED_ERES "$HANDLE_WILDCARD_PATTERN" >"$domain_temp_file"
-    local pipeline_status=$?
-    set -e
-    if [[ $pipeline_status -ne 0 ]]; then
-        log_warn "Domain extraction pipeline exited with status ${pipeline_status}"
+    if ! extract_domains "$gfwlist_file" "$domain_file"; then
+        log_error "Failed to extract domains from GFWList"
+        exit 2
     fi
 
     if [[ -n "$EXCLUDE_DOMAIN_FILE" ]]; then
         log_info "Applying exclude list ${EXCLUDE_DOMAIN_FILE}"
-        if ! grep -vF -f "$EXCLUDE_DOMAIN_FILE" "$domain_temp_file" >"$domain_file"; then
-            : >"$domain_file"
+        local filtered_file="${domain_file}.filtered"
+        if ! grep -vF -f "$EXCLUDE_DOMAIN_FILE" "$domain_file" >"$filtered_file"; then
             log_warn "All domains excluded by ${EXCLUDE_DOMAIN_FILE}"
         fi
-    else
-        cp "$domain_temp_file" "$domain_file"
+        mv "$filtered_file" "$domain_file"
     fi
 
     if [[ -n "$EXTRA_DOMAIN_FILE" ]]; then
@@ -279,7 +272,7 @@ process_gfwlist() {
 
     if [[ "$OUT_TYPE" == "DNSMASQ_RULES" ]]; then
         log_info "Generating dnsmasq rules"
-        cat >"$out_tmp_file" <<EOL
+        cat >"$OUT_FILE" <<EOL
 # dnsmasq rules generated by gfwlist2dnsmasq
 # Last Updated: ${DATE_FORMAT}
 # Total domains: ${final_count}
@@ -294,18 +287,17 @@ EOL
         if (( WITH_IPSET == 1 )); then
             awk -v dns="$DNS_IP" -v port="$DNS_PORT" -v ipset="$IPSET_NAME" \
                 '{printf "server=/%s/%s#%s\nipset=/%s/%s\n", $0, dns, port, $0, ipset}' \
-                "$domain_file" >>"$out_tmp_file"
+                "$domain_file" >>"$OUT_FILE"
         else
             awk -v dns="$DNS_IP" -v port="$DNS_PORT" \
                 '{printf "server=/%s/%s#%s\n", $0, dns, port}' \
-                "$domain_file" >>"$out_tmp_file"
+                "$domain_file" >>"$OUT_FILE"
         fi
     else
         log_info "Generating plain domain list"
-        cp "$domain_file" "$out_tmp_file"
+        cp "$domain_file" "$OUT_FILE"
     fi
 
-    cp "$out_tmp_file" "$OUT_FILE"
     log_success "Output written to ${OUT_FILE}"
 }
 

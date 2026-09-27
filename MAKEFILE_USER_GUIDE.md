@@ -784,10 +784,6 @@ make generate
 export SKIP_VALIDATION=true
 make fast
 
-# Set custom thread count
-export PARALLEL_THREADS=8
-make generate
-
 # Use custom DNS servers
 export CUSTOM_DNS_SERVERS="8.8.8.8,1.1.1.1"
 make generate
@@ -806,9 +802,6 @@ sudo vim /etc/chnroute/config.conf
 ```bash
 # Log level: DEBUG, INFO, WARN, ERROR
 LOG_LEVEL=INFO
-
-# Parallel processing threads
-PARALLEL_THREADS=4
 
 # Custom DNS servers
 CUSTOM_DNS_SERVERS=8.8.8.8,1.1.1.1
@@ -971,8 +964,9 @@ make -j1
    # Monitor CPU usage
    htop
 
-   # Adjust thread count based on CPU cores
-   export PARALLEL_THREADS=$(nproc)
+   # Nothing to tune: every transform is a single-pass awk over one file
+   # and both sources are downloaded concurrently, so the run is CPU-bound
+   # only while awk is working.
    ```
 
 ### Benchmarking
@@ -991,7 +985,7 @@ diff benchmarks/benchmark-20240101-120000.txt benchmarks/benchmark-20240102-1200
 ### Optimization Strategies
 
 1. **Caching**: Enable local caching of downloaded data
-2. **Parallel Processing**: Adjust thread count based on system resources
+2. **Concurrent Downloads**: Both sources are fetched in parallel and the GFW list is fetched once and reused
 3. **Network Optimization**: Use local mirrors or CDNs when available
 4. **Memory Management**: Monitor and optimize memory usage patterns
 
@@ -1038,7 +1032,7 @@ A: Yes, you can modify the templates in the `lib/processor.sh` file, but be sure
 A: The Makefile includes retry logic and timeout handling. If sources remain unavailable, consider using cached data or alternative mirrors.
 
 ### Q: How can I reduce memory usage during generation?
-A: You can reduce the `PARALLEL_THREADS` environment variable, or use the `fast` target which skips some validation steps.
+A: Domain and IP transforms are single-pass `awk` programs that stream their input, so memory use is flat in the input size. You can also use the `fast` target, which skips the dependency and syntax checks.
 
 ### Q: Can I use this on non-Linux systems?
 A: The Makefile is primarily designed for Linux but may work on other Unix-like systems with modifications. Systemd targets require Linux.

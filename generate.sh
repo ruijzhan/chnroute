@@ -33,13 +33,13 @@ LIB_DIR="${SCRIPT_DIR}/lib"
 . "${LIB_DIR}/processor.sh"
 
 TMP_DIR=""
-PARALLEL_THREADS=""
 
 cleanup_artifacts() {
-    if [[ -f "${SCRIPT_DIR}/${OUTPUT_GFWLIST_AUTOPROXY}" ]]; then
-        rm -f "${SCRIPT_DIR}/${OUTPUT_GFWLIST_AUTOPROXY}"
-        log_debug "Removed artifact ${OUTPUT_GFWLIST_AUTOPROXY}"
-    fi
+    rm -f "${SCRIPT_DIR}/${OUTPUT_GFWLIST_AUTOPROXY}" \
+        "${SCRIPT_DIR}/${CN_RSC}.tmp" \
+        "${SCRIPT_DIR}/${CN_MEM_RSC}.tmp" \
+        "${SCRIPT_DIR}/${GFWLIST_V7_RSC}.tmp"
+    log_debug "Removed temporary artifacts"
 }
 
 sort_files() {
@@ -71,9 +71,6 @@ run_gfwlist2dnsmasq() {
 
     local script_path="${SCRIPT_DIR}/${GFWLIST2DNSMASQ_SH}"
     local autop_proxy="${SCRIPT_DIR}/${OUTPUT_GFWLIST_AUTOPROXY}"
-    local output_path="${SCRIPT_DIR}/${GFWLIST_TXT}"
-    local include_path="${SCRIPT_DIR}/${INCLUDE_LIST_TXT}"
-    local exclude_path="${SCRIPT_DIR}/${EXCLUDE_LIST_TXT}"
     local log_file="${TMP_DIR}/gfwlist2dnsmasq.log"
 
     if [[ ! -f "$script_path" ]]; then
@@ -81,24 +78,22 @@ run_gfwlist2dnsmasq() {
         return 1
     fi
 
-    if [[ ! -f "$autop_proxy" ]]; then
-        log_error "${OUTPUT_GFWLIST_AUTOPROXY} not found. Run parallel downloads first."
+    # The GFWList was already fetched and decoded by the download step; passing
+    # it in skips a second download of the same file.
+    if ! bash "$script_path" \
+        --domain-list \
+        --input "$autop_proxy" \
+        --extra-domain-file "${SCRIPT_DIR}/${INCLUDE_LIST_TXT}" \
+        --exclude-domain-file "${SCRIPT_DIR}/${EXCLUDE_LIST_TXT}" \
+        --output "${SCRIPT_DIR}/${GFWLIST_TXT}" >"$log_file" 2>&1; then
+        log_error "Failed to generate ${GFWLIST_TXT}:"
+        cat "$log_file" >&2
         return 1
     fi
 
-    if bash "$script_path" \
-        --domain-list \
-        --extra-domain-file "$include_path" \
-        --exclude-domain-file "$exclude_path" \
-        --output "$output_path" >"$log_file" 2>&1; then
-        local domain_count
-        domain_count=$(wc -l <"$output_path")
-        log_success "Generated ${GFWLIST_TXT} with ${domain_count} domains"
-    else
-        local exit_code=$?
-        log_error "Failed to generate ${GFWLIST_TXT} (exit code ${exit_code}). See ${log_file} for details."
-        return 1
-    fi
+    local domain_count
+    domain_count=$(wc -l <"${SCRIPT_DIR}/${GFWLIST_TXT}")
+    log_success "Generated ${GFWLIST_TXT} with ${domain_count} domains"
 }
 
 create_gfwlist_rsc() {
@@ -112,15 +107,20 @@ create_gfwlist_rsc() {
 
     log_info "Creating RouterOS script ${output_rsc} for version ${version}..."
 
-    local tmp_rsc="${TMP_DIR}/processing/${output_rsc}"
-    local processed_domains="${TMP_DIR}/processing/${output_rsc}.domains"
+    # Written next to the target so the final mv is a rename, not a copy.
+    local tmp_rsc="${SCRIPT_DIR}/${output_rsc}.tmp"
+    local domain_entries="${TMP_DIR}/processing/${output_rsc}.domains"
 
-    process_domains_parallel "$input_file" "$processed_domains" "$PARALLEL_THREADS"
+    if ! format_domain_lines "$input_file" "$domain_entries"; then
+        log_error "Failed to format domains from ${input_file}"
+        return 1
+    fi
 
     local domain_count
     domain_count=$(wc -l <"$input_file")
 
-    cat <<EOL >"$tmp_rsc"
+    {
+        cat <<EOL
 # RouterOS script for GFW domain list - Version ${version}
 # Source: ${SCRIPT_REPO}
 
@@ -129,10 +129,8 @@ create_gfwlist_rsc() {
 /ip dns static
 :local domainList {
 EOL
-
-    cat "$processed_domains" >>"$tmp_rsc"
-
-    cat <<EOL >>"$tmp_rsc"
+        cat "$domain_entries"
+        cat <<EOL
 }
 
 :foreach domain in=\$domainList do={
@@ -142,39 +140,53 @@ EOL
 /ip dns cache flush
 /log info "GFW domain list updated with ${domain_count} domains"
 EOL
-
+    } >"$tmp_rsc"
     mv "$tmp_rsc" "${SCRIPT_DIR}/${output_rsc}"
     log_success "Created ${output_rsc} with ${domain_count} domains"
 }
 
-generate_cn_ip_list() {
-    local input_file=$1
-    local output_file=$2
-    local timeout=$3
+# Renders a RouterOS address-list script from pre-extracted IP entries.
+render_cn_rsc() {
+    local ip_entries=$1
+    local ip_count=$2
+    local output_file=$3
+    local timeout=$4
 
-    if [[ $# -ne 3 ]]; then
-        log_error "Usage: generate_cn_ip_list <input> <output> <timeout>"
-        return 1
-    fi
-
-    if ! validate_file_exists "$input_file" "RouterOS source script"; then
-        return 1
-    fi
-
-    local tmp_rsc
-    local processed_ips
-    tmp_rsc="${TMP_DIR}/processing/$(basename "$output_file")"
-    processed_ips="${TMP_DIR}/processing/$(basename "$output_file").ips"
-
-    cat <<EOL >"$tmp_rsc"
+    local tmp_rsc="${output_file}.tmp"
+    {
+        cat <<EOL
 /log info "Loading CN ipv4 address list"
 /ip firewall address-list remove [/ip firewall address-list find list=CN]
 /ip firewall address-list
 :local ipList {
 EOL
+        cat "$ip_entries"
+        cat <<EOL
+}
+:foreach ip in=\$ipList do={
+    /ip firewall address-list add address=\$ip list=CN timeout=${timeout}
+}
+EOL
+    } >"$tmp_rsc"
+    mv "$tmp_rsc" "$output_file"
+    log_success "Generated ${output_file} with ${ip_count} IP addresses"
+}
 
+generate_cn_ip_list() {
+    local input_file=$1
+    local mem_output=$2
+
+    if ! validate_file_exists "$input_file" "${CN_RSC}"; then
+        return 1
+    fi
+
+    log_info "Creating CN list variants..."
+
+    # The source holds ~8000 addresses and both variants use the same list, so
+    # it is extracted once instead of once per variant.
+    local ip_entries="${TMP_DIR}/processing/cn.ips"
     local ip_count
-    if ! ip_count=$(process_ip_stream "$input_file" "$processed_ips"); then
+    if ! ip_count=$(process_ip_stream "$input_file" "$ip_entries"); then
         log_error "Failed to parse IP addresses from ${input_file}"
         return 1
     fi
@@ -184,34 +196,8 @@ EOL
         return 1
     fi
 
-    cat "$processed_ips" >>"$tmp_rsc"
-
-    cat <<EOL >>"$tmp_rsc"
-}
-:foreach ip in=\$ipList do={
-    /ip firewall address-list add address=\$ip list=CN timeout=${timeout}
-}
-EOL
-
-    mv "$tmp_rsc" "$output_file"
-    log_success "Generated ${output_file} with ${ip_count} IP addresses"
-}
-
-modify_cn_rsc() {
-    local input_file="${SCRIPT_DIR}/${CN_RSC}"
-    local mem_output="${SCRIPT_DIR}/${CN_MEM_RSC}"
-
-    if ! validate_file_exists "$input_file" "${CN_RSC}"; then
-        return 1
-    fi
-
-    log_info "Creating CN list variants..."
-
-    generate_cn_ip_list "$input_file" "$mem_output" "248d"
-
-    local tmp_permanent="${TMP_DIR}/cache/${CN_RSC}"
-    generate_cn_ip_list "$input_file" "$tmp_permanent" "0"
-    mv "$tmp_permanent" "$input_file"
+    render_cn_rsc "$ip_entries" "$ip_count" "$mem_output" "248d"
+    render_cn_rsc "$ip_entries" "$ip_count" "$input_file" "0"
     log_success "Updated CN list variants"
 }
 
@@ -246,78 +232,42 @@ check_git_status() {
 parallel_downloads() {
     log_info "Starting parallel downloads..."
 
-    local status_pipe="${TMP_DIR}/status_pipe"
-    mkfifo "$status_pipe"
+    # Both sources are independent, so they are fetched concurrently and the
+    # exit status of each job decides the outcome.
+    download_with_retry "$CN_URL" "${SCRIPT_DIR}/${CN_RSC}" 60 &
+    local cn_pid=$!
 
-    local download_success=true
-    local cn_success=false
-    local parallel_pids=()
-
+    # The decoded copy is only published once it exists, so a failed download
+    # can never be mistaken for a usable (empty) GFWList downstream.
     (
-        if download_with_retry "$CN_URL" "${SCRIPT_DIR}/${CN_RSC}" 60; then
-            echo "cn_success" >"$status_pipe"
-        else
-            echo "cn_failed" >"$status_pipe"
-        fi
+        local encoded_file="${TMP_DIR}/cache/gfwlist.base64"
+        local decoded_file="${TMP_DIR}/cache/gfwlist.txt"
+        download_with_retry "$GFWLIST_URL" "$encoded_file" 60 &&
+            $BASE64_DECODE "$encoded_file" >"$decoded_file" &&
+            mv "$decoded_file" "${SCRIPT_DIR}/${OUTPUT_GFWLIST_AUTOPROXY}"
     ) &
-    parallel_pids+=("$!")
+    local gfwlist_pid=$!
 
-    (
-        local tmp_base64="${TMP_DIR}/cache/gfwlist.base64"
-        if download_with_retry "$GFWLIST_URL" "$tmp_base64" 60; then
-            if $BASE64_DECODE "$tmp_base64" >"${SCRIPT_DIR}/${OUTPUT_GFWLIST_AUTOPROXY}"; then
-                log_success "Decoded GFW list to ${OUTPUT_GFWLIST_AUTOPROXY}"
-                echo "gfwlist_success" >"$status_pipe"
-            else
-                log_error "Failed to decode GFW list"
-                echo "gfwlist_failed" >"$status_pipe"
-            fi
-        else
-            log_error "Failed to download GFW list"
-            echo "gfwlist_failed" >"$status_pipe"
-        fi
-    ) &
-    parallel_pids+=("$!")
-
-    for ((i = 0; i < 2; i++)); do
-        if read -r status <"$status_pipe"; then
-            case "$status" in
-                cn_success)
-                    cn_success=true
-                    log_success "CN list downloaded successfully"
-                    ;;
-                cn_failed)
-                    download_success=false
-                    log_error "CN list download failed"
-                    ;;
-                gfwlist_success)
-                    log_success "GFW list download and decode completed"
-                    ;;
-                gfwlist_failed)
-                    download_success=false
-                    log_error "GFW list download or decode failed"
-                    ;;
-            esac
-        fi
-    done
-
-    for pid in "${parallel_pids[@]}"; do
-        if ! wait "$pid"; then
-            download_success=false
-        fi
-    done
-
-    rm -f "$status_pipe"
-
-    if $download_success; then
-        log_success "All downloads completed"
-        if $cn_success; then
-            modify_cn_rsc
-        fi
+    local cn_ok=false
+    local gfwlist_ok=false
+    if wait "$cn_pid"; then
+        cn_ok=true
     else
+        log_error "CN list download failed"
+    fi
+    if wait "$gfwlist_pid"; then
+        gfwlist_ok=true
+    else
+        log_error "GFW list download or decode failed"
+    fi
+
+    if ! $cn_ok || ! $gfwlist_ok; then
         log_error "Some downloads failed. Aborting."
         return 1
     fi
+
+    log_success "All downloads completed"
+    generate_cn_ip_list "${SCRIPT_DIR}/${CN_RSC}" "${SCRIPT_DIR}/${CN_MEM_RSC}"
 }
 
 main() {
@@ -329,22 +279,6 @@ main() {
     check_dependencies_detailed
 
     check_system_resources
-    local optimal_threads="${SYSTEM_OPTIMAL_THREADS:-$DEFAULT_THREAD_COUNT}"
-    if ! [[ "$optimal_threads" =~ ^[0-9]+$ ]]; then
-        log_warn "Detected non-numeric optimal thread value '${optimal_threads}', defaulting to ${DEFAULT_THREAD_COUNT}"
-        optimal_threads=$DEFAULT_THREAD_COUNT
-    fi
-    if [[ -z "${PARALLEL_THREADS:-}" ]]; then
-        PARALLEL_THREADS=$optimal_threads
-        log_info "Using ${PARALLEL_THREADS} parallel threads for domain processing"
-    else
-        log_info "Using user-defined parallel thread count: ${PARALLEL_THREADS}"
-        if ! [[ "$PARALLEL_THREADS" =~ ^[0-9]+$ ]]; then
-            log_warn "Provided parallel thread count '${PARALLEL_THREADS}' is not numeric, defaulting to ${optimal_threads}"
-            PARALLEL_THREADS=$optimal_threads
-        fi
-    fi
-
     local start_time
     start_time=$(date +%s)
     local exit_code=0

@@ -26,6 +26,3 @@ cleanup_temp_root() {
     fi
 }
 
-setup_cleanup_trap() {
-    trap cleanup_temp_root EXIT
-}

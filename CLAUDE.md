@@ -56,12 +56,13 @@ Most Linux distributions include these by default.
 - Supports multiple output formats (domain lists, dnsmasq rules with/without ipset)
 - Includes comprehensive Google and Blogspot domain lists
 - Handles exclude/include domain files for customization
+- Accepts `--input` to reuse an already downloaded GFW list instead of fetching it again
 
 **Library Modules (`lib/`)**:
 - `config.sh` - Central configuration, constants, and metadata
 - `logger.sh` - Logging utilities with color output and levels
 - `downloader.sh` - Network downloads with retry logic and error handling
-- `processor.sh` - Parallel data processing and domain formatting
+- `processor.sh` - Single-pass data processing (domain extraction, domain and IP formatting)
 - `validation.sh` - Input validation and file existence checking
 - `error.sh` - Error handling utilities and cleanup functions
 - `temp.sh` - Temporary file management and cleanup
@@ -74,17 +75,17 @@ Most Linux distributions include these by default.
 1. **Setup Phase**: Initialize logging, temp directory, and validate dependencies
 2. **Download Phase**: Parallel downloads of CN.rsc (IP addresses) and GFW list (domains) using retry logic
 3. **Processing Phase**: Base64 decode GFW list, extract domains, apply custom include/exclude filters
-4. **Generation Phase**: Create RouterOS scripts in multiple formats with parallel processing
+4. **Generation Phase**: Create RouterOS scripts in multiple formats
 5. **Output Phase**: Generate final .rsc files and domain lists with validation
 6. **Cleanup Phase**: Remove temporary files and artifacts
 
 ### Performance Optimizations
 
-- **Parallel Processing**: Multi-threaded domain processing using configurable thread count
+- **Single-Pass Transforms**: Domain extraction, RouterOS formatting and IP parsing each run as one `awk` pass over one file
 - **Retry Logic**: Exponential backoff for network downloads with configurable timeouts
 - **Memory Efficiency**: Streaming processing for large files to minimize memory usage
-- **Batch Operations**: Efficient awk/sed pipelines for data transformation
-- **Caching**: Intelligent file caching to avoid redundant downloads
+- **No Redundant Work**: The GFW list is downloaded and decoded once and handed to the domain list generator; CN.rsc is parsed once for both list variants
+- **Caching**: Temporary work happens in /dev/shm and output files are rendered next to their target so the final write is a rename
 
 ### Generated Files
 

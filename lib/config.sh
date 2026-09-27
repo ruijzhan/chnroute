@@ -14,9 +14,6 @@ readonly DEFAULT_RETRY_COUNT=3
 readonly DEFAULT_RETRY_DELAY=2
 readonly DEFAULT_RETRY_MAX_TIME_FACTOR=2
 
-# Performance defaults
-readonly DEFAULT_THREAD_COUNT=4
-readonly MAX_THREAD_COUNT=8
 readonly TEMP_FILE_PREFIX="chnroute_"
 
 # Logging disabled - output to stdout only

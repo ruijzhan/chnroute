@@ -27,8 +27,9 @@ _log_dispatch() {
         return
     fi
 
-    local timestamp
-    timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    # bash >= 4.2 formats the current time without forking `date`.
+    printf -v timestamp '%(%Y-%m-%d %H:%M:%S)T' -1 2>/dev/null ||
+        timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     printf '[%s] %b[%s]%b %s\n' "$timestamp" "$color" "$level_name" "$COLOR_RESET" "$message"
 }
 

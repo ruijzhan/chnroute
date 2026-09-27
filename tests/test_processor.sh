@@ -29,7 +29,7 @@ LOG_LEVEL=$LOG_LEVEL_ERROR
 
 create_temp_root
 
-test_process_domains_parallel() {
+test_format_domain_lines() {
     local input_file="${TMP_DIR}/processing/domains.txt"
     local output_file="${TMP_DIR}/processing/domains.out"
     cat <<EOF >"$input_file"
@@ -38,7 +38,7 @@ foo.bar
 test.org
 EOF
 
-    process_domains_parallel "$input_file" "$output_file" 2
+    format_domain_lines "$input_file" "$output_file"
     assert_file_exists "$output_file" "domain output generated"
 
     mapfile -t lines <"$output_file"
@@ -46,6 +46,51 @@ EOF
     assert_equals '    "example.com";' "${lines[0]}" "domain line 1 matches"
     assert_equals '    "foo.bar";' "${lines[1]}" "domain line 2 matches"
     assert_equals '    "test.org";' "${lines[2]}" "domain line 3 matches"
+}
+
+test_format_domain_lines_empty() {
+    local input_file="${TMP_DIR}/processing/empty-domains.txt"
+    local output_file="${TMP_DIR}/processing/empty-domains.out"
+    : >"$input_file"
+
+    format_domain_lines "$input_file" "$output_file"
+    assert_equals "0" "$(wc -l <"$output_file")" "empty list produces empty output"
+}
+
+test_extract_domains() {
+    local input_file="${TMP_DIR}/processing/gfwlist.txt"
+    local output_file="${TMP_DIR}/processing/extracted.txt"
+    cat <<'EOF' >"$input_file"
+! adblock comment
+[Adblock Plus 2.0]
+@@||exception.example.com^
+||google.com^
+|http://scheme.example.com/path
+||1.2.3.4
+||*.wildcard.example.net
+||keep*both.example.com
+||%2Fescaped.example.com
+pre.fixed.example.com/path
+EOF
+
+    extract_domains "$input_file" "$output_file"
+    assert_file_exists "$output_file" "extracted domain output generated"
+
+    mapfile -t lines <"$output_file"
+    assert_equals "5" "${#lines[@]}" "comments, headers, exceptions, IPv4 rules and %2F rules are dropped"
+    assert_equals "google.com^" "${lines[0]}" "rule prefix stripped, trailing marker kept"
+    assert_equals "scheme.example.com" "${lines[1]}" "scheme and path stripped"
+    assert_equals "wildcard.example.net" "${lines[2]}" "leading wildcard label dropped"
+    assert_equals "example.com" "${lines[3]}" "inner wildcard label dropped"
+    assert_equals "pre.fixed.example.com" "${lines[4]}" "line without rule prefix is untouched"
+}
+
+test_extract_domains_reports_failure() {
+    local output_file="${TMP_DIR}/processing/missing.out"
+    local status=0
+
+    extract_domains "${TMP_DIR}/processing/does-not-exist.txt" "$output_file" >/dev/null 2>&1 || status=$?
+    assert_equals "1" "${status}" "missing input makes extract_domains fail"
 }
 
 test_process_ip_stream() {
@@ -68,7 +113,10 @@ EOF
     assert_equals '    "2.2.2.0/24";' "${ip_lines[1]}" "ip line 2 matches"
 }
 
-test_process_domains_parallel
+test_format_domain_lines
+test_format_domain_lines_empty
+test_extract_domains
+test_extract_domains_reports_failure
 test_process_ip_stream
 
 cleanup_temp_root

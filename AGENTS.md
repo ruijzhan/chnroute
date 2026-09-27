@@ -9,7 +9,7 @@
   - `config.sh`: Central configuration, constants, and metadata
   - `logger.sh`: Logging utilities with color output and levels
   - `downloader.sh`: Network downloads with retry logic and error handling
-  - `processor.sh`: Parallel data processing and domain formatting
+  - `processor.sh`: Single-pass data processing (GFWList domain extraction, RouterOS domain/IP formatting)
   - `validation.sh`: Input validation and file existence checking
   - `error.sh`: Error handling utilities and cleanup functions
   - `temp.sh`: Temporary file management and cleanup

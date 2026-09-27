@@ -36,22 +36,12 @@ setup_platform_specific() {
     platform=$(detect_platform)
 
     case "$platform" in
-        macos-*)
-            BASE64_DECODE='base64 -D'
-            SED_ERES='sed -E'
-            ;;
-        linux-*)
-            BASE64_DECODE='base64 -d'
-            SED_ERES='sed -r'
-            ;;
-        bsd-*)
-            BASE64_DECODE='base64 -d'
-            SED_ERES='sed -E'
-            ;;
-        *)
-            BASE64_DECODE='base64 -d'
-            SED_ERES='sed -r'
-            ;;
+    macos-*)
+        BASE64_DECODE='base64 -D'
+        ;;
+    *)
+        BASE64_DECODE='base64 -d'
+        ;;
     esac
 
     DATE_FORMAT=$(date -Iseconds 2>/dev/null || date '+%Y-%m-%dT%H:%M:%S%z')
