@@ -16,36 +16,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3  # Upgraded to v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 1
 
-    - name: Set up cache
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/.cache
-          ~/.local
-        key: ${{ runner.os }}-cache-${{ hashFiles('**/makefile') }}-${{ github.run_id }}
-        restore-keys: |
-          ${{ runner.os }}-cache-${{ hashFiles('**/makefile') }}-
-          ${{ runner.os }}-cache-
-
-    - name: Set up environment
-      run: |
-        sudo apt-get update -qq && sudo apt-get install -y make
-        sudo locale-gen en_US.UTF-8
-        export LANG=en_US.UTF-8
-        export LC_ALL=en_US.UTF-8
-        echo "LC_ALL=en_US.UTF-8" >> $GITHUB_ENV
-
     - name: Run make
-      run: |
-        echo "Locale settings:"
-        locale
-        echo "Environment variables:"
-        env | grep -E "(LANG|LC_)" || true
-        make
+      run: make
       id: make-step
 
     - name: Commit and push if changed
