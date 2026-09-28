@@ -2,73 +2,84 @@
 
 [![built with Codeium](https://codeium.com/badges/main)](https://codeium.com) [![Daily Make and Commit](https://github.com/ruijzhan/chnroute/actions/workflows/main.yaml/badge.svg)](https://github.com/ruijzhan/chnroute/actions/workflows/main.yaml)
 
+[中文版](./README.md) · [Makefile User Guide](./MAKEFILE_USER_GUIDE.md)
+
 ## Project Overview
 
-`chnroute` is an automatically updating toolkit that provides China mainland IP address lists and specific domain lists, generating ready-to-use configuration scripts for RouterOS routers. This project implements daily automatic updates through GitHub Actions, ensuring you always have the latest network rules.
+`chnroute` is an automatically updating network rules toolkit: it fetches China mainland IP ranges and the [gfwlist](https://github.com/gfwlist/gfwlist) domain list daily, generates ready-to-import configuration scripts for MikroTik RouterOS, and also provides generic formats such as a plain-text domain list. Rules are regenerated and committed automatically every day via GitHub Actions — no manual maintenance required.
 
 ### Key Features
 
-- **Auto-updated China IP Address Lists**: For smart routing and traffic splitting
-- **Specific Domain Lists**: Based on gfwlist, for optimizing DNS resolution
-- **RouterOS Configuration Scripts**: Ready-to-use scripts, easily imported into MikroTik devices
-- **Memory-optimized Version**: Optimized scripts for resource-constrained devices
+- **China IP address lists**: ~8,100 IPv4 ranges for smart routing and traffic splitting
+- **gfwlist domain rules**: ~4,300 domains, generated as RouterOS DNS static rules and a plain domain list
+- **Ready-to-use RouterOS scripts**: one-click import, safe to re-run
+- **Customizable and extensible**: add/remove domains via include/exclude lists; generation logic modularized in `lib/`
 
-## 1. Data Sources and File Descriptions
+## Table of Contents
 
-### 1.1 Data Sources
+- [1. Generated Files](#1-generated-files)
+- [2. Quick Start](#2-quick-start)
+- [3. RouterOS Configuration Guide](#3-routeros-configuration-guide)
+- [4. Automatic Updates](#4-automatic-updates)
+- [5. Local Development and Testing](#5-local-development-and-testing)
+- [6. Troubleshooting](#6-troubleshooting)
+- [7. Contributions and Feedback](#7-contributions-and-feedback)
 
-- **China IP Ranges**: From [iwik.org](http://www.iwik.org/ipcountry/mikrotik/CN), allocated to mainland China by [IANA](https://www.iana.org/)
-- **Specific Domain Lists**: Maintained by the [gfwlist project](https://github.com/gfwlist/gfwlist)
-- **Update Frequency**: Data sources are updated daily, synchronized automatically through GitHub Actions
+## 1. Generated Files
 
-### 1.2 Generated Files
+### 1.1 File List
 
-| Filename | Description |
-|--------|------|
-| [CN.rsc](./CN.rsc) | Mainland China IPv4 address ranges, RouterOS format |
-| [CN_mem.rsc](./CN_mem.rsc) | Memory-optimized version of China IP address list, avoiding disk I/O |
-| [LAN.rsc](./LAN.rsc) | Internal network IPv4 address ranges |
-| [gfwlist.rsc](./gfwlist.rsc) | RouterOS DNS rule script generated from gfwlist |
-| [gfwlist_v7.rsc](./gfwlist_v7.rsc) | Optimized script for RouterOS v7.6+ (using Match Subdomains feature) |
-| [03-gfwlist.conf](./03-gfwlist.conf) | dnsmasq format gfwlist rules (usable with OpenWrt and similar systems) |
-| [gfwlist.txt](./gfwlist.txt) | Processed plain text domain list |
+| File | Description | Status |
+|------|-------------|--------|
+| [CN.rsc](./CN.rsc) | Mainland China IPv4 ranges, imported into the RouterOS `CN` address list with permanent entries | Generated daily |
+| [CN_mem.rsc](./CN_mem.rsc) | Memory-optimized variant of the CN list, entries expire automatically after 248 days | Generated daily |
+| [gfwlist_v7.rsc](./gfwlist_v7.rsc) | RouterOS v7.6+ DNS static rules from gfwlist domains | Generated daily |
+| [gfwlist.txt](./gfwlist.txt) | Plain-text domain list, one domain per line, usable on any system | Generated daily |
+| [LAN.rsc](./LAN.rsc) | Private and reserved network ranges, imported into the RouterOS `LAN` address list | Statically maintained |
+| [03-gfwlist.conf](./03-gfwlist.conf) | dnsmasq format rules (OpenWrt etc.) | Legacy, no longer regenerated |
 
-### 1.3 Custom Lists
+> **Tip**: OpenWrt users should not rely on the legacy file above — see [5.3 Integration with Other Systems](#53-integration-with-other-systems) to generate fresh rules yourself.
 
-You can customize domain lists by modifying the following files:
-- `exclude_list.txt`: Domains to exclude from gfwlist
-- `include_list.txt`: Additional domains to include
+### 1.2 Data Sources
 
-These files use plain text format with one domain per line. After modification, you need to run the generation script to update the rule files.
+- **China IP ranges**: from [iwik.org](http://www.iwik.org/ipcountry/mikrotik/CN), allocated to mainland China by [IANA](https://www.iana.org/)
+- **Domain list**: maintained by the [gfwlist project](https://github.com/gfwlist/gfwlist)
+- **Update frequency**: GitHub Actions regenerates and commits daily at 21:00 UTC (05:00 Beijing time the next day)
 
-## 2. Usage Instructions
+### 1.3 Custom Domain Lists
 
-### 2.1 Manual Rule Updates
+Customize the domain list via two plain-text files (one domain per line):
 
-After cloning the repository, run the following command to update all lists and generate RouterOS rule scripts:
+- `include_list.txt`: additional domains to include
+- `exclude_list.txt`: domains to exclude from gfwlist
+
+Re-run the generation script after modifying them — see [Local Development and Testing](#5-local-development-and-testing).
+
+## 2. Quick Start
+
+### 2.1 RouterOS Users
+
+No need to clone the repository — RouterOS scripts can fetch the rule files directly from GitHub. See [3. RouterOS Configuration Guide](#3-routeros-configuration-guide).
+
+### 2.2 Local Generation
 
 ```shell
+git clone https://github.com/ruijzhan/chnroute.git
+cd chnroute
 make
 ```
 
-This will execute the `generate.sh` script, download the latest IP lists and domain lists, and generate all configuration files.
+This checks dependencies, downloads the latest IP and domain lists, and generates all rule files.
 
-#### 2.1.1 Dependencies
+**Dependencies**: bash, curl, awk, sort, grep, base64, mktemp, wc. Most Linux distributions ship these by default; run `make check` to verify.
 
-The script requires the following dependencies:
-- bash
-- curl or wget
-- awk
-- sort
-- base64
+> For proxy access, set the standard `http_proxy` / `https_proxy` environment variables (supported natively by curl).
 
-Most Linux distributions have these tools installed by default.
+## 3. RouterOS Configuration Guide
 
-### 2.2 Importing and Applying China IP Ranges
+### 3.1 Importing China IP Ranges
 
-#### 2.2.1 Importing China IP Ranges to RouterOS
-
-Use the following script to import CN and LAN IP ranges into RouterOS:
+The following script imports the CN and LAN ranges into RouterOS:
 
 ```ros
 /system script
@@ -82,23 +93,25 @@ import file-name=LAN.rsc
 file remove LAN.rsc"
 ```
 
-#### 2.2.2 Configuring Traffic Splitting Rules
+The script clears the old `CN` list before importing, so it is safe to re-run.
 
-In RouterOS, you can set up the following rules to optimize network access:
+### 3.2 Configuring Traffic Splitting Rules
 
-1. In the `PREROUTING` chain, redirect traffic with destinations not in CN to a custom chain
+In RouterOS, you can set up the following rules for smart routing:
+
+1. In the `PREROUTING` chain, jump traffic whose destination is not in CN to a custom chain
 2. In the custom chain:
-   - Match traffic with destinations in LAN, directly `RETURN`
+   - Match traffic whose destination is in LAN and `RETURN` directly
    - Mark routing for other traffic based on connection protocol and destination port
-   - In the routing table, direct marked traffic to the optimized network gateway
+   - Point the marked traffic to the optimized network gateway in the routing table
 
-This configuration enables smart routing where domestic traffic connects directly, while international traffic is routed through optimized paths.
+This enables smart routing where domestic traffic connects directly while international traffic goes through optimized paths.
 
-### 2.3 Optimizing DNS Resolution with gfwlist
+### 3.3 Optimizing DNS Resolution with gfwlist
 
-#### 2.3.1 Configuring Global DNS Variables
+#### 3.3.1 Configuring the Global DNS Variable
 
-Set a global variable `dnsserver` in RouterOS to specify an alternative DNS server:
+The gfwlist rules use the global variable `$dnsserver` as the alternative DNS server. Set it first:
 
 ```ros
 /system scheduler
@@ -110,127 +123,171 @@ add name=envs on-event="{\r\
 View environment variables:
 
 ```shell
-[admin@RouterBoard] > /system/script/environment/print 
+[admin@RouterBoard] > /system/script/environment/print
 Columns: NAME, VALUE
-#  NAME       VALUE       
+#  NAME       VALUE
 0  dnsserver  8.8.8.8
 ```
 
-#### 2.3.2 Importing gfwlist to RouterOS
+#### 3.3.2 Importing gfwlist Rules
 
-Use the following script to import gfwlist rules:
+> **Note**: `gfwlist_v7.rsc` requires RouterOS **v7.6 or newer** (it uses `type=FWD` static entries and the Match Subdomains feature).
 
 ```ros
 /system script
 add dont-require-permissions=no name=gfwlist owner=admin policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon source="
-/tool fetch url=https://raw.githubusercontent.com/ruijzhan/chnroute/master/gfwlist.rsc
-/import file-name=gfwlist.rsc
-/file remove gfwlist.rsc
+/tool fetch url=https://raw.githubusercontent.com/ruijzhan/chnroute/master/gfwlist_v7.rsc
+/import file-name=gfwlist_v7.rsc
+/file remove gfwlist_v7.rsc
 :log warning \"gfwlist domains imported successfully\""
 ```
 
-> **Tip**: RouterOS v7.6+ users can import [gfwlist_v7.rsc](./gfwlist_v7.rsc) for better performance
+Script characteristics:
 
-#### 2.3.3 Increasing DNS Cache Size
+- Removes existing `forward-to=$dnsserver` entries before importing, safe to re-run
+- Every domain enables `match-subdomain=yes`, automatically covering all its subdomains
+- Resolved results are added to the `gfw_list` address list, which can be matched by firewall rules
 
-Due to the large number of rules, you need to increase the DNS cache size:
+#### 3.3.3 Increasing DNS Cache Size
+
+Due to the large number of rules, increase the DNS cache:
 
 ```ros
 /ip/dns/set cache-size=20560KiB
 ```
 
-After configuration, you can view DNS settings:
+After configuration, view the loaded DNS static rules:
 
 ```ros
 /ip/dns/static/print
 ```
 
-#### 2.3.4 DNS Request Redirection (Optional)
+#### 3.3.4 DNS Request Redirection (Optional)
 
-If you need to redirect DNS requests to another server:
+To redirect DNS requests to another server:
 
 ```ros
 /ip/firewall/nat
 add action=dst-nat chain=output comment=CustomDNS dst-address=8.8.8.8 to-addresses=192.168.9.1
 ```
 
-## 3. Automatic Update Mechanism
+## 4. Automatic Updates
 
-This project implements daily automatic updates through GitHub Actions:
+### 4.1 GitHub Actions
 
-- Automatically runs update scripts daily at 21:00 UTC (05:00 Beijing time the next day)
-- Automatically commits updated rule files to the repository
-- You can fetch the latest rules from GitHub using scheduled tasks
+- Runs `make` daily at 21:00 UTC (05:00 Beijing time the next day) to regenerate all rules
+- Commits and pushes changes with the message `Automated update: <timestamp>`
+- Can also be triggered manually from the Actions page (pushes to master trigger it as well)
 
-### 3.1 RouterOS Automatic Update Configuration
+### 4.2 RouterOS Scheduled Updates
 
-You can set up a scheduled task in RouterOS to automatically fetch the latest rules from GitHub:
+Set up a scheduled task in RouterOS to fetch the latest rules from GitHub daily:
 
 ```ros
 /system scheduler
-add interval=1d name=update_chnroute on-event="/system script run cn\r\n/system script run gfwlist\r\n/log info \"chnroute rules updated\"" policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon start-date=jan/01/1970 start-time=04:30:00
+add interval=1d name=update_chnroute on-event="/system script run cn\r\n/system script run gfwlist\r\n/log info \"chnroute rules updated\"" policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon start-date=jan/01/1970 start-time=06:00:00
 ```
 
-This configuration will automatically update the rules every day at 4:30 AM.
+> Setting `start-time` around 06:00 (Beijing time) is recommended so that GitHub Actions has already committed the day's rules (around 05:00).
 
-## 4. Project Structure
+## 5. Local Development and Testing
 
+### 5.1 Common Make Targets
+
+| Command | Description |
+|---------|-------------|
+| `make` / `make generate` | Check dependencies and generate all rule files |
+| `make fast` | Generate without dependency checks (for development) |
+| `make check` | Verify dependencies and script syntax |
+| `make test` | Generate and validate output files |
+| `make analyze` | Summarize output file sizes and line counts |
+| `make benchmark` | Run generation performance benchmark |
+| `make ci-test` | Full local CI flow (clean → check → test → benchmark → analyze) |
+| `sudo make install` | Install to `/opt/chnroute` |
+| `sudo make service-setup` | Provision a systemd timer for daily system updates |
+
+See the [Makefile User Guide](./MAKEFILE_USER_GUIDE.md) for all targets, or run `make help`.
+
+### 5.2 Running Tests
+
+```shell
+bash tests/run_tests.sh
 ```
+
+Runs unit tests covering core processing logic such as domain extraction and merging.
+
+### 5.3 Integration with Other Systems
+
+Besides RouterOS, use `gfwlist2dnsmasq.sh` to generate rules for other systems:
+
+```shell
+# Generate dnsmasq rules (OpenWrt etc.)
+bash gfwlist2dnsmasq.sh -d 127.0.0.1 -p 5353 -s gfwlist -o 03-gfwlist.conf
+
+# Generate a plain domain list (with extra and excluded domains)
+bash gfwlist2dnsmasq.sh -l -o gfwlist.txt \
+    --extra-domain-file include_list.txt \
+    --exclude-domain-file exclude_list.txt
+```
+
+Run `bash gfwlist2dnsmasq.sh -h` for all options.
+
+### 5.4 Project Structure
+
+```text
 .
-├── .github/workflows/  # GitHub Actions workflow configuration
-├── CN.rsc             # Mainland China IPv4 address ranges RouterOS script
-├── CN_mem.rsc         # Memory-optimized version of China IP address list
-├── LAN.rsc            # Internal network IPv4 address ranges RouterOS script
-├── Makefile           # Build script
-├── README.md          # Chinese documentation
-├── README.en.md       # English documentation
-├── exclude_list.txt   # Excluded domains list
-├── generate.sh        # Main generation script
-├── generate_cn.sh     # China IP list generation script
-├── gfwlist.txt        # Processed domain list
-├── gfwlist2dnsmasq.sh # gfwlist conversion script
-├── gfwlist_v7.rsc     # RouterOS v7+ version of gfwlist script
-└── include_list.txt   # Included domains list
+├── .github/workflows/   # GitHub Actions daily update workflow
+├── lib/                 # Core modules of the generation pipeline
+│   ├── config.sh        # Central configuration and constants
+│   ├── logger.sh        # Colorized, leveled logging
+│   ├── downloader.sh    # Downloads with retry and timeouts
+│   ├── processor.sh     # Domain extraction / IP formatting (single pass)
+│   └── ...              # Dependency checks, validation, error handling, etc.
+├── tests/               # Unit tests
+├── generate.sh          # Main generation script
+├── gfwlist2dnsmasq.sh   # gfwlist converter (usable standalone)
+├── generate_cn.sh       # Optional China domain list generator (legacy)
+├── include_list.txt     # Additional domains
+├── exclude_list.txt     # Excluded domains
+├── Makefile             # Build, test, and install entry point
+├── CN.rsc               # China IP ranges (generated daily)
+├── CN_mem.rsc           # Memory-optimized China IP list (generated daily)
+├── gfwlist_v7.rsc       # RouterOS v7.6+ DNS rules (generated daily)
+├── gfwlist.txt          # Plain domain list (generated daily)
+├── LAN.rsc              # Private network ranges (statically maintained)
+└── 03-gfwlist.conf      # dnsmasq rules (legacy)
 ```
 
-## 5. Troubleshooting
+## 6. Troubleshooting
 
-### 5.1 Common Issues
+**Q: Errors when importing the gfwlist rules?**
+
+A: `gfwlist_v7.rsc` requires RouterOS v7.6 or newer. Check your version with `/system/package/print`.
 
 **Q: DNS resolution becomes slow after importing rules?**
 
-A: Try increasing the DNS cache size or consider using the optimized script for RouterOS v7.6+.
+A: Increase the DNS cache (`/ip/dns/set cache-size=20560KiB`) and make sure the device has enough free memory.
 
 **Q: Some websites are still inaccessible?**
 
-A: Check your DNS server configuration, ensuring the `$dnsserver` variable points to a reliable DNS server. You can also add missing domains by modifying `include_list.txt`.
+A: Check that `$dnsserver` points to a reliable DNS server. You can also add missing domains to `include_list.txt` and regenerate.
 
-**Q: How to verify if rules are effective?**
+**Q: How to verify the rules are effective?**
 
-A: Run the following command in RouterOS to see the loaded rules:
+A: Run the following command in RouterOS to count the loaded rules:
+
 ```ros
 /ip dns static print count-only
 ```
 
-## 6. Advanced Usage
+**Q: Local generation fails?**
 
-### 6.1 Custom Scripts
-
-You can modify the `generate.sh` script to customize the generation process, such as adding more IP list sources or adjusting domain processing logic.
-
-### 6.2 Integration with Other Systems
-
-Besides RouterOS, the rules generated by this project can also be used with other systems:
-
-- **OpenWrt**: Use `03-gfwlist.conf` with dnsmasq
-- **Other routing systems**: You can reference the script logic to convert rules to formats suitable for your system
+A: Run `make check` to verify dependencies. For network issues, try setting `http_proxy` / `https_proxy` and retry.
 
 ## 7. Contributions and Feedback
 
 Contributions and feedback are welcome through [Issues](https://github.com/ruijzhan/chnroute/issues) or [Pull Requests](https://github.com/ruijzhan/chnroute/pulls).
 
 ---
-
-[中文版](./README.md)
 
 [![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
