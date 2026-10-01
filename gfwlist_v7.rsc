@@ -1342,6 +1342,7 @@
     "futustatic.com";
     "fututrade.com";
     "fututrustee.com";
+    "fuyin116.com";
     "fw.cm";
     "fxcm-chinese.com";
     "fxnetworks.com";
@@ -4342,4 +4343,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4330 domains"
+/log info "GFW domain list updated with 4331 domains"
