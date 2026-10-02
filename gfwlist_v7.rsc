@@ -3954,6 +3954,7 @@
     "wainao.me";
     "walletconnect.com";
     "walletconnect.org";
+    "wallhaven.cc";
     "wallmama.com";
     "wallpapercasa.com";
     "wallsttv.com";
@@ -4343,4 +4344,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4331 domains"
+/log info "GFW domain list updated with 4332 domains"
