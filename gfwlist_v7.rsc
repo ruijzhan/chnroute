@@ -3214,6 +3214,7 @@
     "simplex.chat";
     "sina.com.hk";
     "sinchew.com.my";
+    "sing-box.sagernet.org";
     "singaporepools.com.sg";
     "singlelogin.se";
     "singtao.com";
@@ -4344,4 +4345,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4332 domains"
+/log info "GFW domain list updated with 4333 domains"
