@@ -211,6 +211,7 @@
     "anonfiles.com";
     "anonymouse.org";
     "anthonycalzadilla.com";
+    "anthropic.auth0.com";
     "anthropic.com";
     "antiwave.net";
     "antpool.com";
@@ -519,6 +520,7 @@
     "brookings.edu";
     "brutaltgp.com";
     "bsky.app";
+    "bsky.chat";
     "bsky.network";
     "bsky.social";
     "bt4g.org";
@@ -744,7 +746,10 @@
     "clashyun.com";
     "classicalguitarblog.net";
     "claude.ai";
+    "claude.app";
     "claude.com";
+    "claudemcpcontent.com";
+    "claudeusercontent.com";
     "cldr.unicode.org";
     "clearsurance.com";
     "clementine-player.org";
@@ -4393,4 +4398,4 @@
 }
 
 /ip dns cache flush
-/log info "GFW domain list updated with 4381 domains"
+/log info "GFW domain list updated with 4386 domains"
