@@ -28,7 +28,17 @@ readonly CN_MEM_RSC="CN_mem.rsc"
 readonly LIST_NAME="gfw_list"
 readonly DNS_SERVER="\$dnsserver"
 
+# dnsmasq artifact (03-gfwlist.conf)
+readonly DNSMASQ_CONF="03-gfwlist.conf"
+readonly DNSMASQ_DNS="8.8.8.8"
+readonly DNSMASQ_PORT="53"
+
+# Sanity floors: an upstream format change or a truncated download would
+# otherwise yield a "successful" run and a committed, near-empty rule set.
+readonly MIN_DOMAIN_COUNT=1000
+readonly MIN_CN_IP_COUNT=5000
+
 # Source URLs
-readonly CN_URL="http://www.iwik.org/ipcountry/mikrotik/CN"
+readonly CN_URL="https://www.iwik.org/ipcountry/mikrotik/CN"
 readonly GFWLIST_URL="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"
 

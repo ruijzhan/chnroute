@@ -37,7 +37,8 @@ TMP_DIR=""
 cleanup_artifacts() {
     rm -f "${SCRIPT_DIR}/${CN_RSC}.tmp" \
         "${SCRIPT_DIR}/${CN_MEM_RSC}.tmp" \
-        "${SCRIPT_DIR}/${GFWLIST_V7_RSC}.tmp"
+        "${SCRIPT_DIR}/${GFWLIST_V7_RSC}.tmp" \
+        "${SCRIPT_DIR}/${DNSMASQ_CONF}.tmp"
     log_debug "Removed temporary artifacts"
 }
 
@@ -88,6 +89,9 @@ generate_domain_list() {
 
     local domain_count
     domain_count=$(wc -l <"$domain_file")
+    if ! validate_min_count "$domain_count" "$MIN_DOMAIN_COUNT" "GFWList domain extraction"; then
+        return 1
+    fi
     mv "$domain_file" "${SCRIPT_DIR}/${GFWLIST_TXT}"
     log_success "Generated ${GFWLIST_TXT} with ${domain_count} domains"
 }
@@ -139,6 +143,35 @@ EOL
     log_success "Created ${output_rsc} with ${domain_count} domains"
 }
 
+# Renders the dnsmasq rule file from the already-merged domain list, so the
+# published 03-gfwlist.conf stays current instead of rotting.
+create_dnsmasq_conf() {
+    local input_file="${SCRIPT_DIR}/${GFWLIST_TXT}"
+    local output_file="${SCRIPT_DIR}/${DNSMASQ_CONF}"
+
+    if ! validate_file_exists "$input_file" "Generated domain list"; then
+        return 1
+    fi
+
+    local domain_count
+    domain_count=$(wc -l <"$input_file")
+
+    log_info "Creating dnsmasq rules ${DNSMASQ_CONF}..."
+    local tmp_conf="${output_file}.tmp"
+    {
+        cat <<EOL
+# dnsmasq rules generated from ${GFWLIST_TXT}
+# Total domains: ${domain_count}
+# ${SCRIPT_REPO}
+
+EOL
+        awk -v dns="$DNSMASQ_DNS" -v port="$DNSMASQ_PORT" \
+            '{printf "server=/%s/%s#%s\n", $0, dns, port}' "$input_file"
+    } >"$tmp_conf"
+    mv "$tmp_conf" "$output_file"
+    log_success "Created ${DNSMASQ_CONF} with ${domain_count} domains"
+}
+
 # Renders a RouterOS address-list script from pre-extracted IP entries.
 render_cn_rsc() {
     local ip_entries=$1
@@ -168,9 +201,8 @@ EOL
 
 generate_cn_ip_list() {
     local input_file=$1
-    local mem_output=$2
 
-    if ! validate_file_exists "$input_file" "${CN_RSC}"; then
+    if ! validate_file_exists "$input_file" "CN source"; then
         return 1
     fi
 
@@ -185,22 +217,23 @@ generate_cn_ip_list() {
         return 1
     fi
 
-    if [[ -z "$ip_count" || "$ip_count" -eq 0 ]]; then
-        log_error "No IP addresses found in ${input_file}"
+    if ! validate_min_count "$ip_count" "$MIN_CN_IP_COUNT" "CN IP extraction"; then
         return 1
     fi
 
-    render_cn_rsc "$ip_entries" "$ip_count" "$mem_output" "248d"
-    render_cn_rsc "$ip_entries" "$ip_count" "$input_file" "0"
+    render_cn_rsc "$ip_entries" "$ip_count" "${SCRIPT_DIR}/${CN_MEM_RSC}" "248d"
+    render_cn_rsc "$ip_entries" "$ip_count" "${SCRIPT_DIR}/${CN_RSC}" "0"
     log_success "Updated CN list variants"
 }
 
 parallel_downloads() {
+    local cn_source=$1
     log_info "Starting parallel downloads..."
 
     # Both sources are independent, so they are fetched concurrently and the
-    # exit status of each job decides the outcome.
-    download_with_retry "$CN_URL" "${SCRIPT_DIR}/${CN_RSC}" 60 &
+    # exit status of each job decides the outcome. Nothing is written into the
+    # repository until the data is complete and validated.
+    download_with_retry "$CN_URL" "$cn_source" 60 &
     local cn_pid=$!
 
     # The decoded copy is only written inside the temp tree on success, so a
@@ -235,10 +268,12 @@ parallel_downloads() {
 
 main() {
     create_temp_root
-    trap 'cleanup_artifacts; cleanup_temp_root' EXIT
+    trap 'set +e; cleanup_artifacts; cleanup_temp_root' EXIT
     setup_error_trap
     setup_platform_specific
-    check_dependencies_detailed
+    if [[ "${SKIP_DEPENDENCY_CHECK:-0}" != "1" ]]; then
+        check_dependencies_detailed
+    fi
 
     check_system_resources
     local start_time
@@ -248,9 +283,10 @@ main() {
     log_info "Starting chnroute generation pipeline..."
 
     log_info "Step 1/4: Downloading source data and creating CN lists"
-    if ! parallel_downloads; then
+    local cn_source="${TMP_DIR}/cache/CN"
+    if ! parallel_downloads "$cn_source"; then
         exit_code=1
-    elif ! generate_cn_ip_list "${SCRIPT_DIR}/${CN_RSC}" "${SCRIPT_DIR}/${CN_MEM_RSC}"; then
+    elif ! generate_cn_ip_list "$cn_source"; then
         exit_code=1
     fi
 
@@ -263,8 +299,10 @@ main() {
     fi
 
     if [[ $exit_code -eq 0 ]]; then
-        log_info "Step 4/4: Creating RouterOS scripts"
+        log_info "Step 4/4: Creating output files"
         if ! create_gfwlist_rsc "v7" "$GFWLIST_V7_RSC"; then
+            exit_code=1
+        elif ! create_dnsmasq_conf; then
             exit_code=1
         fi
     fi

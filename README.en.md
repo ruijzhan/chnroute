@@ -36,9 +36,9 @@
 | [gfwlist_v7.rsc](./gfwlist_v7.rsc) | RouterOS v7.6+ DNS static rules from gfwlist domains | Generated daily |
 | [gfwlist.txt](./gfwlist.txt) | Plain-text domain list, one domain per line, usable on any system | Generated daily |
 | [LAN.rsc](./LAN.rsc) | Private and reserved network ranges, imported into the RouterOS `LAN` address list | Statically maintained |
-| [03-gfwlist.conf](./03-gfwlist.conf) | dnsmasq format rules (OpenWrt etc.) | Legacy, no longer regenerated |
+| [03-gfwlist.conf](./03-gfwlist.conf) | dnsmasq format rules (OpenWrt etc.) | Generated daily |
 
-> **Tip**: OpenWrt users should not rely on the legacy file above — see [5.3 Integration with Other Systems](#53-integration-with-other-systems) to generate fresh rules yourself.
+> **Tip**: The upstream DNS in this file is fixed at `8.8.8.8#53`; to use a custom DNS server or ipset, see [5.3 Integration with Other Systems](#53-integration-with-other-systems) and generate your own rules.
 
 ### 1.2 Data Sources
 
@@ -246,7 +246,6 @@ Run `bash gfwlist2dnsmasq.sh -h` for all options.
 ├── tests/               # Unit tests
 ├── generate.sh          # Main generation script
 ├── gfwlist2dnsmasq.sh   # gfwlist converter (usable standalone)
-├── generate_cn.sh       # Optional China domain list generator (legacy)
 ├── include_list.txt     # Additional domains
 ├── exclude_list.txt     # Excluded domains
 ├── Makefile             # Build, test, and install entry point
@@ -255,7 +254,7 @@ Run `bash gfwlist2dnsmasq.sh -h` for all options.
 ├── gfwlist_v7.rsc       # RouterOS v7.6+ DNS rules (generated daily)
 ├── gfwlist.txt          # Plain domain list (generated daily)
 ├── LAN.rsc              # Private network ranges (statically maintained)
-└── 03-gfwlist.conf      # dnsmasq rules (legacy)
+└── 03-gfwlist.conf      # dnsmasq rules (generated daily)
 ```
 
 ## 6. Troubleshooting

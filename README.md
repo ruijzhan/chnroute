@@ -36,9 +36,9 @@
 | [gfwlist_v7.rsc](./gfwlist_v7.rsc) | gfwlist 域名的 RouterOS v7.6+ DNS 静态规则 | 每日自动生成 |
 | [gfwlist.txt](./gfwlist.txt) | 纯文本域名列表，每行一个域名，可用于任意系统 | 每日自动生成 |
 | [LAN.rsc](./LAN.rsc) | 内网及保留网段，导入 RouterOS `LAN` 地址列表 | 静态维护 |
-| [03-gfwlist.conf](./03-gfwlist.conf) | dnsmasq 格式规则（OpenWrt 等） | 历史文件，不再自动生成 |
+| [03-gfwlist.conf](./03-gfwlist.conf) | dnsmasq 格式规则（OpenWrt 等） | 每日自动生成 |
 
-> **提示**：OpenWrt 用户请勿直接使用上述历史文件，可参考 [5.3 与其他系统集成](#53-与其他系统集成) 自行生成最新规则。
+> **提示**：该文件的上游 DNS 固定为 `8.8.8.8#53`；如需自定义 DNS 或 ipset，请参考 [5.3 与其他系统集成](#53-与其他系统集成) 自行生成。
 
 ### 1.2 数据来源
 
@@ -246,7 +246,6 @@ bash gfwlist2dnsmasq.sh -l -o gfwlist.txt \
 ├── tests/               # 单元测试
 ├── generate.sh          # 主生成脚本
 ├── gfwlist2dnsmasq.sh   # gfwlist 转换工具（可独立使用）
-├── generate_cn.sh       # 可选的中国域名列表生成脚本（遗留）
 ├── include_list.txt     # 附加域名列表
 ├── exclude_list.txt     # 排除域名列表
 ├── Makefile             # 构建、测试与安装入口
@@ -255,7 +254,7 @@ bash gfwlist2dnsmasq.sh -l -o gfwlist.txt \
 ├── gfwlist_v7.rsc       # RouterOS v7.6+ DNS 规则（每日生成）
 ├── gfwlist.txt          # 纯域名列表（每日生成）
 ├── LAN.rsc              # 内网网段（静态维护）
-└── 03-gfwlist.conf      # dnsmasq 规则（历史文件）
+└── 03-gfwlist.conf      # dnsmasq 规则（每日生成）
 ```
 
 ## 6. 故障排除

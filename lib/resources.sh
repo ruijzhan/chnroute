@@ -12,7 +12,7 @@ check_system_resources() {
     fi
 
     local available_disk
-    available_disk=$(df -k . | awk 'NR==2{printf "%d", $4}')
+    available_disk=$(df -k "${SCRIPT_DIR:-.}" | awk 'NR==2{printf "%d", $4}')
 
     if (( available_memory < 512 )); then
         log_warn "Low available memory: ${available_memory}MB"

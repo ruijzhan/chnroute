@@ -13,6 +13,17 @@ validate_file_exists() {
     fi
 }
 
+validate_min_count() {
+    local count=$1
+    local minimum=$2
+    local description=$3
+
+    if (( count < minimum )); then
+        log_error "${description}: only ${count} entries, expected at least ${minimum}"
+        return 1
+    fi
+}
+
 validate_domain_list() {
     local file=$1
     local description=${2:-Domain list}

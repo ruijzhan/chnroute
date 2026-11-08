@@ -3,22 +3,6 @@
 
 # Data processing helpers.
 
-# Turns a plain domain list into RouterOS :global string array entries.
-format_domain_lines() {
-    local input_file=$1
-    local output_file=$2
-
-    if ! validate_file_exists "$input_file" "Domain list"; then
-        return 1
-    fi
-
-    awk '{printf "    \"%s\";\n", $0}' "$input_file" >"$output_file"
-
-    if [[ ! -s "$output_file" ]]; then
-        log_warn "Domain list is empty: ${input_file}"
-    fi
-}
-
 # Extracts plain domains from a GFWList-formatted file.
 #
 # One awk pass instead of grep|sed|sed|grep|sed; every stage of the original
@@ -62,7 +46,12 @@ extract_domains() {
             sub(/\/.*$/, "")
             sub(/%2F.*$/, "")
             if ($0 !~ /[a-zA-Z0-9][-a-zA-Z0-9]*(\.[a-zA-Z0-9][-a-zA-Z0-9]*)+/) next
-            print wildcards($0)
+            line = wildcards($0)
+            # Trailing adblock markers are not part of the domain name; keeping
+            # them would produce an invalid RouterOS "name=" entry.
+            sub(/\^+$/, "", line)
+            sub(/\*+$/, "", line)
+            print line
         }
     ' "$input_file" >"$output_file"; then
         log_error "Failed to extract domains from ${input_file}"

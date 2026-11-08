@@ -1,5 +1,5 @@
 .PHONY: all analyze benchmark check check-deps clean ci-test dev-setup fast \
-	 generate help info install memory-profile package test uninstall \
+	 generate help info install memory-profile package test test-unit uninstall \
 	 validate validate-output validate-syntax service-setup
 
 SHELL := /bin/bash
@@ -65,7 +65,8 @@ help:
 	@printf '  clean            Remove temporary files\n'
 	@printf '  check            Verify dependencies and shell syntax\n'
 	@printf '  validate         Validate generated output files\n'
-	@printf '  test             Run generation and output checks\n\n'
+	@printf '  test             Run unit tests, generation and output checks\n'
+	@printf '  test-unit        Run offline unit tests only\n\n'
 	@printf '%bDevelopment Targets:%b\n' "$(COLOR_BLUE)" "$(COLOR_RESET)"
 	@printf '  benchmark        Measure generation performance\n'
 	@printf '  memory-profile   Gather basic memory usage information\n'
@@ -85,22 +86,12 @@ help:
 
 check-deps:
 	@$(call log,Checking dependencies...)
-	@missing=0; \
-	for cmd in bash curl awk sort base64 grep wc mktemp tar; do \
-		if ! command -v $$cmd >/dev/null 2>&1; then \
-			$(call log_error,Command "$$cmd" is required but not found); \
-			missing=$$((missing + 1)); \
-		fi; \
-	done; \
-	if [ ! -x /usr/bin/time ]; then \
+	@bash -c 'set -euo pipefail; . lib/logger.sh; . lib/dependencies.sh; check_dependencies_detailed'
+	@if [ ! -x /usr/bin/time ]; then \
 		$(call log_warn,/usr/bin/time not available -- detailed timing output reduced); \
 	fi; \
 	if ! command -v shellcheck >/dev/null 2>&1; then \
 		$(call log_warn,shellcheck not available -- static analysis skipped); \
-	fi; \
-	if [ $$missing -gt 0 ]; then \
-		$(call log_error,$$missing required commands are missing); \
-		exit 1; \
 	fi
 	@$(call log_success,All mandatory dependencies are available)
 
@@ -109,7 +100,7 @@ validate-syntax:
 	@bash -n "$(SCRIPT)" >/dev/null
 	@bash -n "$(GFW_SCRIPT)" >/dev/null
 	@if command -v shellcheck >/dev/null 2>&1; then \
-		shellcheck *.sh || $(call log_warn,ShellCheck reported issues); \
+		shellcheck *.sh lib/*.sh; \
 	else \
 		$(call log_warn,shellcheck not installed -- skipping lint); \
 	fi
@@ -128,7 +119,7 @@ generate: check
 
 fast:
 	@$(call log,Fast generation mode -- dependency checks skipped)
-	@if bash "$(SCRIPT)"; then \
+	@if SKIP_DEPENDENCY_CHECK=1 bash "$(SCRIPT)"; then \
 		$(call log_success,Fast generation completed); \
 	else \
 		$(call log_error,Fast generation failed); \
@@ -166,7 +157,11 @@ clean:
 	@find . \( -name '*.log' -o -name 'gfwlist_autoproxy.txt' -o -name '*.bak' \) -delete 2>/dev/null || true
 	@$(call log_success,Cleanup completed)
 
-test: generate validate-output
+test-unit:
+	@$(call log,Running unit tests...)
+	@bash tests/run_tests.sh
+
+test: test-unit generate validate-output
 	@$(call log,Running comprehensive checks...)
 	@$(file_stats)
 	@$(call log_success,Comprehensive checks passed)

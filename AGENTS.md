@@ -2,9 +2,8 @@
 
 ## Project Structure & Module Organization
 - **Core Scripts**:
-  - `generate.sh`: main pipeline using modular lib/ architecture; produces `CN.rsc`, `CN_mem.rsc`, `gfwlist_v7.rsc`, `gfwlist.txt`. (`03-gfwlist.conf` is committed but no longer regenerated; validate-output still checks it.)
+  - `generate.sh`: main pipeline using modular lib/ architecture; produces `CN.rsc`, `CN_mem.rsc`, `gfwlist_v7.rsc`, `gfwlist.txt`, `03-gfwlist.conf`.
   - `gfwlist2dnsmasq.sh`: converts gfwlist to dnsmasq rules or a plain domain list.
-  - `generate_cn.sh`: optional/legacy helper.
 - **Library Modules (`lib/`)**:
   - `config.sh`: Central configuration, constants, and metadata
   - `logger.sh`: Logging utilities with color output and levels
@@ -42,7 +41,7 @@
 
 ### Examples
 - **Domain List Only**: `bash gfwlist2dnsmasq.sh -l -o gfwlist.txt --extra-domain-file include_list.txt --exclude-domain-file exclude_list.txt`.
-- **Manual Lint**: `shellcheck generate.sh gfwlist2dnsmasq.sh`.
+- **Manual Lint**: `shellcheck generate.sh gfwlist2dnsmasq.sh lib/*.sh`.
 - **Quick Sanity Check**: `wc -l gfwlist.txt && head -n 5 gfwlist.txt`.
 
 ### Network Requirements
@@ -74,7 +73,7 @@
 ## Testing Guidelines
 
 ### Validation Approach
-- **No Unit Test Framework**: Validation through functional testing and artifact verification.
+- **Unit Tests**: Offline assert-based tests live in `tests/`; run them with `make test-unit` (also part of `make test` and CI).
 - **Primary Test**: Run `make` or `make test` and confirm all expected files exist and are non-empty.
 - **Output Verification**: Use `make validate` to check generated artifacts are properly formed.
 

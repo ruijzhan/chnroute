@@ -29,34 +29,6 @@ LOG_LEVEL=$LOG_LEVEL_ERROR
 
 create_temp_root
 
-test_format_domain_lines() {
-    local input_file="${TMP_DIR}/processing/domains.txt"
-    local output_file="${TMP_DIR}/processing/domains.out"
-    cat <<EOF >"$input_file"
-example.com
-foo.bar
-test.org
-EOF
-
-    format_domain_lines "$input_file" "$output_file"
-    assert_file_exists "$output_file" "domain output generated"
-
-    mapfile -t lines <"$output_file"
-    assert_equals "3" "${#lines[@]}" "domain line count"
-    assert_equals '    "example.com";' "${lines[0]}" "domain line 1 matches"
-    assert_equals '    "foo.bar";' "${lines[1]}" "domain line 2 matches"
-    assert_equals '    "test.org";' "${lines[2]}" "domain line 3 matches"
-}
-
-test_format_domain_lines_empty() {
-    local input_file="${TMP_DIR}/processing/empty-domains.txt"
-    local output_file="${TMP_DIR}/processing/empty-domains.out"
-    : >"$input_file"
-
-    format_domain_lines "$input_file" "$output_file"
-    assert_equals "0" "$(wc -l <"$output_file")" "empty list produces empty output"
-}
-
 test_extract_domains() {
     local input_file="${TMP_DIR}/processing/gfwlist.txt"
     local output_file="${TMP_DIR}/processing/extracted.txt"
@@ -78,7 +50,7 @@ EOF
 
     mapfile -t lines <"$output_file"
     assert_equals "5" "${#lines[@]}" "comments, headers, exceptions, IPv4 rules and %2F rules are dropped"
-    assert_equals "google.com^" "${lines[0]}" "rule prefix stripped, trailing marker kept"
+    assert_equals "google.com" "${lines[0]}" "rule prefix and trailing marker stripped"
     assert_equals "scheme.example.com" "${lines[1]}" "scheme and path stripped"
     assert_equals "wildcard.example.net" "${lines[2]}" "leading wildcard label dropped"
     assert_equals "example.com" "${lines[3]}" "inner wildcard label dropped"
@@ -135,8 +107,6 @@ EOF
     assert_equals "keep.example.com" "${lines[2]}" "kept domain sorted last"
 }
 
-test_format_domain_lines
-test_format_domain_lines_empty
 test_extract_domains
 test_extract_domains_reports_failure
 test_process_ip_stream

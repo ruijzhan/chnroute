@@ -10,11 +10,20 @@ readonly LOG_LEVEL_ERROR=3
 
 LOG_LEVEL=${LOG_LEVEL:-$LOG_LEVEL_INFO}
 
-readonly COLOR_RESET=$'\033[0m'
-readonly COLOR_RED=$'\033[0;31m'
-readonly COLOR_GREEN=$'\033[0;32m'
-readonly COLOR_YELLOW=$'\033[1;33m'
-readonly COLOR_BLUE=$'\033[0;34m'
+# No color codes when the output is not a terminal (CI logs, files).
+if [[ -t 1 ]]; then
+    readonly COLOR_RESET=$'\033[0m'
+    readonly COLOR_RED=$'\033[0;31m'
+    readonly COLOR_GREEN=$'\033[0;32m'
+    readonly COLOR_YELLOW=$'\033[1;33m'
+    readonly COLOR_BLUE=$'\033[0;34m'
+else
+    readonly COLOR_RESET=''
+    readonly COLOR_RED=''
+    readonly COLOR_GREEN=''
+    readonly COLOR_YELLOW=''
+    readonly COLOR_BLUE=''
+fi
 
 _log_dispatch() {
     local level_name=$1
@@ -24,10 +33,13 @@ _log_dispatch() {
     local message="$*"
 
     if (( LOG_LEVEL > level_value )); then
-        return
+        # Explicit 0: a bare return in a function called from an EXIT trap
+        # reports the pending exit status and aborts the rest of the trap.
+        return 0
     fi
 
     # bash >= 4.2 formats the current time without forking `date`.
+    local timestamp
     printf -v timestamp '%(%Y-%m-%d %H:%M:%S)T' -1 2>/dev/null ||
         timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     printf '[%s] %b[%s]%b %s\n' "$timestamp" "$color" "$level_name" "$COLOR_RESET" "$message"
